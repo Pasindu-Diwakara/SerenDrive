@@ -5,6 +5,18 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <title>SerenDrive | Bespoke Sri Lankan Transit & Escapes</title>
     
+    <script>
+        // Check local storage for theme preference before page load to prevent flashing
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else if (localStorage.theme === 'light') {
+            document.documentElement.classList.remove('dark');
+        } else {
+            // Default to dark theme for SerenDrive's premium aesthetic
+            document.documentElement.classList.add('dark');
+        }
+    </script>
+
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
@@ -31,207 +43,224 @@
     </script>
     
     <style>
-        body { cursor: none; background-color: #131313; overflow-x: hidden; }
+        body { cursor: none; overflow-x: hidden; }
         .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
         
         .liquid-glass {
-            background: rgba(25, 25, 25, 0.4);
+            background: rgba(255, 255, 255, 0.7);
             backdrop-filter: blur(24px) saturate(120%);
             -webkit-backdrop-filter: blur(24px) saturate(120%);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.05);
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+        .dark .liquid-glass {
+            background: rgba(25, 25, 25, 0.4);
             border: 1px solid rgba(255, 255, 255, 0.08);
             box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.6);
         }
+
         .glass-card {
-            background: rgba(53, 53, 52, 0.4);
+            background: rgba(255, 255, 255, 0.7);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
+            transition: background-color 0.3s ease;
         }
-        .text-stroke { -webkit-text-stroke: 1px rgba(255, 255, 255, 0.2); color: transparent; }
+        .dark .glass-card {
+            background: rgba(53, 53, 52, 0.4);
+        }
+
+        .text-stroke { -webkit-text-stroke: 1px rgba(0, 0, 0, 0.2); color: transparent; }
+        .dark .text-stroke { -webkit-text-stroke: 1px rgba(255, 255, 255, 0.2); }
         .text-obsidian { letter-spacing: -0.02em; line-height: 1.1; }
         
         .custom-cursor {
             width: 12px; height: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.4);
+            border: 1px solid rgba(0, 0, 0, 0.4);
             border-radius: 50%;
             position: fixed; pointer-events: none; z-index: 9999;
             transition: transform 0.1s ease-out, width 0.3s ease, height 0.3s ease, border-color 0.3s ease, background-color 0.3s ease;
         }
+        .dark .custom-cursor {
+            border: 1px solid rgba(255, 255, 255, 0.4);
+        }
     </style>
 </head>
-<body class="bg-background text-on-background font-body antialiased selection:bg-primary selection:text-on-primary">
+<body class="bg-zinc-50 dark:bg-background text-zinc-900 dark:text-on-background font-body antialiased selection:bg-zinc-900 selection:text-white dark:selection:bg-primary dark:selection:text-on-primary transition-colors duration-500 relative">
 
     <div class="custom-cursor hidden md:block top-0 left-0"></div>
 
-    <nav class="fixed top-0 w-full z-50 bg-zinc-900/60 backdrop-blur-xl shadow-[0px_20px_40px_rgba(0,0,0,0.4)] font-['Manrope'] tracking-tight">
+    <nav class="fixed top-0 w-full z-50 bg-white/80 dark:bg-zinc-900/60 backdrop-blur-xl shadow-[0px_10px_30px_rgba(0,0,0,0.05)] dark:shadow-[0px_20px_40px_rgba(0,0,0,0.4)] transition-colors duration-500 font-['Manrope'] tracking-tight">
         <div class="flex justify-between items-center px-8 md:px-16 py-6 w-full max-w-[1920px] mx-auto">
             <div class="flex items-center">
                 <a href="#home" class="cursor-none group">
-                    <img src="./images/serendrive-logo.png" alt="SerenDrive Logo" class="h-10 w-auto grayscale transition-all duration-1000 group-hover:grayscale-0">
+                    <img src="./images/serendrive-logo.png" alt="SerenDrive Logo" class="h-10 w-auto invert dark:invert-0 grayscale transition-all duration-1000 group-hover:grayscale-0">
                 </a>
             </div>
             
             <div class="hidden md:flex gap-10 items-center">
-                <a class="text-zinc-400 hover:text-white transition-colors duration-300 text-[0.75rem] uppercase tracking-widest cursor-none" href="#services">Services</a>
-                <a class="text-zinc-400 hover:text-white transition-colors duration-300 text-[0.75rem] uppercase tracking-widest cursor-none" href="#fleet">The Fleet</a>
-                <a class="text-zinc-400 hover:text-white transition-colors duration-300 text-[0.75rem] uppercase tracking-widest cursor-none" href="#journeys">Journeys</a>
-                <a class="text-zinc-400 hover:text-white transition-colors duration-300 text-[0.75rem] uppercase tracking-widest cursor-none" href="#curators">Curators</a>
+                <a class="text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors duration-300 text-[0.75rem] uppercase tracking-widest cursor-none" href="#services">Services</a>
+                <a class="text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors duration-300 text-[0.75rem] uppercase tracking-widest cursor-none" href="#fleet">The Fleet</a>
+                <a class="text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors duration-300 text-[0.75rem] uppercase tracking-widest cursor-none" href="#journeys">Journeys</a>
+                <a class="text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors duration-300 text-[0.75rem] uppercase tracking-widest cursor-none" href="#curators">Curators</a>
             </div>
-            <div class="flex items-center gap-8">
-                <a href="#inquire" class="px-8 py-2 bg-white/5 border border-white/20 hover:bg-white hover:text-on-primary transition-all duration-500 text-xs uppercase tracking-[0.2em] inline-block cursor-none">Inquire</a>
+            <div class="flex items-center gap-6">
+                <a href="#inquire" class="px-8 py-2 bg-transparent border border-zinc-300 text-zinc-900 hover:bg-zinc-900 hover:text-white dark:bg-white/5 dark:border-white/20 dark:hover:bg-white dark:text-white dark:hover:text-on-primary transition-all duration-500 text-xs uppercase tracking-[0.2em] inline-block cursor-none">Inquire</a>
+                
+                <button id="theme-toggle" class="cursor-none flex items-center justify-center p-2 rounded-full border border-zinc-300 dark:border-white/20 hover:bg-zinc-200 dark:hover:bg-white/10 transition-colors">
+                    <span class="material-symbols-outlined text-zinc-800 dark:hidden text-[18px]">dark_mode</span>
+                    <span class="material-symbols-outlined hidden dark:block text-white text-[18px]">light_mode</span>
+                </button>
             </div>
         </div>
     </nav>
 
     <main>
-        <div id="home" class="scroll-mt-0">
-            <section class="relative h-screen w-full flex items-center justify-center overflow-hidden bg-surface-container-lowest group">
-                <div class="absolute inset-0 z-0">
-                    <img alt="Serenity Landscape" class="w-full h-full object-cover grayscale brightness-[0.4] contrast-125 transition-all duration-1000 group-hover:grayscale-0 group-hover:brightness-75" src="./images/hero-bg.jpg"/>
-                    <div class="absolute inset-0 bg-gradient-to-b from-transparent via-surface/40 to-surface"></div>
+        <div id="home" class="scroll-mt-0 relative h-screen w-full flex items-center justify-center overflow-hidden bg-white dark:bg-surface-container-lowest transition-colors duration-500">
+            <div class="absolute inset-0 z-0">
+                <img alt="Serenity Landscape" class="w-full h-full object-cover brightness-[0.95] dark:brightness-[0.7] transition-all duration-1000" src="./images/hero-bg.jpg"/>
+                <div class="absolute inset-0 bg-gradient-to-b from-white/30 via-transparent to-white/30 dark:from-transparent dark:via-transparent dark:to-surface-container-lowest transition-colors duration-500"></div>
+            </div>
+            
+            <div class="liquid-glass p-12 md:p-20 rounded-lg w-full max-w-5xl px-6 md:px-16 text-center mt-16 relative z-10 mx-6 md:mx-0 shadow-xl transition-all duration-500">
+                <span class="font-label text-zinc-700 dark:text-primary/90 tracking-[0.4em] uppercase text-xs mb-8 block transition-colors duration-500">Premium Transit & Escapes</span>
+                <h1 class="font-headline text-5xl md:text-8xl font-extrabold tracking-tighter text-zinc-900 dark:text-white leading-[1.1] mb-10 transition-colors duration-500">
+                    Elevated <br/> <span class="text-transparent bg-clip-text bg-gradient-to-r from-zinc-900 via-zinc-600 to-zinc-400 dark:from-primary dark:via-primary-container dark:to-outline">Serenity.</span>
+                </h1>
+                <p class="max-w-xl mx-auto text-lg text-zinc-700 dark:text-primary/90 font-light leading-relaxed mb-16 transition-colors duration-500">
+                    Traverse the teardrop isle with architectural precision. From airport arrivals to multi-day highland circuits, we provide the vehicles, the chauffeurs, and the silence.
+                </p>
+                <div class="flex flex-col md:flex-row items-center justify-center gap-6">
+                    <a class="group/btn relative px-10 py-4 bg-zinc-900 text-white dark:bg-primary dark:text-on-primary font-label uppercase text-sm tracking-widest overflow-hidden transition-all duration-500 cursor-none" href="#fleet">
+                        <span class="relative z-10">Explore Fleet</span>
+                        <div class="absolute inset-0 bg-zinc-700 dark:bg-primary-container translate-y-full group-hover/btn:translate-y-0 transition-transform duration-500"></div>
+                    </a>
+                    <a class="px-10 py-4 border border-zinc-400 text-zinc-900 hover:text-white hover:bg-[#25D366] hover:border-[#25D366] dark:border-outline-variant/30 dark:text-white dark:hover:bg-[#25D366] dark:hover:border-[#25D366] font-label uppercase text-sm tracking-widest transition-all duration-300 cursor-none flex items-center gap-2" href="https://wa.me/94775979306" target="_blank" rel="noopener noreferrer">
+                        WhatsApp
+                    </a>
                 </div>
-                <div class="relative z-10 w-full max-w-4xl px-6 text-center mt-16">
-                    <div class="liquid-glass absolute inset-0 -m-12 md:-m-24 rounded-full blur-3xl opacity-60"></div>
-                    <div class="relative">
-                        <span class="font-label text-primary/80 tracking-[0.4em] uppercase text-xs mb-6 block">Premium Transit & Escapes</span>
-                        <h1 class="font-headline text-5xl md:text-8xl font-extrabold tracking-tighter text-white leading-[1.1] mb-8">
-                            Elevated <br/> <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary via-primary-container to-outline">Serenity.</span>
-                        </h1>
-                        <p class="max-w-xl mx-auto text-lg text-primary/80 font-light leading-relaxed mb-12">
-                            Traverse the teardrop isle with architectural precision. From airport arrivals to multi-day highland circuits, we provide the vehicles, the chauffeurs, and the silence.
-                        </p>
-                        <div class="flex flex-col md:flex-row items-center justify-center gap-6">
-                            <a class="group/btn relative px-10 py-4 bg-primary text-on-primary font-label uppercase text-sm tracking-widest overflow-hidden transition-all duration-500 cursor-none" href="#fleet">
-                                <span class="relative z-10">Explore Fleet</span>
-                                <div class="absolute inset-0 bg-primary-container translate-y-full group-hover/btn:translate-y-0 transition-transform duration-500"></div>
-                            </a>
-                            <a class="px-10 py-4 border border-outline-variant/30 text-white font-label uppercase text-sm tracking-widest hover:bg-[#25D366] hover:border-[#25D366] transition-all duration-300 cursor-none flex items-center gap-2" href="https://wa.me/94775979306" target="_blank" rel="noopener noreferrer">
-                                WhatsApp
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </section>
+            </div>
         </div>
 
-        <section class="py-32 px-8 md:px-16 bg-surface relative overflow-hidden">
+        <section class="py-32 px-8 md:px-16 bg-zinc-50 dark:bg-surface transition-colors duration-500 relative overflow-hidden">
             <div class="max-w-[1440px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
                 <div class="lg:col-span-5 pt-12">
-                    <span class="font-label text-outline tracking-[0.2em] uppercase text-xs">The SerenDrive Mandate</span>
-                    <h2 class="font-headline text-4xl md:text-5xl font-bold text-white mt-4 mb-10 leading-tight">The Architecture of <br/>Flawless Logistics.</h2>
+                    <span class="font-label text-zinc-500 dark:text-outline tracking-[0.2em] uppercase text-xs">The SerenDrive Mandate</span>
+                    <h2 class="font-headline text-4xl md:text-5xl font-bold text-zinc-900 dark:text-white mt-4 mb-10 leading-tight transition-colors duration-500">The Architecture of <br/>Flawless Logistics.</h2>
                     <div class="space-y-12">
-                        <div class="group border-l border-outline-variant/20 pl-8 hover:border-primary transition-colors duration-500">
-                            <h3 class="text-white font-headline text-xl mb-3">Precision Operations</h3>
-                            <p class="text-on-surface-variant leading-relaxed">Every mile is accounted for. We orchestrate seamless transitions between the airport, the coast, and the high country. No waiting. No friction.</p>
+                        <div class="group border-l border-zinc-300 dark:border-outline-variant/20 pl-8 hover:border-zinc-900 dark:hover:border-primary transition-colors duration-500">
+                            <h3 class="text-zinc-900 dark:text-white font-headline text-xl mb-3 transition-colors duration-500">Precision Operations</h3>
+                            <p class="text-zinc-600 dark:text-on-surface-variant leading-relaxed transition-colors duration-500">Every mile is accounted for. We orchestrate seamless transitions between the airport, the coast, and the high country. No waiting. No friction.</p>
                         </div>
-                        <div class="group border-l border-outline-variant/20 pl-8 hover:border-primary transition-colors duration-500">
-                            <h3 class="text-white font-headline text-xl mb-3">Discreet Chauffeurs</h3>
-                            <p class="text-on-surface-variant leading-relaxed">Our drivers are trained in the art of the invisible service. They provide local insight when desired, and absolute privacy when required.</p>
+                        <div class="group border-l border-zinc-300 dark:border-outline-variant/20 pl-8 hover:border-zinc-900 dark:hover:border-primary transition-colors duration-500">
+                            <h3 class="text-zinc-900 dark:text-white font-headline text-xl mb-3 transition-colors duration-500">Discreet Chauffeurs</h3>
+                            <p class="text-zinc-600 dark:text-on-surface-variant leading-relaxed transition-colors duration-500">Our drivers are trained in the art of the invisible service. They provide local insight when desired, and absolute privacy when required.</p>
                         </div>
                     </div>
                 </div>
                 <div class="lg:col-span-7 relative group">
-                    <div class="relative aspect-[4/5] w-full bg-surface-container overflow-hidden shadow-2xl">
+                    <div class="relative aspect-[4/5] w-full bg-zinc-200 dark:bg-surface-container overflow-hidden shadow-2xl">
                         <img alt="Luxury Estate Pool" class="w-full h-full object-cover grayscale transition-all duration-1000 group-hover:grayscale-0 group-hover:scale-105" src="./images/pool-villa.jpg"/>
                     </div>
-                    <div class="glass-card absolute -bottom-12 -left-8 md:-left-20 p-8 md:p-12 max-w-sm shadow-2xl border border-white/10 z-10 transition-transform duration-700 group-hover:-translate-y-4">
-                        <span class="material-symbols-outlined text-primary-container mb-6 text-4xl">verified_user</span>
-                        <h4 class="text-white font-headline text-2xl font-bold mb-4">Uncompromising Safety</h4>
-                        <p class="text-zinc-300 text-sm leading-relaxed mb-2">Every vehicle is rigorously maintained and tracked via satellite logistics.</p>
+                    <div class="glass-card absolute -bottom-12 -left-8 md:-left-20 p-8 md:p-12 max-w-sm shadow-xl dark:shadow-2xl border border-zinc-200 dark:border-white/10 z-10 transition-transform duration-700 group-hover:-translate-y-4">
+                        <span class="material-symbols-outlined text-zinc-900 dark:text-primary-container mb-6 text-4xl">verified_user</span>
+                        <h4 class="text-zinc-900 dark:text-white font-headline text-2xl font-bold mb-4">Uncompromising Safety</h4>
+                        <p class="text-zinc-700 dark:text-zinc-300 text-sm leading-relaxed mb-2">Every vehicle is rigorously maintained and tracked via satellite logistics.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="services" class="py-32 px-8 md:px-16 bg-surface-container-lowest scroll-mt-24 border-t border-white/5">
+        <section id="services" class="py-32 px-8 md:px-16 bg-zinc-100 dark:bg-surface-container-lowest transition-colors duration-500 scroll-mt-24 border-t border-zinc-200 dark:border-white/5">
             <div class="max-w-[1440px] mx-auto">
                 <div class="text-center mb-20">
-                    <span class="font-label text-outline tracking-[0.2em] uppercase text-xs">How We Operate</span>
-                    <h2 class="font-headline text-4xl md:text-5xl font-extrabold text-white mt-4">Service Disciplines</h2>
+                    <span class="font-label text-zinc-500 dark:text-outline tracking-[0.2em] uppercase text-xs">How We Operate</span>
+                    <h2 class="font-headline text-4xl md:text-5xl font-extrabold text-zinc-900 dark:text-white mt-4 transition-colors duration-500">Service Disciplines</h2>
                 </div>
                 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                     <div class="liquid-glass p-12 hover:-translate-y-2 transition-transform duration-500 cursor-none">
-                        <span class="material-symbols-outlined text-4xl text-white mb-6">flight_land</span>
-                        <h3 class="text-2xl font-headline font-bold text-white mb-4">Airport & VIP Transfers</h3>
-                        <p class="text-zinc-400 text-sm leading-relaxed mb-8">Immediate, priority pick-up from BIA (Colombo). Step off the tarmac and directly into a climate-controlled sanctuary. Point-to-point luxury.</p>
+                        <span class="material-symbols-outlined text-4xl text-zinc-900 dark:text-white mb-6">flight_land</span>
+                        <h3 class="text-2xl font-headline font-bold text-zinc-900 dark:text-white mb-4">Airport & VIP Transfers</h3>
+                        <p class="text-zinc-600 dark:text-zinc-400 text-sm leading-relaxed mb-8">Immediate, priority pick-up from BIA (Colombo). Step off the tarmac and directly into a climate-controlled sanctuary. Point-to-point luxury.</p>
                     </div>
                     <div class="liquid-glass p-12 hover:-translate-y-2 transition-transform duration-500 cursor-none">
-                        <span class="material-symbols-outlined text-4xl text-white mb-6">map</span>
-                        <h3 class="text-2xl font-headline font-bold text-white mb-4">Chauffeur-Driven Circuits</h3>
-                        <p class="text-zinc-400 text-sm leading-relaxed mb-8">Hire our vehicles and drivers for multi-day itineraries. You dictate the pace, we handle the navigation, fuel, and daily vehicle prep.</p>
+                        <span class="material-symbols-outlined text-4xl text-zinc-900 dark:text-white mb-6">map</span>
+                        <h3 class="text-2xl font-headline font-bold text-zinc-900 dark:text-white mb-4">Chauffeur-Driven Circuits</h3>
+                        <p class="text-zinc-600 dark:text-zinc-400 text-sm leading-relaxed mb-8">Hire our vehicles and drivers for multi-day itineraries. You dictate the pace, we handle the navigation, fuel, and daily vehicle prep.</p>
                     </div>
                     <div class="liquid-glass p-12 hover:-translate-y-2 transition-transform duration-500 cursor-none">
-                        <span class="material-symbols-outlined text-4xl text-white mb-6">auto_awesome</span>
-                        <h3 class="text-2xl font-headline font-bold text-white mb-4">Curated Day Escapes</h3>
-                        <p class="text-zinc-400 text-sm leading-relaxed mb-8">Single-day immersive trips from your hotel to iconic landmarks (Galle Fort, Yala, Sigiriya) returning you safely by nightfall.</p>
+                        <span class="material-symbols-outlined text-4xl text-zinc-900 dark:text-white mb-6">auto_awesome</span>
+                        <h3 class="text-2xl font-headline font-bold text-zinc-900 dark:text-white mb-4">Curated Day Escapes</h3>
+                        <p class="text-zinc-600 dark:text-zinc-400 text-sm leading-relaxed mb-8">Single-day immersive trips from your hotel to iconic landmarks (Galle Fort, Yala, Sigiriya) returning you safely by nightfall.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="fleet" class="py-32 px-8 md:px-16 bg-surface scroll-mt-24 border-t border-white/5">
+        <section id="fleet" class="py-32 px-8 md:px-16 bg-zinc-50 dark:bg-surface transition-colors duration-500 scroll-mt-24 border-t border-zinc-200 dark:border-white/5">
             <div class="max-w-[1440px] mx-auto">
                 <div class="flex flex-col md:flex-row md:items-end justify-between mb-20 gap-8">
                     <div class="max-w-2xl">
-                        <span class="font-label text-outline tracking-[0.2em] uppercase text-xs">Our Hardware</span>
-                        <h2 class="font-headline text-4xl md:text-6xl font-extrabold text-white mt-4">The Fleet</h2>
+                        <span class="font-label text-zinc-500 dark:text-outline tracking-[0.2em] uppercase text-xs">Our Hardware</span>
+                        <h2 class="font-headline text-4xl md:text-6xl font-extrabold text-zinc-900 dark:text-white mt-4 transition-colors duration-500">The Fleet</h2>
                     </div>
                     <div class="text-right">
-                        <p class="text-on-surface-variant font-light max-w-xs ml-auto">Late-model, meticulously maintained vehicles tailored for Sri Lanka's diverse topography.</p>
+                        <p class="text-zinc-600 dark:text-on-surface-variant font-light max-w-xs ml-auto">Late-model, meticulously maintained vehicles tailored for Sri Lanka's diverse topography.</p>
                     </div>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div class="group relative overflow-hidden bg-surface-container-high rounded-sm cursor-none">
+                    <div class="group relative overflow-hidden bg-white dark:bg-surface-container-high shadow-lg dark:shadow-none rounded-sm cursor-none transition-colors duration-500 border border-zinc-100 dark:border-white/5">
                         <div class="aspect-[4/3] overflow-hidden">
                             <img src="./images/fleet-suv.jpg" alt="Premium SUV" class="w-full h-full object-cover grayscale opacity-80 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-1000">
                         </div>
                         <div class="p-8">
-                            <span class="font-label text-[0.6rem] uppercase tracking-widest text-outline">Executive Category</span>
-                            <h3 class="text-2xl font-headline font-bold text-white mt-2 mb-4">Premium SUV</h3>
-                            <div class="grid grid-cols-2 gap-4 mb-6 border-y border-white/10 py-4">
-                                <div><span class="block text-[0.6rem] uppercase text-outline">Capacity</span><span class="text-sm text-white">3 Guests</span></div>
-                                <div><span class="block text-[0.6rem] uppercase text-outline">Luggage</span><span class="text-sm text-white">4 Large Bags</span></div>
+                            <span class="font-label text-[0.6rem] uppercase tracking-widest text-zinc-500 dark:text-outline">Executive Category</span>
+                            <h3 class="text-2xl font-headline font-bold text-zinc-900 dark:text-white mt-2 mb-4">Premium SUV</h3>
+                            <div class="grid grid-cols-2 gap-4 mb-6 border-y border-zinc-200 dark:border-white/10 py-4">
+                                <div><span class="block text-[0.6rem] uppercase text-zinc-500 dark:text-outline">Capacity</span><span class="text-sm text-zinc-900 dark:text-white">3 Guests</span></div>
+                                <div><span class="block text-[0.6rem] uppercase text-zinc-500 dark:text-outline">Luggage</span><span class="text-sm text-zinc-900 dark:text-white">4 Large Bags</span></div>
                             </div>
                             <div class="flex justify-between items-center">
-                                <div><span class="block text-[0.6rem] uppercase text-outline">Starting From</span><span class="text-lg font-bold text-white">$140 / Day</span></div>
-                                <a href="#inquire" class="text-xs uppercase tracking-widest text-white border-b border-white/30 pb-1 hover:border-white transition-all">Book Now</a>
+                                <div><span class="block text-[0.6rem] uppercase text-zinc-500 dark:text-outline">Starting From</span><span class="text-lg font-bold text-zinc-900 dark:text-white">$140 / Day</span></div>
+                                <a href="#inquire" class="text-xs uppercase tracking-widest text-zinc-900 dark:text-white border-b border-zinc-400 hover:border-zinc-900 dark:border-white/30 dark:hover:border-white transition-all">Book Now</a>
                             </div>
                         </div>
                     </div>
 
-                    <div class="group relative overflow-hidden bg-surface-container-high rounded-sm cursor-none">
+                    <div class="group relative overflow-hidden bg-white dark:bg-surface-container-high shadow-lg dark:shadow-none rounded-sm cursor-none transition-colors duration-500 border border-zinc-100 dark:border-white/5">
                         <div class="aspect-[4/3] overflow-hidden">
                             <img src="./images/fleet-van.jpg" alt="Luxury Minivan" class="w-full h-full object-cover grayscale opacity-80 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-1000">
                         </div>
                         <div class="p-8">
-                            <span class="font-label text-[0.6rem] uppercase tracking-widest text-outline">Group Category</span>
-                            <h3 class="text-2xl font-headline font-bold text-white mt-2 mb-4">Luxury Minivan</h3>
-                            <div class="grid grid-cols-2 gap-4 mb-6 border-y border-white/10 py-4">
-                                <div><span class="block text-[0.6rem] uppercase text-outline">Capacity</span><span class="text-sm text-white">6 Guests</span></div>
-                                <div><span class="block text-[0.6rem] uppercase text-outline">Luggage</span><span class="text-sm text-white">6 Large Bags</span></div>
+                            <span class="font-label text-[0.6rem] uppercase tracking-widest text-zinc-500 dark:text-outline">Group Category</span>
+                            <h3 class="text-2xl font-headline font-bold text-zinc-900 dark:text-white mt-2 mb-4">Luxury Minivan</h3>
+                            <div class="grid grid-cols-2 gap-4 mb-6 border-y border-zinc-200 dark:border-white/10 py-4">
+                                <div><span class="block text-[0.6rem] uppercase text-zinc-500 dark:text-outline">Capacity</span><span class="text-sm text-zinc-900 dark:text-white">6 Guests</span></div>
+                                <div><span class="block text-[0.6rem] uppercase text-zinc-500 dark:text-outline">Luggage</span><span class="text-sm text-zinc-900 dark:text-white">6 Large Bags</span></div>
                             </div>
                             <div class="flex justify-between items-center">
-                                <div><span class="block text-[0.6rem] uppercase text-outline">Starting From</span><span class="text-lg font-bold text-white">$170 / Day</span></div>
-                                <a href="#inquire" class="text-xs uppercase tracking-widest text-white border-b border-white/30 pb-1 hover:border-white transition-all">Book Now</a>
+                                <div><span class="block text-[0.6rem] uppercase text-zinc-500 dark:text-outline">Starting From</span><span class="text-lg font-bold text-zinc-900 dark:text-white">$170 / Day</span></div>
+                                <a href="#inquire" class="text-xs uppercase trackingest text-zinc-900 dark:text-white border-b border-zinc-400 hover:border-zinc-900 dark:border-white/30 dark:hover:border-white transition-all">Book Now</a>
                             </div>
                         </div>
                     </div>
 
-                    <div class="group relative overflow-hidden bg-surface-container-high rounded-sm cursor-none">
+                    <div class="group relative overflow-hidden bg-white dark:bg-surface-container-high shadow-lg dark:shadow-none rounded-sm cursor-none transition-colors duration-500 border border-zinc-100 dark:border-white/5">
                         <div class="aspect-[4/3] overflow-hidden">
                             <img src="./images/fleet-classic.jpg" alt="Rugged Luxury" class="w-full h-full object-cover grayscale opacity-80 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-1000">
                         </div>
                         <div class="p-8">
-                            <span class="font-label text-[0.6rem] uppercase tracking-widest text-outline">Specialty Category</span>
-                            <h3 class="text-2xl font-headline font-bold text-white mt-2 mb-4">Rugged 4x4</h3>
-                            <div class="grid grid-cols-2 gap-4 mb-6 border-y border-white/10 py-4">
-                                <div><span class="block text-[0.6rem] uppercase text-outline">Capacity</span><span class="text-sm text-white">4 Guests</span></div>
-                                <div><span class="block text-[0.6rem] uppercase text-outline">Luggage</span><span class="text-sm text-white">3 Large Bags</span></div>
+                            <span class="font-label text-[0.6rem] uppercase tracking-widest text-zinc-500 dark:text-outline">Specialty Category</span>
+                            <h3 class="text-2xl font-headline font-bold text-zinc-900 dark:text-white mt-2 mb-4">Rugged 4x4</h3>
+                            <div class="grid grid-cols-2 gap-4 mb-6 border-y border-zinc-200 dark:border-white/10 py-4">
+                                <div><span class="block text-[0.6rem] uppercase text-zinc-500 dark:text-outline">Capacity</span><span class="text-sm text-zinc-900 dark:text-white">4 Guests</span></div>
+                                <div><span class="block text-[0.6rem] uppercase text-zinc-500 dark:text-outline">Luggage</span><span class="text-sm text-zinc-900 dark:text-white">3 Large Bags</span></div>
                             </div>
                             <div class="flex justify-between items-center">
-                                <div><span class="block text-[0.6rem] uppercase text-outline">Starting From</span><span class="text-lg font-bold text-white">$160 / Day</span></div>
-                                <a href="#inquire" class="text-xs uppercase tracking-widest text-white border-b border-white/30 pb-1 hover:border-white transition-all">Book Now</a>
+                                <div><span class="block text-[0.6rem] uppercase text-zinc-500 dark:text-outline">Starting From</span><span class="text-lg font-bold text-zinc-900 dark:text-white">$160 / Day</span></div>
+                                <a href="#inquire" class="text-xs uppercase tracking-widest text-zinc-900 dark:text-white border-b border-zinc-400 hover:border-zinc-900 dark:border-white/30 dark:hover:border-white transition-all">Book Now</a>
                             </div>
                         </div>
                     </div>
@@ -239,13 +268,13 @@
             </div>
         </section>
 
-        <div id="journeys" class="pt-32 pb-24 px-8 md:px-16 max-w-[1920px] mx-auto scroll-mt-24 border-t border-white/5">
+        <div id="journeys" class="pt-32 pb-24 px-8 md:px-16 max-w-[1920px] mx-auto bg-zinc-50 dark:bg-transparent transition-colors duration-500 scroll-mt-24 border-t border-zinc-200 dark:border-white/5">
             <header class="mb-24 mt-12">
                 <div class="grid grid-cols-12 gap-8 items-end">
                     <div class="col-span-12 lg:col-span-8">
-                        <span class="font-label text-[0.75rem] uppercase tracking-[0.3em] text-outline mb-6 block">Where We Take You</span>
-                        <h1 class="font-headline text-[5rem] lg:text-[7.5rem] font-extrabold text-obsidian text-white mb-8">Iconic Routes.</h1>
-                        <p class="font-body text-xl text-on-surface-variant max-w-2xl leading-relaxed">
+                        <span class="font-label text-[0.75rem] uppercase tracking-[0.3em] text-zinc-500 dark:text-outline mb-6 block">Where We Take You</span>
+                        <h1 class="font-headline text-[5rem] lg:text-[7.5rem] font-extrabold text-obsidian text-zinc-900 dark:text-white mb-8 transition-colors duration-500">Iconic Routes.</h1>
+                        <p class="font-body text-xl text-zinc-600 dark:text-on-surface-variant max-w-2xl leading-relaxed transition-colors duration-500">
                             Need inspiration for your hire? Explore our most requested regional circuits across Sri Lanka.
                         </p>
                     </div>
@@ -253,57 +282,55 @@
             </header>
 
             <section class="grid grid-cols-12 gap-6 md:gap-10">
-                <div class="col-span-12 md:col-span-8 group relative overflow-hidden aspect-[16/9] bg-surface-container-lowest cursor-none">
+                <div class="col-span-12 md:col-span-8 group relative overflow-hidden aspect-[16/9] bg-zinc-900 cursor-none">
                     <img alt="Tea plantations of Nuwara Eliya" class="w-full h-full object-cover grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-1000" src="./images/ceylon-highlands.jpg"/>
-                    <div class="absolute inset-0 bg-gradient-to-t from-surface via-transparent to-transparent opacity-80 group-hover:opacity-60 transition-opacity duration-1000"></div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-80 group-hover:opacity-60 transition-opacity duration-1000"></div>
                     <div class="absolute bottom-10 left-10 right-10 flex justify-between items-end">
-                        <div class="liquid-glass p-8 max-w-md">
+                        <div class="p-8 max-w-md">
                             <h3 class="font-headline text-3xl font-bold text-white mb-3">The Ceylon Highlands</h3>
                             <p class="text-zinc-200 text-sm leading-relaxed mb-6">Traverse the winding paths of Ella and Nuwara Eliya. We handle the steep grades while you experience the altitude of luxury.</p>
                         </div>
                     </div>
                 </div>
-                <div class="col-span-12 md:col-span-4 group relative overflow-hidden aspect-square md:aspect-auto bg-surface-container-lowest cursor-none">
+                <div class="col-span-12 md:col-span-4 group relative overflow-hidden aspect-square md:aspect-auto bg-zinc-900 cursor-none">
                     <img alt="Bentota Coastline" class="w-full h-full object-cover grayscale opacity-40 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-1000" src="./images/azure-fringe.jpg"/>
-                    <div class="absolute inset-x-0 bottom-0 p-8">
-                        <div class="liquid-glass p-6">
-                            <h3 class="font-headline text-2xl font-bold text-white mb-4">The Azure Fringe</h3>
-                            <span class="text-xs uppercase tracking-widest text-zinc-300">Southern Coast Route</span>
-                        </div>
+                    <div class="absolute inset-x-0 bottom-0 p-8 bg-gradient-to-t from-black/80 to-transparent">
+                        <h3 class="font-headline text-2xl font-bold text-white mb-4">The Azure Fringe</h3>
+                        <span class="text-xs uppercase tracking-widest text-zinc-300">Southern Coast Route</span>
                     </div>
                 </div>
-                <div class="col-span-12 md:col-span-4 group relative overflow-hidden aspect-[4/5] bg-surface-container-lowest cursor-none">
+                <div class="col-span-12 md:col-span-4 group relative overflow-hidden aspect-[4/5] bg-zinc-900 cursor-none">
                     <img alt="Sigiriya Rock Fortress" class="w-full h-full object-cover grayscale opacity-50 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-110 transition-all duration-1000" src="./images/sigiriya.jpg"/>
                     <div class="absolute inset-x-0 bottom-0 p-8 bg-gradient-to-t from-black/80 to-transparent">
                         <h4 class="font-headline text-xl text-white font-light tracking-tight mb-2">Ancestral Echoes</h4>
                         <span class="text-[0.6rem] uppercase tracking-widest text-zinc-300">Cultural Triangle</span>
                     </div>
                 </div>
-                <div class="col-span-12 md:col-span-8 group relative overflow-hidden aspect-[16/9] md:aspect-auto bg-surface-container-lowest cursor-none">
+                <div class="col-span-12 md:col-span-8 group relative overflow-hidden aspect-[16/9] md:aspect-auto bg-zinc-900 cursor-none">
                     <img alt="Sri Lankan Leopard" class="w-full h-full object-cover grayscale contrast-125 opacity-40 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-1000" src="./images/leopard.jpg"/>
-                    <div class="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-transparent transition-colors duration-1000">
+                    <div class="absolute inset-0 flex items-center justify-center bg-black/40 group-hover:bg-transparent transition-colors duration-1000">
                         <div class="text-center p-12 max-w-xl drop-shadow-2xl">
                             <h2 class="font-headline text-5xl md:text-7xl font-extrabold text-white text-obsidian mb-6 uppercase tracking-tighter">Wild Majesty</h2>
-                            <span class="font-body text-sm text-white tracking-[0.3em] uppercase bg-black/50 px-6 py-2">Yala & Udawalawe</span>
+                            <span class="font-body text-sm text-white tracking-[0.3em] uppercase bg-black/50 px-6 py-2 backdrop-blur-sm rounded-sm">Yala & Udawalawe</span>
                         </div>
                     </div>
                 </div>
             </section>
             
-            <section class="mt-20 bg-surface-container-lowest p-8 md:p-16 relative overflow-hidden">
+            <section class="mt-20 bg-zinc-100 dark:bg-surface-container-lowest transition-colors duration-500 p-8 md:p-16 relative overflow-hidden">
                 <div class="grid grid-cols-12 gap-12 items-center relative z-10">
                     <div class="col-span-12 lg:col-span-5">
-                        <span class="font-label text-xs uppercase tracking-[0.4em] text-outline mb-8 block">The Cabin Standard</span>
-                        <h2 class="font-headline text-5xl font-bold text-white mb-8 leading-tight">Quiet motion, <br/>refined journey.</h2>
-                        <p class="text-on-surface-variant leading-relaxed mb-10 text-lg">Your vehicle is an extension of your hotel. We ensure the interior environment is as immaculate as the destinations you visit.</p>
+                        <span class="font-label text-xs uppercase tracking-[0.4em] text-zinc-500 dark:text-outline mb-8 block">The Cabin Standard</span>
+                        <h2 class="font-headline text-5xl font-bold text-zinc-900 dark:text-white mb-8 leading-tight transition-colors duration-500">Quiet motion, <br/>refined journey.</h2>
+                        <p class="text-zinc-600 dark:text-on-surface-variant leading-relaxed mb-10 text-lg transition-colors duration-500">Your vehicle is an extension of your hotel. We ensure the interior environment is as immaculate as the destinations you visit.</p>
                         <div class="flex flex-col gap-6">
                             <div class="flex items-center gap-6 group">
-                                <div class="w-12 h-12 flex items-center justify-center border border-outline-variant group-hover:border-white transition-colors"><span class="material-symbols-outlined text-outline group-hover:text-white">chair</span></div>
-                                <div><h5 class="text-white font-bold text-sm uppercase tracking-widest">Immaculate Interiors</h5></div>
+                                <div class="w-12 h-12 flex items-center justify-center border border-zinc-300 dark:border-outline-variant group-hover:border-zinc-900 dark:group-hover:border-white transition-colors"><span class="material-symbols-outlined text-zinc-900 dark:text-white">chair</span></div>
+                                <div><h5 class="text-zinc-900 dark:text-white font-bold text-sm uppercase tracking-widest transition-colors duration-500">Immaculate Interiors</h5></div>
                             </div>
                             <div class="flex items-center gap-6 group">
-                                <div class="w-12 h-12 flex items-center justify-center border border-outline-variant group-hover:border-white transition-colors"><span class="material-symbols-outlined text-outline group-hover:text-white">wifi</span></div>
-                                <div><h5 class="text-white font-bold text-sm uppercase tracking-widest">On-Board Connectivity</h5></div>
+                                <div class="w-12 h-12 flex items-center justify-center border border-zinc-300 dark:border-outline-variant group-hover:border-zinc-900 dark:group-hover:border-white transition-colors"><span class="material-symbols-outlined text-zinc-900 dark:text-white">wifi</span></div>
+                                <div><h5 class="text-zinc-900 dark:text-white font-bold text-sm uppercase tracking-widest transition-colors duration-500">On-Board Connectivity</h5></div>
                             </div>
                         </div>
                     </div>
@@ -316,10 +343,10 @@
             </section>
         </div>
 
-        <section id="curators" class="px-8 md:px-16 pt-32 pb-20 max-w-[1920px] mx-auto scroll-mt-24 border-t border-white/5">
+        <section id="curators" class="px-8 md:px-16 pt-32 pb-20 max-w-[1920px] mx-auto bg-zinc-50 dark:bg-transparent transition-colors duration-500 scroll-mt-24 border-t border-zinc-200 dark:border-white/5">
             <div class="max-w-7xl mx-auto mb-32">
-                <span class="font-label text-xs uppercase tracking-[0.3em] text-outline mb-6 block">The People Behind the Wheel</span>
-                <h1 class="font-headline text-5xl md:text-[5.5rem] font-extrabold leading-[1.05] tracking-tighter mb-12">
+                <span class="font-label text-xs uppercase tracking-[0.3em] text-zinc-500 dark:text-outline mb-6 block">The People Behind the Wheel</span>
+                <h1 class="font-headline text-5xl md:text-[5.5rem] font-extrabold leading-[1.05] tracking-tighter mb-12 text-zinc-900 dark:text-white transition-colors duration-500">
                     Real Journeys,<br/>
                     <span class="text-stroke">Real Expertise.</span>
                 </h1>
@@ -328,82 +355,82 @@
             <div class="space-y-32 md:space-y-64 max-w-7xl mx-auto">
                 <div class="flex flex-col md:flex-row items-center gap-12 md:gap-24">
                     <div class="relative w-full md:w-1/2 group">
-                        <div class="aspect-[4/5] bg-surface-container overflow-hidden">
+                        <div class="aspect-[4/5] bg-zinc-200 dark:bg-surface-container overflow-hidden rounded-sm shadow-xl dark:shadow-none transition-colors duration-500">
                             <img alt="Julian Vane" class="w-full h-full object-cover grayscale brightness-75 group-hover:grayscale-0 group-hover:brightness-100 group-hover:scale-105 transition-all duration-1000" src="./images/julian.jpg"/>
                         </div>
-                        <div class="liquid-glass absolute bottom-[-2rem] right-[-1rem] md:right-[-4rem] p-8 md:p-12 max-w-[320px] transition-transform duration-700 group-hover:-translate-y-4">
-                            <span class="font-label text-[10px] uppercase tracking-[0.2em] text-zinc-300 mb-2 block">Head of Logistics</span>
-                            <h3 class="font-headline text-3xl font-bold mb-4 text-white">Julian Vane</h3>
+                        <div class="liquid-glass absolute bottom-[-2rem] right-[-1rem] md:right-[-4rem] p-8 md:p-12 max-w-[320px] rounded-sm transition-transform duration-700 group-hover:-translate-y-4">
+                            <span class="font-label text-[10px] uppercase tracking-[0.2em] text-zinc-600 dark:text-zinc-300 mb-2 block">Head of Logistics</span>
+                            <h3 class="font-headline text-3xl font-bold mb-4 text-zinc-900 dark:text-white">Julian Vane</h3>
                         </div>
                     </div>
                     <div class="w-full md:w-1/3 pt-12 md:pt-0">
-                        <h4 class="font-headline text-xl mb-6 text-primary">The Orchestrator</h4>
-                        <p class="text-on-surface-variant leading-relaxed mb-8">Julian spent a decade in premium transport before managing SerenDrive's fleet. His philosophy is simple: the car must be flawless, so the client's focus remains entirely on the island.</p>
+                        <h4 class="font-headline text-xl mb-6 text-zinc-900 dark:text-white transition-colors duration-500">The Orchestrator</h4>
+                        <p class="text-zinc-600 dark:text-on-surface-variant leading-relaxed mb-8 transition-colors duration-500">Julian spent a decade in premium transport before managing SerenDrive's fleet. His philosophy is simple: the car must be flawless, so the client's focus remains entirely on the island.</p>
                     </div>
                 </div>
 
                 <div class="flex flex-col md:flex-row-reverse items-center gap-12 md:gap-24">
                     <div class="relative w-full md:w-1/2 group">
-                        <div class="aspect-[4/5] bg-surface-container overflow-hidden">
+                        <div class="aspect-[4/5] bg-zinc-200 dark:bg-surface-container overflow-hidden rounded-sm shadow-xl dark:shadow-none transition-colors duration-500">
                             <img alt="Elena Rostova" class="w-full h-full object-cover grayscale brightness-75 group-hover:grayscale-0 group-hover:brightness-100 group-hover:scale-105 transition-all duration-1000" src="./images/elena.jpg"/>
                         </div>
-                        <div class="liquid-glass absolute bottom-[-2rem] left-[-1rem] md:left-[-4rem] p-8 md:p-12 max-w-[320px] transition-transform duration-700 group-hover:-translate-y-4">
-                            <span class="font-label text-[10px] uppercase tracking-[0.2em] text-zinc-300 mb-2 block">Guest Experience Manager</span>
-                            <h3 class="font-headline text-3xl font-bold mb-4 text-white">Elena Rostova</h3>
+                        <div class="liquid-glass absolute bottom-[-2rem] left-[-1rem] md:left-[-4rem] p-8 md:p-12 max-w-[320px] rounded-sm transition-transform duration-700 group-hover:-translate-y-4">
+                            <span class="font-label text-[10px] uppercase tracking-[0.2em] text-zinc-600 dark:text-zinc-300 mb-2 block">Guest Experience Manager</span>
+                            <h3 class="font-headline text-3xl font-bold mb-4 text-zinc-900 dark:text-white">Elena Rostova</h3>
                         </div>
                     </div>
                     <div class="w-full md:w-1/3 pt-12 md:pt-0">
-                        <h4 class="font-headline text-xl mb-6 text-primary">The Concierge</h4>
-                        <p class="text-on-surface-variant leading-relaxed mb-8">Elena ensures that from the moment you send a WhatsApp inquiry to your final drop-off at the airport, your itinerary is handled with absolute care and zero stress.</p>
+                        <h4 class="font-headline text-xl mb-6 text-zinc-900 dark:text-white transition-colors duration-500">The Concierge</h4>
+                        <p class="text-zinc-600 dark:text-on-surface-variant leading-relaxed mb-8 transition-colors duration-500">Elena ensures that from the moment you send a WhatsApp inquiry to your final drop-off at the airport, your itinerary is handled with absolute care and zero stress.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="inquire" class="relative flex items-center justify-center min-h-[80vh] py-32 px-6 scroll-mt-24 border-t border-white/5 group">
+        <section id="inquire" class="relative flex items-center justify-center min-h-[80vh] py-32 px-6 scroll-mt-24 border-t border-zinc-200 dark:border-white/5 group transition-colors duration-500">
             <div class="absolute inset-0 z-0 overflow-hidden">
                 <img alt="Background Pattern" class="w-full h-full object-cover grayscale contrast-125 brightness-50 transition-all duration-1000 group-hover:grayscale-0 group-hover:scale-105" src="./images/form-bg.jpg"/>
-                <div class="absolute inset-0 bg-gradient-to-b from-background via-black/50 to-background"></div>
+                <div class="absolute inset-0 bg-gradient-to-b from-zinc-100/95 via-transparent to-zinc-100/95 dark:from-background dark:via-black/70 dark:to-background transition-colors duration-500"></div>
             </div>
             
-            <div class="relative z-10 w-full max-w-4xl liquid-glass rounded-xl p-8 md:p-16 flex flex-col gap-12 transition-transform duration-700 hover:-translate-y-2">
+            <div class="relative z-10 w-full max-w-4xl liquid-glass rounded-sm p-8 md:p-16 flex flex-col gap-12 transition-transform duration-700 hover:-translate-y-2 border border-zinc-200 dark:border-white/10 shadow-2xl">
                 <header class="space-y-4 max-w-2xl">
-                    <span class="font-label text-[0.75rem] uppercase tracking-[0.2em] text-primary/60">Secure Your Vehicle</span>
-                    <h1 class="font-headline text-4xl md:text-6xl font-extrabold tracking-tighter text-white leading-tight">Request a <br/>Booking Quote</h1>
-                    <p class="text-zinc-300 text-lg leading-relaxed max-w-md">Provide your dates and desired vehicle class. Our logistics team will respond with a tailored quote within 24 hours.</p>
+                    <span class="font-label text-[0.75rem] uppercase tracking-[0.2em] text-zinc-600 dark:text-primary/60">Secure Your Vehicle</span>
+                    <h1 class="font-headline text-4xl md:text-6xl font-extrabold tracking-tighter text-zinc-900 dark:text-white leading-tight">Request a <br/>Booking Quote</h1>
+                    <p class="text-zinc-700 dark:text-zinc-300 text-lg leading-relaxed max-w-md">Provide your dates and desired vehicle class. Our logistics team will respond with a tailored quote within 24 hours.</p>
                 </header>
-                <form class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-10">
-                    <div class="group/input relative">
-                        <label class="font-label text-[0.65rem] uppercase tracking-widest text-primary/40 block mb-2">Lead Passenger Name</label>
-                        <input class="w-full bg-transparent border-b border-outline-variant/30 py-3 text-white placeholder:text-zinc-700 focus:outline-none focus:border-primary transition-colors duration-500 uppercase font-headline tracking-wider cursor-none" placeholder="ALEXANDER VANCE" type="text"/>
+                <form class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-10 cursor-none">
+                    <div class="group/input relative cursor-none">
+                        <label class="font-label text-[0.65rem] uppercase tracking-widest text-zinc-600 dark:text-primary/40 block mb-2 cursor-none">Lead Passenger Name</label>
+                        <input class="w-full bg-transparent border-b border-zinc-300 dark:border-outline-variant/30 py-3 text-zinc-900 dark:text-white placeholder:text-zinc-400 dark:placeholder:text-zinc-700 focus:outline-none focus:border-zinc-900 dark:focus:border-primary transition-colors duration-500 uppercase font-headline tracking-wider cursor-none" placeholder="ALEXANDER VANCE" type="text"/>
                     </div>
-                    <div class="group/input relative">
-                        <label class="font-label text-[0.65rem] uppercase tracking-widest text-primary/40 block mb-2">Email Address</label>
-                        <input class="w-full bg-transparent border-b border-outline-variant/30 py-3 text-white placeholder:text-zinc-700 focus:outline-none focus:border-primary transition-colors duration-500 uppercase font-headline tracking-wider cursor-none" placeholder="AVANCE@SERENDRIVE.COM" type="email"/>
+                    <div class="group/input relative cursor-none">
+                        <label class="font-label text-[0.65rem] uppercase tracking-widest text-zinc-600 dark:text-primary/40 block mb-2 cursor-none">Email Address</label>
+                        <input class="w-full bg-transparent border-b border-zinc-300 dark:border-outline-variant/30 py-3 text-zinc-900 dark:text-white placeholder:text-zinc-400 dark:placeholder:text-zinc-700 focus:outline-none focus:border-zinc-900 dark:focus:border-primary transition-colors duration-500 uppercase font-headline tracking-wider cursor-none" placeholder="AVANCE@SERENDRIVE.COM" type="email"/>
                     </div>
-                    <div class="group/input relative">
-                        <label class="font-label text-[0.65rem] uppercase tracking-widest text-primary/40 block mb-2">Vehicle Category</label>
-                        <select class="w-full bg-transparent border-b border-outline-variant/30 py-3 text-white focus:outline-none focus:border-primary transition-colors duration-500 appearance-none font-headline tracking-wider cursor-none">
-                            <option class="bg-surface text-on-surface">PREMIUM SUV (3 GUESTS)</option>
-                            <option class="bg-surface text-on-surface">LUXURY MINIVAN (6 GUESTS)</option>
-                            <option class="bg-surface text-on-surface">RUGGED 4x4 (4 GUESTS)</option>
-                            <option class="bg-surface text-on-surface">AIRPORT TRANSFER ONLY</option>
+                    <div class="group/input relative cursor-none">
+                        <label class="font-label text-[0.65rem] uppercase tracking-widest text-zinc-600 dark:text-primary/40 block mb-2 cursor-none">Vehicle Category</label>
+                        <select class="w-full bg-transparent border-b border-zinc-300 dark:border-outline-variant/30 py-3 text-zinc-900 dark:text-white focus:outline-none focus:border-zinc-900 dark:focus:border-primary transition-colors duration-500 appearance-none font-headline tracking-wider cursor-none">
+                            <option class="bg-white text-zinc-900 dark:bg-surface dark:text-on-surface cursor-none">PREMIUM SUV (3 GUESTS)</option>
+                            <option class="bg-white text-zinc-900 dark:bg-surface dark:text-on-surface cursor-none">LUXURY MINIVAN (6 GUESTS)</option>
+                            <option class="bg-white text-zinc-900 dark:bg-surface dark:text-on-surface cursor-none">RUGGED 4x4 (4 GUESTS)</option>
+                            <option class="bg-white text-zinc-900 dark:bg-surface dark:text-on-surface cursor-none">AIRPORT TRANSFER ONLY</option>
                         </select>
                     </div>
-                    <div class="group/input relative">
-                        <label class="font-label text-[0.65rem] uppercase tracking-widest text-primary/40 block mb-2">Hire Duration / Dates</label>
-                        <input class="w-full bg-transparent border-b border-outline-variant/30 py-3 text-white placeholder:text-zinc-700 focus:outline-none focus:border-primary transition-colors duration-500 uppercase font-headline tracking-wider cursor-none" placeholder="OCT 12 - OCT 24" type="text"/>
+                    <div class="group/input relative cursor-none">
+                        <label class="font-label text-[0.65rem] uppercase tracking-widest text-zinc-600 dark:text-primary/40 block mb-2 cursor-none">Hire Duration / Dates</label>
+                        <input class="w-full bg-transparent border-b border-zinc-300 dark:border-outline-variant/30 py-3 text-zinc-900 dark:text-white placeholder:text-zinc-400 dark:placeholder:text-zinc-700 focus:outline-none focus:border-zinc-900 dark:focus:border-primary transition-colors duration-500 uppercase font-headline tracking-wider cursor-none" placeholder="OCT 12 - OCT 24" type="text"/>
                     </div>
-                    <div class="group/input relative md:col-span-2">
-                        <label class="font-label text-[0.65rem] uppercase tracking-widest text-primary/40 block mb-2">Itinerary Notes / Special Requests</label>
-                        <textarea class="w-full bg-transparent border-b border-outline-variant/30 py-3 text-white placeholder:text-zinc-700 focus:outline-none focus:border-primary transition-colors duration-500 uppercase font-headline tracking-wider resize-none cursor-none" placeholder="PICKUP FROM COLOMBO AIRPORT, TRAVELING TO ELLA..." rows="2"></textarea>
+                    <div class="group/input relative md:col-span-2 cursor-none">
+                        <label class="font-label text-[0.65rem] uppercase tracking-widest text-zinc-600 dark:text-primary/40 block mb-2 cursor-none">Itinerary Notes / Special Requests</label>
+                        <textarea class="w-full bg-transparent border-b border-zinc-300 dark:border-outline-variant/30 py-3 text-zinc-900 dark:text-white placeholder:text-zinc-400 dark:placeholder:text-zinc-700 focus:outline-none focus:border-zinc-900 dark:focus:border-primary transition-colors duration-500 uppercase font-headline tracking-wider resize-none cursor-none" placeholder="PICKUP FROM COLOMBO AIRPORT, TRAVELING TO ELLA..." rows="2"></textarea>
                     </div>
                     <div class="md:col-span-2 flex flex-col md:flex-row justify-between items-center gap-8 mt-4">
                         <div class="flex items-center gap-3">
                             <div class="w-2 h-2 rounded-full bg-[#25D366] animate-pulse"></div>
-                            <p class="font-label text-[0.65rem] tracking-[0.1em] text-zinc-400 uppercase">Or tap WhatsApp above for immediate response</p>
+                            <p class="font-label text-[0.65rem] tracking-[0.1em] text-zinc-500 dark:text-zinc-400 uppercase">Or tap WhatsApp above for immediate response</p>
                         </div>
-                        <button type="button" class="group/btn relative px-12 py-5 bg-white text-on-primary font-headline font-bold uppercase tracking-widest text-sm transition-all duration-500 hover:bg-transparent hover:text-white border border-white cursor-none">
+                        <button type="button" class="group/btn relative px-12 py-5 bg-zinc-900 text-white dark:bg-white dark:text-on-primary font-headline font-bold uppercase tracking-widest text-sm transition-all duration-500 hover:bg-zinc-700 border border-zinc-900 dark:hover:bg-transparent dark:hover:text-white dark:border-white cursor-none">
                             <span class="relative z-10">Request Quote</span>
                         </button>
                     </div>
@@ -412,34 +439,47 @@
         </section>
     </main>
 
-    <footer class="bg-zinc-950 w-full py-12 px-8 md:px-16 border-t border-white/5 font-['Inter'] text-[0.75rem] uppercase tracking-[0.1em] flex flex-col md:flex-row justify-between items-center mt-auto">
-        <div class="text-lg font-bold text-white tracking-widest mb-6 md:mb-0">SerenDrive</div>
-        <div class="flex flex-wrap justify-center gap-8 text-zinc-500 mb-6 md:mb-0">
-            <a class="hover:text-white transition-colors duration-300 cursor-none" href="#">Privacy</a>
-            <a class="hover:text-white transition-colors duration-300 cursor-none" href="#">Terms</a>
-            <a class="hover:text-white transition-colors duration-300 cursor-none" href="https://wa.me/94775979306" target="_blank">Contact via WhatsApp</a>
+    <footer class="bg-zinc-100 dark:bg-zinc-950 transition-colors duration-500 w-full py-12 px-8 md:px-16 border-t border-zinc-200 dark:border-white/5 font-['Inter'] text-[0.75rem] uppercase tracking-[0.1em] flex flex-col md:flex-row justify-between items-center mt-auto relative z-20">
+        <div class="text-lg font-bold text-zinc-900 dark:text-white tracking-widest mb-6 md:mb-0 transition-colors duration-500">SerenDrive</div>
+        <div class="flex flex-wrap justify-center gap-8 text-zinc-600 dark:text-zinc-500 mb-6 md:mb-0">
+            <a class="hover:text-zinc-900 dark:hover:text-white transition-colors duration-300 cursor-none" href="#">Privacy</a>
+            <a class="hover:text-zinc-900 dark:hover:text-white transition-colors duration-300 cursor-none" href="#">Terms</a>
+            <a class="hover:text-zinc-900 dark:hover:text-white transition-colors duration-300 cursor-none" href="https://wa.me/94775979306" target="_blank">Contact via WhatsApp</a>
         </div>
-        <div class="text-zinc-500 text-center md:text-right">
+        <div class="text-zinc-600 dark:text-zinc-500 text-center md:text-right transition-colors duration-500">
             © 2026 SerenDrive. Premium Logistics in Travel.
         </div>
     </footer>
 
     <script>
+        // THEME TOGGLE LOGIC
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const htmlElement = document.documentElement;
+
+        themeToggleBtn.addEventListener('click', () => {
+            htmlElement.classList.toggle('dark');
+            const isDark = htmlElement.classList.contains('dark');
+            localStorage.theme = isDark ? 'dark' : 'light';
+            
+            // Force cursor border update immediately
+            cursor.style.border = isDark ? '1px solid rgba(255, 255, 255, 0.4)' : '1px solid rgba(0, 0, 0, 0.4)';
+        });
+
+        // CUSTOM CURSOR LOGIC
         const cursor = document.querySelector('.custom-cursor');
         
-        // Handle Mouse Move
         document.addEventListener('mousemove', (e) => {
             cursor.style.transform = `translate(${e.clientX - 6}px, ${e.clientY - 6}px)`;
         });
 
-        // Handle Hover States for all interactive elements
         const interactives = document.querySelectorAll('button, a, .group, input, select, textarea');
         interactives.forEach(el => {
             el.addEventListener('mouseenter', () => {
+                const isDark = htmlElement.classList.contains('dark');
                 cursor.style.width = '40px';
                 cursor.style.height = '40px';
-                cursor.style.backgroundColor = 'rgba(255,255,255,0.05)';
-                cursor.style.border = '1px solid rgba(255,255,255,0.8)';
+                cursor.style.backgroundColor = isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)';
+                cursor.style.border = isDark ? '1px solid rgba(255,255,255,0.8)' : '1px solid rgba(0,0,0,0.8)';
                 cursor.style.transform = cursor.style.transform.replace(/translate\(.*\)/, (match) => {
                     const coords = match.match(/-?\d+/g);
                     if(coords && coords.length >= 2) {
@@ -449,14 +489,15 @@
                 });
             });
             el.addEventListener('mouseleave', () => {
+                const isDark = htmlElement.classList.contains('dark');
                 cursor.style.width = '12px';
                 cursor.style.height = '12px';
                 cursor.style.backgroundColor = 'transparent';
-                cursor.style.border = '1px solid rgba(255, 255, 255, 0.4)';
+                cursor.style.border = isDark ? '1px solid rgba(255, 255, 255, 0.4)' : '1px solid rgba(0, 0, 0, 0.4)';
             });
         });
         
-        // Advanced: Highlight active nav item based on scrolling
+        // SCROLL SPY FOR NAV LINKS
         const sections = document.querySelectorAll("main > div[id], main > section[id]");
         const navLinks = document.querySelectorAll("nav a[href^='#']");
 
@@ -470,11 +511,15 @@
             });
 
             navLinks.forEach((link) => {
-                link.classList.remove("text-white", "border-b", "border-white/50", "pb-1");
-                link.classList.add("text-zinc-400");
-                if (link.getAttribute("href").includes(current) && current !== "") {
-                    link.classList.add("text-white", "border-b", "border-white/50", "pb-1");
-                    link.classList.remove("text-zinc-400");
+                const isDark = htmlElement.classList.contains('dark');
+                // Reset styling
+                link.classList.remove("text-zinc-900", "dark:text-white", "border-b", "border-zinc-900", "dark:border-white/50", "pb-1");
+                link.classList.add("text-zinc-500", "dark:text-zinc-400");
+                
+                // Add active styling
+                if (link.getAttribute("href").includes(current) && current !== "" && current !== "home") {
+                    link.classList.add("text-zinc-900", "dark:text-white", "border-b", "border-zinc-900", "dark:border-white/50", "pb-1");
+                    link.classList.remove("text-zinc-500", "dark:text-zinc-400");
                 }
             });
         });
