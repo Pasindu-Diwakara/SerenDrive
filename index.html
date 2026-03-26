@@ -42,10 +42,12 @@
     
     <style>
         :root {
-            --symbol-opacity: 0.03; /* Barely visible watermark effect */
+            /* INCREASED OPACITY: Easily visible in light mode now */
+            --symbol-opacity: 0.15; 
         }
         .dark {
-            --symbol-opacity: 0.02;
+            /* INCREASED OPACITY: Easily visible in dark mode now */
+            --symbol-opacity: 0.10;
         }
 
         body { overflow-x: hidden; }
@@ -127,7 +129,7 @@
     <nav class="fixed top-0 w-full z-50 bg-white/90 dark:bg-zinc-900/80 backdrop-blur-xl shadow-sm dark:shadow-[0px_20px_40px_rgba(0,0,0,0.4)] transition-colors duration-500 font-['Manrope'] tracking-tight">
         <div class="flex justify-between items-center px-6 md:px-16 py-5 md:py-6 w-full max-w-[1920px] mx-auto">
             <div class="flex items-center">
-                <a href="index.html" class="group">
+                <a href="#home" class="group">
                     <img src="./images/serendrive-logo.png" alt="SerenDrive Logo" class="h-8 md:h-10 w-auto invert dark:invert-0 grayscale transition-all duration-1000 group-hover:grayscale-0">
                 </a>
             </div>
@@ -174,14 +176,14 @@
             </div>
             
             <div class="liquid-glass p-8 py-12 md:p-20 rounded-lg w-full max-w-[90%] md:max-w-5xl text-center mt-20 relative z-10 shadow-xl transition-all duration-500 md:hover:scale-[1.03] md:hover:shadow-2xl">
-                <span class="font-label text-zinc-700 dark:text-primary/90 tracking-[0.4em] uppercase text-[0.65rem] md:text-xs mb-6 md:mb-8 block transition-colors duration-500">Premium Transit & Escapes</span>
-                <h1 class="font-headline text-5xl md:text-8xl font-extrabold tracking-tighter text-zinc-900 dark:text-white leading-[1.1] mb-8 md:mb-10 transition-colors duration-500">Bespoke Journeys.</h1>
+                <span class="font-label text-zinc-700 dark:text-primary/90 tracking-[0.4em] uppercase text-[0.65rem] md:text-xs mb-6 md:mb-8 block transition-colors duration-500">Discover the Teardrop Isle</span>
+                <h1 class="font-headline text-5xl md:text-8xl font-extrabold tracking-tighter text-zinc-900 dark:text-white leading-[1.1] mb-8 md:mb-10 transition-colors duration-500">Unveil Sri Lanka.</h1>
                 <p class="max-w-full md:max-w-xl mx-auto text-base md:text-lg text-zinc-700 dark:text-primary/90 font-light leading-relaxed mb-10 md:mb-16 transition-colors duration-500">
-                    Traverse the teardrop isle with architectural precision. From airport arrivals to multi-day highland circuits, we provide the vehicles, the chauffeurs, and the silence.
+                    Experience the ultimate island adventure. From the sun-kissed golden beaches of the south to the misty emerald tea estates of the highlands and wild leopard safaris, we provide the premium vehicles, expert local chauffeurs, and curated packages to bring your dream tropical escape to life.
                 </p>
                 <div class="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-6">
-                    <a class="group/btn relative w-full md:w-auto px-10 py-4 bg-zinc-900 text-white dark:bg-primary dark:text-on-primary font-label uppercase text-sm tracking-widest overflow-hidden transition-all duration-500" href="#fleet">
-                        <span class="relative z-10">Explore Fleet</span>
+                    <a class="group/btn relative w-full md:w-auto px-10 py-4 bg-zinc-900 text-white dark:bg-primary dark:text-on-primary font-label uppercase text-sm tracking-widest overflow-hidden transition-all duration-500" href="#tours">
+                        <span class="relative z-10">Explore Tours</span>
                         <div class="absolute inset-0 bg-zinc-700 dark:bg-primary-container translate-y-full group-hover/btn:translate-y-0 transition-transform duration-500 hidden md:block"></div>
                     </a>
                     <a class="w-full md:w-auto px-10 py-4 border border-zinc-400 text-zinc-900 hover:text-white hover:bg-[#25D366] hover:border-[#25D366] dark:border-outline-variant/30 dark:text-white dark:hover:bg-[#25D366] dark:hover:border-[#25D366] font-label uppercase text-sm tracking-widest transition-all duration-300 flex items-center justify-center gap-2" href="https://wa.me/94775979306" target="_blank" rel="noopener noreferrer">
@@ -211,7 +213,7 @@
                     <div class="relative aspect-[4/3] md:aspect-[4/5] w-full bg-zinc-200 dark:bg-surface-container overflow-hidden shadow-lg md:shadow-2xl rounded-sm">
                         <img alt="Luxury Estate Pool" class="w-full h-full object-cover grayscale transition-all duration-1000 md:group-hover:grayscale-0 md:group-hover:scale-105" src="./images/pool-villa.jpg"/>
                     </div>
-                    <div class="glass-card relative md:absolute w-[calc(100%-2rem)] mx-auto md:mx-0 md:w-auto -mt-16 md:mt-0 md:-bottom-12 md:-left-12 p-6 md:p-12 max-w-sm shadow-xl dark:shadow-2xl border border-zinc-200 dark:border-white/10 z-10 rounded-sm transition-transform duration-700 md:group-hover:-translate-y-4">
+                    <div class="glass-card relative md:absolute w-[calc(100%-2rem)] mx-auto md:mx-0 md:w-auto -mt-16 md:mt-0 md:-bottom-12 md:-left-12 p-6 md:p-12 max-w-xs md:max-w-sm shadow-xl dark:shadow-2xl border border-zinc-200 dark:border-white/10 z-10 rounded-sm transition-transform duration-700 md:group-hover:-translate-y-4">
                         <span class="material-symbols-outlined text-zinc-900 dark:text-primary-container mb-4 md:mb-6 text-3xl md:text-4xl">verified_user</span>
                         <h4 class="text-zinc-900 dark:text-white font-headline text-xl md:text-2xl font-bold mb-3 md:mb-4">Uncompromising Safety</h4>
                         <p class="text-zinc-700 dark:text-zinc-300 text-sm leading-relaxed mb-2">Every vehicle is rigorously maintained and tracked via satellite logistics.</p>
@@ -463,7 +465,7 @@
             <div class="space-y-24 md:space-y-64 max-w-7xl mx-auto relative z-10">
                 <div class="flex flex-col md:flex-row items-center gap-10 md:gap-24">
                     <div class="relative w-full md:w-1/2 group">
-                        <div class="aspect-[4/5] bg-zinc-200 dark:bg-surface-container overflow-hidden rounded-sm shadow-lg md:shadow-xl dark:shadow-none transition-colors duration-500">
+                        <div class="aspect-[4/5] bg-white dark:bg-surface-container overflow-hidden rounded-sm shadow-lg md:shadow-xl dark:shadow-none transition-colors duration-500 border border-zinc-200 dark:border-white/5">
                             <img alt="Julian Vane" class="w-full h-full object-cover grayscale brightness-90 dark:brightness-75 md:group-hover:grayscale-0 md:group-hover:brightness-100 md:group-hover:scale-105 transition-all duration-1000" src="./images/julian.jpg"/>
                         </div>
                         <div class="liquid-glass relative md:absolute w-[calc(100%-2rem)] mx-auto md:mx-0 md:w-auto -mt-16 md:mt-0 md:bottom-[-2rem] md:right-[-2rem] lg:right-[-4rem] p-6 md:p-12 max-w-xs md:max-w-[320px] rounded-sm transition-transform duration-700 md:group-hover:-translate-y-4 z-10">
@@ -479,7 +481,7 @@
 
                 <div class="flex flex-col md:flex-row-reverse items-center gap-10 md:gap-24">
                     <div class="relative w-full md:w-1/2 group">
-                        <div class="aspect-[4/5] bg-zinc-200 dark:bg-surface-container overflow-hidden rounded-sm shadow-lg md:shadow-xl dark:shadow-none transition-colors duration-500">
+                        <div class="aspect-[4/5] bg-white dark:bg-surface-container overflow-hidden rounded-sm shadow-lg md:shadow-xl dark:shadow-none transition-colors duration-500 border border-zinc-200 dark:border-white/5">
                             <img alt="Elena Rostova" class="w-full h-full object-cover grayscale brightness-90 dark:brightness-75 md:group-hover:grayscale-0 md:group-hover:brightness-100 md:group-hover:scale-105 transition-all duration-1000" src="./images/elena.jpg"/>
                         </div>
                         <div class="liquid-glass relative md:absolute w-[calc(100%-2rem)] mx-auto md:mx-0 md:w-auto -mt-16 md:mt-0 md:bottom-[-2rem] md:left-[-2rem] lg:left-[-4rem] p-6 md:p-12 max-w-xs md:max-w-[320px] rounded-sm transition-transform duration-700 md:group-hover:-translate-y-4 z-10">
@@ -498,7 +500,7 @@
         <section id="inquire" class="relative flex items-center justify-center min-h-[80vh] py-20 md:py-32 px-4 md:px-6 scroll-mt-24 border-t border-zinc-200 dark:border-white/5 group transition-colors duration-500">
             <div class="absolute inset-0 z-0 overflow-hidden">
                 <img alt="Background Pattern" class="w-full h-full object-cover grayscale contrast-125 brightness-[0.8] dark:brightness-[0.4] transition-all duration-1000 md:group-hover:grayscale-0 md:group-hover:scale-105" src="./images/form-bg.jpg"/>
-                <div class="absolute inset-0 bg-gradient-to-b from-zinc-100/95 via-transparent to-zinc-100/95 dark:from-background dark:via-black/70 dark:to-background transition-colors duration-500"></div>
+                <div class="absolute inset-0 bg-gradient-to-b from-white/95 via-transparent to-white/95 dark:from-background dark:via-black/70 dark:to-background transition-colors duration-500"></div>
             </div>
             
             <div class="relative z-10 w-full max-w-4xl liquid-glass rounded-sm p-6 md:p-16 flex flex-col gap-10 md:gap-12 transition-transform duration-700 md:hover:-translate-y-2 border border-zinc-200 dark:border-white/10 shadow-2xl">
@@ -507,17 +509,17 @@
                     <h1 class="font-headline text-4xl md:text-6xl font-extrabold tracking-tighter text-zinc-900 dark:text-white leading-tight">Request a <br class="hidden md:block"/>Detailed Quote</h1>
                     <p class="text-zinc-700 dark:text-zinc-300 text-base md:text-lg leading-relaxed max-w-md mx-auto md:mx-0">Select your required vehicle or tour package. Our logistics team will respond with a tailored quote within 24 hours.</p>
                 </header>
-                <form class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8 md:gap-y-10 cursor-none">
-                    <div class="group/input relative cursor-none">
-                        <label class="font-label text-[0.65rem] uppercase tracking-widest text-zinc-600 dark:text-primary/40 block mb-2 cursor-none">Lead Passenger Name</label>
-                        <input class="w-full bg-transparent border-b border-zinc-400 dark:border-outline-variant/30 py-3 text-zinc-900 dark:text-white placeholder:text-zinc-400 dark:placeholder:text-zinc-700 focus:outline-none focus:border-zinc-900 dark:focus:border-primary transition-colors duration-500 uppercase font-headline tracking-wider text-sm md:text-base cursor-none" placeholder="ALEXANDER VANCE" type="text"/>
+                <form class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8 md:gap-y-10">
+                    <div class="group/input relative">
+                        <label class="font-label text-[0.65rem] uppercase tracking-widest text-zinc-600 dark:text-primary/40 block mb-2">Lead Passenger Name</label>
+                        <input class="w-full bg-transparent border-b border-zinc-400 dark:border-outline-variant/30 py-3 text-zinc-900 dark:text-white placeholder:text-zinc-400 dark:placeholder:text-zinc-700 focus:outline-none focus:border-zinc-900 dark:focus:border-primary transition-colors duration-500 uppercase font-headline tracking-wider text-sm md:text-base" placeholder="ALEXANDER VANCE" type="text"/>
                     </div>
-                    <div class="group/input relative cursor-none">
-                        <label class="font-label text-[0.65rem] uppercase tracking-widest text-zinc-600 dark:text-primary/40 block mb-2 cursor-none">Email Address</label>
-                        <input class="w-full bg-transparent border-b border-zinc-400 dark:border-outline-variant/30 py-3 text-zinc-900 dark:text-white placeholder:text-zinc-400 dark:placeholder:text-zinc-700 focus:outline-none focus:border-zinc-900 dark:focus:border-primary transition-colors duration-500 uppercase font-headline tracking-wider text-sm md:text-base cursor-none" placeholder="AVANCE@SERENDRIVE.COM" type="email"/>
+                    <div class="group/input relative">
+                        <label class="font-label text-[0.65rem] uppercase tracking-widest text-zinc-600 dark:text-primary/40 block mb-2">Email Address</label>
+                        <input class="w-full bg-transparent border-b border-zinc-400 dark:border-outline-variant/30 py-3 text-zinc-900 dark:text-white placeholder:text-zinc-400 dark:placeholder:text-zinc-700 focus:outline-none focus:border-zinc-900 dark:focus:border-primary transition-colors duration-500 uppercase font-headline tracking-wider text-sm md:text-base" placeholder="AVANCE@SERENDRIVE.COM" type="email"/>
                     </div>
-                    <div class="group/input relative cursor-none md:col-span-2">
-                        <label class="font-label text-[0.65rem] uppercase tracking-widest text-zinc-600 dark:text-primary/40 block mb-2 cursor-none">Select Vehicle / Tour Package</label>
+                    <div class="group/input relative md:col-span-2">
+                        <label class="font-label text-[0.65rem] uppercase tracking-widest text-zinc-600 dark:text-primary/40 block mb-2">Select Vehicle / Tour Package</label>
                         <select class="w-full bg-transparent border-b border-zinc-400 dark:border-outline-variant/30 py-3 text-zinc-900 dark:text-white focus:outline-none focus:border-zinc-900 dark:focus:border-primary transition-colors duration-500 appearance-none font-headline tracking-wider text-sm md:text-base cursor-pointer">
                             <optgroup label="Vehicles" class="bg-white text-zinc-900 dark:bg-surface dark:text-on-surface">
                                 <option>SUZUKI WAGON R (ECONOMY)</option>
@@ -538,16 +540,16 @@
                             </optgroup>
                         </select>
                     </div>
-                    <div class="group/input relative cursor-none md:col-span-2">
-                        <label class="font-label text-[0.65rem] uppercase tracking-widest text-zinc-600 dark:text-primary/40 block mb-2 cursor-none">Hire Duration / Dates / Special Requests</label>
-                        <textarea class="w-full bg-transparent border-b border-zinc-400 dark:border-outline-variant/30 py-3 text-zinc-900 dark:text-white placeholder:text-zinc-400 dark:placeholder:text-zinc-700 focus:outline-none focus:border-zinc-900 dark:focus:border-primary transition-colors duration-500 uppercase font-headline tracking-wider resize-none text-sm md:text-base cursor-none" placeholder="E.G., OCT 12-24, PICKUP FROM COLOMBO AIRPORT..." rows="2"></textarea>
+                    <div class="group/input relative md:col-span-2">
+                        <label class="font-label text-[0.65rem] uppercase tracking-widest text-zinc-600 dark:text-primary/40 block mb-2">Hire Duration / Dates / Special Requests</label>
+                        <textarea class="w-full bg-transparent border-b border-zinc-400 dark:border-outline-variant/30 py-3 text-zinc-900 dark:text-white placeholder:text-zinc-400 dark:placeholder:text-zinc-700 focus:outline-none focus:border-zinc-900 dark:focus:border-primary transition-colors duration-500 uppercase font-headline tracking-wider resize-none text-sm md:text-base" placeholder="E.G., OCT 12-24, PICKUP FROM COLOMBO AIRPORT..." rows="2"></textarea>
                     </div>
                     <div class="md:col-span-2 flex flex-col md:flex-row justify-between items-center gap-8 mt-4">
                         <div class="flex items-center gap-3">
                             <div class="w-2 h-2 rounded-full bg-[#25D366] animate-pulse"></div>
                             <p class="font-label text-[0.65rem] tracking-[0.1em] text-zinc-600 dark:text-zinc-400 uppercase text-center md:text-left">Or tap WhatsApp above for immediate response</p>
                         </div>
-                        <button type="button" class="group/btn relative w-full md:w-auto px-12 py-5 bg-zinc-900 text-white dark:bg-white dark:text-on-primary font-headline font-bold uppercase tracking-widest text-sm transition-all duration-500 hover:bg-zinc-700 border border-zinc-900 dark:hover:bg-transparent dark:hover:text-white dark:border-white cursor-none">
+                        <button type="button" class="group/btn relative w-full md:w-auto px-12 py-5 bg-zinc-900 text-white dark:bg-white dark:text-on-primary font-headline font-bold uppercase tracking-widest text-sm transition-all duration-500 hover:bg-zinc-700 border border-zinc-900 dark:hover:bg-transparent dark:hover:text-white dark:border-white">
                             <span class="relative z-10">Request Quote</span>
                         </button>
                     </div>
@@ -559,9 +561,9 @@
     <footer class="bg-zinc-100 dark:bg-zinc-950 transition-colors duration-500 w-full py-12 px-6 md:px-16 border-t border-zinc-200 dark:border-white/5 font-['Inter'] text-[0.75rem] uppercase tracking-[0.1em] flex flex-col md:flex-row justify-between items-center mt-auto relative z-20 gap-8 md:gap-0">
         <div class="text-lg font-bold text-zinc-900 dark:text-white tracking-widest transition-colors duration-500">SerenDrive</div>
         <div class="flex flex-col md:flex-row items-center gap-6 md:gap-8 text-zinc-600 dark:text-zinc-500">
-            <a class="hover:text-zinc-900 dark:hover:text-white transition-colors duration-300 cursor-none" href="#">Privacy</a>
-            <a class="hover:text-zinc-900 dark:hover:text-white transition-colors duration-300 cursor-none" href="#">Terms</a>
-            <a class="hover:text-zinc-900 dark:hover:text-white transition-colors duration-300 cursor-none" href="https://wa.me/94775979306" target="_blank">Contact via WhatsApp</a>
+            <a class="hover:text-zinc-900 dark:hover:text-white transition-colors duration-300" href="#">Privacy</a>
+            <a class="hover:text-zinc-900 dark:hover:text-white transition-colors duration-300" href="#">Terms</a>
+            <a class="hover:text-zinc-900 dark:hover:text-white transition-colors duration-300" href="https://wa.me/94775979306" target="_blank">Contact via WhatsApp</a>
         </div>
         <div class="text-zinc-600 dark:text-zinc-500 text-center md:text-right transition-colors duration-500">
             © 2026 SerenDrive. <br class="block md:hidden"/>Premium Logistics.
@@ -647,18 +649,19 @@
             constructor(x, y, isDark) {
                 this.x = x;
                 this.y = y;
-                this.size = Math.random() * 2 + 1; // Size of sparks
+                // SLIGHTLY LARGER SPARKS
+                this.size = Math.random() * 3.5 + 2; 
                 this.speedX = Math.random() * 2 - 1; // Drift left/right
                 this.speedY = Math.random() * 2 - 1.5; // Slight upward drift
-                this.life = 1;
-                this.decay = Math.random() * 0.02 + 0.02; // How fast they fade
+                this.life = 1.5;
+                this.decay = Math.random() * 0.015 + 0.015; // Slower fade
                 
-                // Color based on theme
+                // DYNAMIC COLOR BASED ON THEME (UPDATED TO BLACK IN LIGHT MODE)
                 if (isDark) {
-                    const darkColors = ['#d1d5db', '#e2e8f0', '#f3f4f6']; // Silvers/grays
+                    const darkColors = ['#cbd5e1', '#93c5fd', '#bae6fd', '#e2e8f0']; // Silvers/light blues
                     this.color = darkColors[Math.floor(Math.random() * darkColors.length)];
                 } else {
-                    const lightColors = ['#000000', '#171717', '#27272a']; // Blacks/dark grays
+                    const lightColors = ['#000000', '#1c1917', '#334155']; // Black & dark slate grays
                     this.color = lightColors[Math.floor(Math.random() * lightColors.length)];
                 }
             }
@@ -668,7 +671,7 @@
                 this.life -= this.decay;
             }
             draw() {
-                ctx.globalAlpha = Math.max(0, this.life);
+                ctx.globalAlpha = Math.min(1, Math.max(0, this.life));
                 ctx.fillStyle = this.color; 
                 ctx.shadowBlur = 8;
                 ctx.shadowColor = this.color;
