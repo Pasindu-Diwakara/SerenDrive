@@ -44,13 +44,14 @@
         body { overflow-x: hidden; }
         .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
         
-        /* Apply custom cursor ONLY on devices with a mouse (fixes mobile touch issues) */
+        /* Apply custom cursor ONLY on devices with a mouse */
         @media (pointer: fine) {
             body, a, button, input, select, textarea { cursor: none !important; }
         }
         
+        /* RESTORED & BALANCED LIQUID GLASS WITH HOVER TRANSITION */
         .liquid-glass {
-            background: rgba(255, 255, 255, 0.55);
+            background: rgba(255, 255, 255, 0.85); /* Clean frosted glass for light mode */
             backdrop-filter: blur(24px) saturate(120%);
             -webkit-backdrop-filter: blur(24px) saturate(120%);
             border: 1px solid rgba(255, 255, 255, 0.4);
@@ -58,7 +59,7 @@
             transition: all 0.5s ease-in-out;
         }
         .dark .liquid-glass {
-            background: rgba(20, 20, 20, 0.55);
+            background: rgba(20, 20, 20, 0.55); /* Deep frosted glass for dark mode */
             border: 1px solid rgba(255, 255, 255, 0.1);
             box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.6);
         }
@@ -77,6 +78,7 @@
         .dark .text-stroke { -webkit-text-stroke: 1px rgba(255, 255, 255, 0.2); }
         .text-obsidian { letter-spacing: -0.02em; line-height: 1.1; }
         
+        /* Cursors & Sparks Canvas */
         .custom-cursor {
             width: 12px; height: 12px;
             border: 1px solid rgba(0, 0, 0, 0.4);
@@ -85,10 +87,20 @@
             transition: transform 0.1s ease-out, width 0.3s ease, height 0.3s ease, border-color 0.3s ease, background-color 0.3s ease;
         }
         .dark .custom-cursor { border: 1px solid rgba(255, 255, 255, 0.4); }
+        
+        #sparkles {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            pointer-events: none;
+            z-index: 9998; /* Just below the cursor ring */
+        }
     </style>
 </head>
 <body class="bg-zinc-50 dark:bg-background text-zinc-900 dark:text-on-background font-body antialiased selection:bg-zinc-900 selection:text-white dark:selection:bg-primary dark:selection:text-on-primary transition-colors duration-500 relative">
 
+    <canvas id="sparkles"></canvas>
+    
     <div class="custom-cursor hidden md:block top-0 left-0"></div>
 
     <nav class="fixed top-0 w-full z-50 bg-white/90 dark:bg-zinc-900/80 backdrop-blur-xl shadow-sm dark:shadow-[0px_20px_40px_rgba(0,0,0,0.4)] transition-colors duration-500 font-['Manrope'] tracking-tight">
@@ -127,7 +139,7 @@
         </button>
         <a class="text-2xl font-headline font-bold text-zinc-900 dark:text-white uppercase tracking-widest mobile-link" href="#services">Services</a>
         <a class="text-2xl font-headline font-bold text-zinc-900 dark:text-white uppercase tracking-widest mobile-link" href="tours.html">Tours</a>
-        <a class="text-2xl font-headline font-bold text-zinc-900 dark:text-white uppercase tracking-widest mobile-link" href="#fleet">The Fleet</a>
+        <a class="text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors duration-300 text-[0.75rem] uppercase tracking-widest nav-scroll-link" href="#fleet">The Fleet</a>
         <a class="text-2xl font-headline font-bold text-zinc-900 dark:text-white uppercase tracking-widest mobile-link" href="#curators">Curators</a>
         <a class="mt-8 px-12 py-4 bg-zinc-900 text-white dark:bg-white dark:text-zinc-900 font-label uppercase text-sm tracking-widest mobile-link" href="#inquire">Inquire Now</a>
     </div>
@@ -227,7 +239,6 @@
                 </div>
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                    
                     <div class="group relative overflow-hidden bg-white dark:bg-surface-container-high shadow-md md:hover:shadow-xl dark:shadow-none rounded-sm transition-all duration-500 border border-zinc-200 dark:border-white/5">
                         <div class="aspect-[4/3] overflow-hidden">
                             <img src="./images/fleet-wagonr.jpg" alt="Suzuki Wagon R" class="w-full h-full object-cover grayscale opacity-90 md:group-hover:grayscale-0 md:group-hover:opacity-100 md:group-hover:scale-105 transition-all duration-1000">
@@ -447,7 +458,7 @@
                     </div>
                     <div class="group/input relative md:col-span-2">
                         <label class="font-label text-[0.65rem] uppercase tracking-widest text-zinc-600 dark:text-primary/40 block mb-2">Hire Duration / Dates / Special Requests</label>
-                        <textarea class="w-full bg-transparent border-b border-zinc-400 dark:border-outline-variant/30 py-3 text-zinc-900 dark:text-white placeholder:text-zinc-400 dark:placeholder:text-zinc-700 focus:outline-none focus:border-zinc-900 dark:focus:border-primary transition-colors duration-500 uppercase font-headline tracking-wider resize-none text-sm md:text-base" placeholder="E.G., OCT 12-24, PICKUP FROM COLOMBO AIRPORT..." rows="2"></textarea>
+                        <textarea class="w-full bg-transparent border-b border-zinc-400 dark:border-outline-variant/30 py-3 text-zinc-900 dark:text-white placeholder:text-zinc-400 dark:placeholder:text-zinc-700 focus:outline-none focus:border-zinc-900 dark:focus:border-primary transition-colors duration-500 uppercase font-headline tracking-wider resize-none text-sm md:text-base" placeholder="E.G., OCT 12-24, PICKUP FROM COLOMBO AIRPORT, TRAVELING TO ELLA..." rows="2"></textarea>
                     </div>
                     <div class="md:col-span-2 flex flex-col md:flex-row justify-between items-center gap-8 mt-4">
                         <div class="flex items-center gap-3">
@@ -486,7 +497,6 @@
             const isHidden = mobileMenu.classList.contains('hidden');
             if (isHidden) {
                 mobileMenu.classList.remove('hidden');
-                // Force reflow
                 void mobileMenu.offsetWidth;
                 mobileMenu.classList.remove('opacity-0', 'pointer-events-none');
             } else {
@@ -499,7 +509,6 @@
         closeMenuBtn.addEventListener('click', toggleMenu);
         mobileLinks.forEach(link => link.addEventListener('click', toggleMenu));
 
-
         // THEME TOGGLE LOGIC
         const themeToggleBtn = document.getElementById('theme-toggle');
         const htmlElement = document.documentElement;
@@ -511,12 +520,70 @@
             if (cursor) cursor.style.border = isDark ? '1px solid rgba(255, 255, 255, 0.4)' : '1px solid rgba(0, 0, 0, 0.4)';
         });
 
-        // CUSTOM CURSOR LOGIC (Only runs if cursor element exists)
+        // CUSTOM CURSOR LOGIC & SPARKS
         const cursor = document.querySelector('.custom-cursor');
         
+        // Setup Canvas for Sparks
+        const canvas = document.getElementById('sparkles');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class Particle {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+                this.size = Math.random() * 2 + 1; // Size of sparks
+                this.speedX = Math.random() * 2 - 1; // Drift left/right
+                this.speedY = Math.random() * 2 - 1.5; // Slight upward drift
+                this.life = 1;
+                this.decay = Math.random() * 0.02 + 0.02; // How fast they fade
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                this.life -= this.decay;
+            }
+            draw() {
+                ctx.globalAlpha = Math.max(0, this.life);
+                // Golden glow color
+                ctx.fillStyle = '#ebd59b'; 
+                ctx.shadowBlur = 8;
+                ctx.shadowColor = '#ebd59b';
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function animateSparks() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach((p, index) => {
+                p.update();
+                p.draw();
+                if (p.life <= 0) particles.splice(index, 1);
+            });
+            requestAnimationFrame(animateSparks);
+        }
+        animateSparks();
+
         if (cursor) {
             document.addEventListener('mousemove', (e) => {
+                // Move custom ring cursor
                 cursor.style.transform = `translate(${e.clientX - 6}px, ${e.clientY - 6}px)`;
+                
+                // Add new sparks on mouse move (only if it's a mouse pointer)
+                if(window.matchMedia("(pointer: fine)").matches) {
+                    for(let i = 0; i < 2; i++) {
+                        particles.push(new Particle(e.clientX, e.clientY));
+                    }
+                }
             });
 
             const interactives = document.querySelectorAll('button, a, .group, input, select, textarea');
