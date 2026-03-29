@@ -42,25 +42,21 @@
     
     <style>
         :root {
-            /* INCREASED OPACITY: Easily visible in light mode now */
             --symbol-opacity: 0.15; 
         }
         .dark {
-            /* INCREASED OPACITY: Easily visible in dark mode now */
             --symbol-opacity: 0.10;
         }
 
         body { overflow-x: hidden; }
         .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
         
-        /* Apply custom cursor ONLY on devices with a mouse */
         @media (pointer: fine) {
             body, a, button, input, select, textarea { cursor: none !important; }
         }
         
-        /* RESTORED & BALANCED LIQUID GLASS WITH HOVER TRANSITION */
         .liquid-glass {
-            background: rgba(255, 255, 255, 0.85); /* Clean frosted glass for light mode */
+            background: rgba(255, 255, 255, 0.85);
             backdrop-filter: blur(24px) saturate(120%);
             -webkit-backdrop-filter: blur(24px) saturate(120%);
             border: 1px solid rgba(255, 255, 255, 0.4);
@@ -68,7 +64,7 @@
             transition: all 0.5s ease-in-out;
         }
         .dark .liquid-glass {
-            background: rgba(20, 20, 20, 0.55); /* Deep frosted glass for dark mode */
+            background: rgba(20, 20, 20, 0.55);
             border: 1px solid rgba(255, 255, 255, 0.1);
             box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.6);
         }
@@ -87,7 +83,6 @@
         .dark .text-stroke { -webkit-text-stroke: 1px rgba(255, 255, 255, 0.2); }
         .text-obsidian { letter-spacing: -0.02em; line-height: 1.1; }
         
-        /* Cursors & Sparks Canvas */
         .custom-cursor {
             width: 12px; height: 12px;
             border: 1px solid rgba(0, 0, 0, 0.4);
@@ -102,10 +97,9 @@
             top: 0; left: 0;
             width: 100vw; height: 100vh;
             pointer-events: none;
-            z-index: 9998; /* Just below the cursor ring */
+            z-index: 9998;
         }
 
-        /* FLOATING BACKGROUND SYMBOLS ANIMATION */
         @keyframes floatSymbol {
             0% { transform: translateY(110vh) rotate(0deg); opacity: 0; }
             10% { opacity: var(--symbol-opacity); }
@@ -118,6 +112,84 @@
             pointer-events: none;
             animation: floatSymbol linear infinite;
         }
+
+        /* ── TOURS SECTION UNIQUE STYLES ── */
+
+        /* Filter tabs */
+        .tour-filter-btn {
+            transition: all 0.3s ease;
+        }
+        .tour-filter-btn.active {
+            background-color: rgb(24 24 27); /* zinc-900 */
+            color: #fff;
+            border-color: rgb(24 24 27);
+        }
+        .dark .tour-filter-btn.active {
+            background-color: #fff;
+            color: rgb(24 24 27);
+            border-color: #fff;
+        }
+
+        /* Tour card hover overlay badge */
+        .tour-card-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.72) 0%, transparent 55%);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        .tour-card:hover .tour-card-overlay { opacity: 1; }
+
+        /* Featured (wide) card */
+        .tour-card-featured .aspect-hero {
+            aspect-ratio: 16/7;
+        }
+
+        /* Duration pill */
+        .duration-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 2px 10px;
+            border-radius: 999px;
+            font-size: 0.6rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            font-weight: 600;
+            border: 1px solid currentColor;
+        }
+
+        /* Stagger-in animation for cards */
+        @keyframes cardReveal {
+            from { opacity: 0; transform: translateY(24px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        .tour-card {
+            animation: cardReveal 0.5s ease both;
+        }
+        .tour-card:nth-child(1) { animation-delay: 0.05s; }
+        .tour-card:nth-child(2) { animation-delay: 0.10s; }
+        .tour-card:nth-child(3) { animation-delay: 0.15s; }
+        .tour-card:nth-child(4) { animation-delay: 0.20s; }
+        .tour-card:nth-child(5) { animation-delay: 0.25s; }
+        .tour-card:nth-child(6) { animation-delay: 0.30s; }
+
+        /* Hide filtered out cards */
+        .tour-card.hidden-card {
+            display: none;
+        }
+
+        /* Marquee strip */
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        .marquee-track { 
+            display: flex; 
+            animation: marquee 28s linear infinite; 
+            width: max-content;
+        }
+        .marquee-track:hover { animation-play-state: paused; }
     </style>
 </head>
 <body class="bg-zinc-50 dark:bg-background text-zinc-900 dark:text-on-background font-body antialiased selection:bg-zinc-900 selection:text-white dark:selection:bg-primary dark:selection:text-on-primary transition-colors duration-500 relative">
@@ -191,7 +263,7 @@
                     </a>
                 </div>
             </div>
-            </div>
+        </div>
 
         <section class="py-20 md:py-32 px-6 md:px-16 bg-zinc-50 dark:bg-surface transition-colors duration-500 relative overflow-hidden">
             <div class="max-w-[1440px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 md:gap-16 items-start relative z-10">
@@ -249,9 +321,14 @@
             </div>
         </section>
 
+        <!-- ═══════════════════════════════════════════════════════════
+             TOURS SECTION — EXPANDED TO 6 PACKAGES
+        ════════════════════════════════════════════════════════════ -->
         <section id="tours" class="py-20 md:py-32 px-6 md:px-16 bg-zinc-50 dark:bg-surface transition-colors duration-500 scroll-mt-24 border-t border-zinc-200 dark:border-white/5 relative overflow-hidden">
             <div class="max-w-[1440px] mx-auto relative z-10">
-                <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 md:mb-20 gap-4 md:gap-8">
+
+                <!-- Header -->
+                <div class="flex flex-col md:flex-row md:items-end justify-between mb-10 md:mb-14 gap-6 md:gap-8">
                     <div class="max-w-2xl text-center md:text-left">
                         <span class="font-label text-zinc-500 dark:text-outline tracking-[0.2em] uppercase text-xs">Curated Itineraries</span>
                         <h2 class="font-headline text-4xl md:text-6xl font-extrabold text-zinc-900 dark:text-white mt-4 transition-colors duration-500">Signature Tour Packages</h2>
@@ -261,54 +338,289 @@
                     </div>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <div class="group relative overflow-hidden bg-white dark:bg-surface-container-high shadow-md hover:shadow-xl dark:shadow-none rounded-sm transition-all duration-500 border border-zinc-200 dark:border-white/5 flex flex-col h-full">
-                        <div class="aspect-[16/9] overflow-hidden">
+                <!-- Filter Tabs -->
+                <div class="flex flex-wrap gap-2 md:gap-3 mb-10 md:mb-14 justify-center md:justify-start">
+                    <button data-filter="all" class="tour-filter-btn active px-5 py-2 text-[0.65rem] uppercase tracking-widest font-label border border-zinc-300 dark:border-white/20 text-zinc-600 dark:text-zinc-300 hover:border-zinc-900 dark:hover:border-white hover:text-zinc-900 dark:hover:text-white transition-all duration-300 rounded-full">All Tours</button>
+                    <button data-filter="short" class="tour-filter-btn px-5 py-2 text-[0.65rem] uppercase tracking-widest font-label border border-zinc-300 dark:border-white/20 text-zinc-600 dark:text-zinc-300 hover:border-zinc-900 dark:hover:border-white hover:text-zinc-900 dark:hover:text-white transition-all duration-300 rounded-full">1–5 Days</button>
+                    <button data-filter="mid" class="tour-filter-btn px-5 py-2 text-[0.65rem] uppercase tracking-widest font-label border border-zinc-300 dark:border-white/20 text-zinc-600 dark:text-zinc-300 hover:border-zinc-900 dark:hover:border-white hover:text-zinc-900 dark:hover:text-white transition-all duration-300 rounded-full">6–10 Days</button>
+                    <button data-filter="long" class="tour-filter-btn px-5 py-2 text-[0.65rem] uppercase tracking-widest font-label border border-zinc-300 dark:border-white/20 text-zinc-600 dark:text-zinc-300 hover:border-zinc-900 dark:hover:border-white hover:text-zinc-900 dark:hover:text-white transition-all duration-300 rounded-full">11+ Days</button>
+                    <button data-filter="beach" class="tour-filter-btn px-5 py-2 text-[0.65rem] uppercase tracking-widest font-label border border-zinc-300 dark:border-white/20 text-zinc-600 dark:text-zinc-300 hover:border-zinc-900 dark:hover:border-white hover:text-zinc-900 dark:hover:text-white transition-all duration-300 rounded-full">Beach</button>
+                    <button data-filter="wildlife" class="tour-filter-btn px-5 py-2 text-[0.65rem] uppercase tracking-widest font-label border border-zinc-300 dark:border-white/20 text-zinc-600 dark:text-zinc-300 hover:border-zinc-900 dark:hover:border-white hover:text-zinc-900 dark:hover:text-white transition-all duration-300 rounded-full">Wildlife</button>
+                    <button data-filter="culture" class="tour-filter-btn px-5 py-2 text-[0.65rem] uppercase tracking-widest font-label border border-zinc-300 dark:border-white/20 text-zinc-600 dark:text-zinc-300 hover:border-zinc-900 dark:hover:border-white hover:text-zinc-900 dark:hover:text-white transition-all duration-300 rounded-full">Culture</button>
+                </div>
+
+                <!-- Tour Count -->
+                <p class="text-[0.65rem] uppercase tracking-[0.2em] text-zinc-400 dark:text-zinc-600 mb-8 font-label text-center md:text-left">
+                    Showing <span id="tour-count">6</span> of 6 packages
+                </p>
+
+                <!-- ── TOUR GRID ── -->
+                <div id="tours-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                    <!-- 1. The Cultural Explorer — EXISTING -->
+                    <div class="tour-card group relative overflow-hidden bg-white dark:bg-surface-container-high shadow-md hover:shadow-xl dark:shadow-none rounded-sm transition-all duration-500 border border-zinc-200 dark:border-white/5 flex flex-col h-full"
+                         data-tags="short culture">
+                        <div class="aspect-[16/9] overflow-hidden relative">
                             <img src="./images/tour-cultural.jpg" alt="Cultural Triangle" class="w-full h-full object-cover grayscale opacity-90 md:group-hover:grayscale-0 md:group-hover:opacity-100 md:group-hover:scale-105 transition-all duration-1000">
+                            <div class="tour-card-overlay"></div>
+                            <div class="absolute top-4 left-4 z-10">
+                                <span class="duration-pill bg-white/10 backdrop-blur-sm text-white border-white/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                    <span class="material-symbols-outlined text-[10px]">schedule</span>
+                                    5 Days
+                                </span>
+                            </div>
+                            <div class="absolute bottom-4 left-4 right-4 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                <div class="flex flex-wrap gap-1">
+                                    <span class="text-[0.55rem] uppercase tracking-wider bg-white/15 backdrop-blur-sm text-white px-2 py-0.5 rounded-full">Ancient Ruins</span>
+                                    <span class="text-[0.55rem] uppercase tracking-wider bg-white/15 backdrop-blur-sm text-white px-2 py-0.5 rounded-full">Temples</span>
+                                    <span class="text-[0.55rem] uppercase tracking-wider bg-white/15 backdrop-blur-sm text-white px-2 py-0.5 rounded-full">Rock Fortress</span>
+                                </div>
+                            </div>
                         </div>
                         <div class="p-6 md:p-8 flex flex-col flex-grow">
                             <span class="font-label text-[0.6rem] uppercase tracking-widest text-zinc-500 dark:text-outline mb-2">5 Days / 4 Nights</span>
                             <h3 class="text-xl md:text-2xl font-headline font-bold text-zinc-900 dark:text-white mb-4">The Cultural Explorer</h3>
                             <p class="text-sm text-zinc-600 dark:text-zinc-400 mb-8 leading-relaxed flex-grow">Dive into ancient history. Visit the magnificent Sigiriya Rock Fortress, the Dambulla Cave Temples, the ruins of Polonnaruwa, and the sacred city of Kandy.</p>
-                            <div class="border-t border-zinc-200 dark:border-white/10 pt-6 mt-auto">
-                                <span class="block text-[0.65rem] uppercase tracking-widest text-zinc-500 dark:text-outline mb-4">Route: Colombo ➔ Sigiriya ➔ Kandy</span>
+                            <div class="border-t border-zinc-200 dark:border-white/10 pt-6 mt-auto flex items-end justify-between">
+                                <div>
+                                    <span class="block text-[0.65rem] uppercase tracking-widest text-zinc-500 dark:text-outline mb-1">Route</span>
+                                    <span class="text-[0.65rem] text-zinc-600 dark:text-zinc-400">Colombo ➔ Sigiriya ➔ Kandy</span>
+                                </div>
                                 <a href="#inquire" class="inline-block text-xs uppercase tracking-widest text-zinc-900 dark:text-white border-b border-zinc-400 hover:border-zinc-900 dark:border-white/30 dark:hover:border-white transition-all py-1">Inquire</a>
                             </div>
                         </div>
                     </div>
 
-                    <div class="group relative overflow-hidden bg-white dark:bg-surface-container-high shadow-md hover:shadow-xl dark:shadow-none rounded-sm transition-all duration-500 border border-zinc-200 dark:border-white/5 flex flex-col h-full">
-                        <div class="aspect-[16/9] overflow-hidden">
+                    <!-- 2. Highland Serenity — EXISTING -->
+                    <div class="tour-card group relative overflow-hidden bg-white dark:bg-surface-container-high shadow-md hover:shadow-xl dark:shadow-none rounded-sm transition-all duration-500 border border-zinc-200 dark:border-white/5 flex flex-col h-full"
+                         data-tags="mid wildlife">
+                        <div class="aspect-[16/9] overflow-hidden relative">
                             <img src="./images/tour-highland.jpg" alt="Highland Serenity" class="w-full h-full object-cover grayscale opacity-90 md:group-hover:grayscale-0 md:group-hover:opacity-100 md:group-hover:scale-105 transition-all duration-1000">
+                            <div class="tour-card-overlay"></div>
+                            <div class="absolute top-4 left-4 z-10">
+                                <span class="duration-pill bg-white/10 backdrop-blur-sm text-white border-white/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                    <span class="material-symbols-outlined text-[10px]">schedule</span>
+                                    7 Days
+                                </span>
+                            </div>
+                            <div class="absolute bottom-4 left-4 right-4 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                <div class="flex flex-wrap gap-1">
+                                    <span class="text-[0.55rem] uppercase tracking-wider bg-white/15 backdrop-blur-sm text-white px-2 py-0.5 rounded-full">Tea Estates</span>
+                                    <span class="text-[0.55rem] uppercase tracking-wider bg-white/15 backdrop-blur-sm text-white px-2 py-0.5 rounded-full">Safari</span>
+                                    <span class="text-[0.55rem] uppercase tracking-wider bg-white/15 backdrop-blur-sm text-white px-2 py-0.5 rounded-full">Train Journey</span>
+                                </div>
+                            </div>
                         </div>
                         <div class="p-6 md:p-8 flex flex-col flex-grow">
                             <span class="font-label text-[0.6rem] uppercase tracking-widest text-zinc-500 dark:text-outline mb-2">7 Days / 6 Nights</span>
                             <h3 class="text-xl md:text-2xl font-headline font-bold text-zinc-900 dark:text-white mb-4">Highland Serenity</h3>
                             <p class="text-sm text-zinc-600 dark:text-zinc-400 mb-8 leading-relaxed flex-grow">A journey through emerald tea estates. Experience Kandy, the scenic train to Ella, Nuwara Eliya, and a wildlife safari in Yala.</p>
-                            <div class="border-t border-zinc-200 dark:border-white/10 pt-6 mt-auto">
-                                <span class="block text-[0.65rem] uppercase tracking-widest text-zinc-500 dark:text-outline mb-4">Route: Kandy ➔ Ella ➔ Yala ➔ Galle</span>
+                            <div class="border-t border-zinc-200 dark:border-white/10 pt-6 mt-auto flex items-end justify-between">
+                                <div>
+                                    <span class="block text-[0.65rem] uppercase tracking-widest text-zinc-500 dark:text-outline mb-1">Route</span>
+                                    <span class="text-[0.65rem] text-zinc-600 dark:text-zinc-400">Kandy ➔ Ella ➔ Yala ➔ Galle</span>
+                                </div>
                                 <a href="#inquire" class="inline-block text-xs uppercase tracking-widest text-zinc-900 dark:text-white border-b border-zinc-400 hover:border-zinc-900 dark:border-white/30 dark:hover:border-white transition-all py-1">Inquire</a>
                             </div>
                         </div>
                     </div>
 
-                    <div class="group relative overflow-hidden bg-white dark:bg-surface-container-high shadow-md hover:shadow-xl dark:shadow-none rounded-sm transition-all duration-500 border border-zinc-200 dark:border-white/5 flex flex-col h-full">
-                        <div class="aspect-[16/9] overflow-hidden">
+                    <!-- 3. The Grand Circuit — EXISTING -->
+                    <div class="tour-card group relative overflow-hidden bg-white dark:bg-surface-container-high shadow-md hover:shadow-xl dark:shadow-none rounded-sm transition-all duration-500 border border-zinc-200 dark:border-white/5 flex flex-col h-full"
+                         data-tags="long wildlife beach culture">
+                        <div class="aspect-[16/9] overflow-hidden relative">
                             <img src="./images/tour-grand.jpg" alt="Grand Ceylon Circuit" class="w-full h-full object-cover grayscale opacity-90 md:group-hover:grayscale-0 md:group-hover:opacity-100 md:group-hover:scale-105 transition-all duration-1000">
+                            <div class="tour-card-overlay"></div>
+                            <!-- FEATURED BADGE -->
+                            <div class="absolute top-4 right-4 z-10">
+                                <span class="text-[0.55rem] uppercase tracking-wider bg-zinc-900 text-white dark:bg-white dark:text-zinc-900 px-3 py-1 font-label font-bold">Most Popular</span>
+                            </div>
+                            <div class="absolute top-4 left-4 z-10">
+                                <span class="duration-pill bg-white/10 backdrop-blur-sm text-white border-white/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                    <span class="material-symbols-outlined text-[10px]">schedule</span>
+                                    14 Days
+                                </span>
+                            </div>
+                            <div class="absolute bottom-4 left-4 right-4 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                <div class="flex flex-wrap gap-1">
+                                    <span class="text-[0.55rem] uppercase tracking-wider bg-white/15 backdrop-blur-sm text-white px-2 py-0.5 rounded-full">Island-Wide</span>
+                                    <span class="text-[0.55rem] uppercase tracking-wider bg-white/15 backdrop-blur-sm text-white px-2 py-0.5 rounded-full">Full Circuit</span>
+                                </div>
+                            </div>
                         </div>
                         <div class="p-6 md:p-8 flex flex-col flex-grow">
                             <span class="font-label text-[0.6rem] uppercase tracking-widest text-zinc-500 dark:text-outline mb-2">14 Days / 13 Nights</span>
                             <h3 class="text-xl md:text-2xl font-headline font-bold text-zinc-900 dark:text-white mb-4">The Grand Circuit</h3>
                             <p class="text-sm text-zinc-600 dark:text-zinc-400 mb-8 leading-relaxed flex-grow">The ultimate island overview. Combine ancient ruins, misty highlands, thrilling safaris, and pristine southern beaches into one seamless circuit.</p>
-                            <div class="border-t border-zinc-200 dark:border-white/10 pt-6 mt-auto">
-                                <span class="block text-[0.65rem] uppercase tracking-widest text-zinc-500 dark:text-outline mb-4">Route: Island-Wide Comprehensive</span>
+                            <div class="border-t border-zinc-200 dark:border-white/10 pt-6 mt-auto flex items-end justify-between">
+                                <div>
+                                    <span class="block text-[0.65rem] uppercase tracking-widest text-zinc-500 dark:text-outline mb-1">Route</span>
+                                    <span class="text-[0.65rem] text-zinc-600 dark:text-zinc-400">Island-Wide Comprehensive</span>
+                                </div>
                                 <a href="#inquire" class="inline-block text-xs uppercase tracking-widest text-zinc-900 dark:text-white border-b border-zinc-400 hover:border-zinc-900 dark:border-white/30 dark:hover:border-white transition-all py-1">Inquire</a>
                             </div>
                         </div>
                     </div>
+
+                    <!-- 4. The Southern Shoreline — NEW -->
+                    <div class="tour-card group relative overflow-hidden bg-white dark:bg-surface-container-high shadow-md hover:shadow-xl dark:shadow-none rounded-sm transition-all duration-500 border border-zinc-200 dark:border-white/5 flex flex-col h-full"
+                         data-tags="short beach">
+                        <div class="aspect-[16/9] overflow-hidden relative">
+                            <!-- Gradient placeholder if image not present -->
+                            <div class="absolute inset-0 bg-gradient-to-br from-zinc-200 to-zinc-400 dark:from-zinc-700 dark:to-zinc-900"></div>
+                            <img src="./images/tour-coastal.jpg" alt="Southern Shoreline" 
+                                 class="w-full h-full object-cover grayscale opacity-90 md:group-hover:grayscale-0 md:group-hover:opacity-100 md:group-hover:scale-105 transition-all duration-1000 relative z-[1]"
+                                 onerror="this.style.opacity='0'">
+                            <div class="tour-card-overlay"></div>
+                            <!-- NEW badge -->
+                            <div class="absolute top-4 right-4 z-10">
+                                <span class="text-[0.55rem] uppercase tracking-wider bg-zinc-900/80 backdrop-blur-sm text-white dark:bg-white/20 dark:text-white px-3 py-1 font-label font-bold border border-white/20">New</span>
+                            </div>
+                            <div class="absolute top-4 left-4 z-10">
+                                <span class="duration-pill bg-white/10 backdrop-blur-sm text-white border-white/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                    <span class="material-symbols-outlined text-[10px]">schedule</span>
+                                    4 Days
+                                </span>
+                            </div>
+                            <div class="absolute bottom-4 left-4 right-4 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                <div class="flex flex-wrap gap-1">
+                                    <span class="text-[0.55rem] uppercase tracking-wider bg-white/15 backdrop-blur-sm text-white px-2 py-0.5 rounded-full">Galle Fort</span>
+                                    <span class="text-[0.55rem] uppercase tracking-wider bg-white/15 backdrop-blur-sm text-white px-2 py-0.5 rounded-full">Whale Watching</span>
+                                    <span class="text-[0.55rem] uppercase tracking-wider bg-white/15 backdrop-blur-sm text-white px-2 py-0.5 rounded-full">Beach</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-6 md:p-8 flex flex-col flex-grow">
+                            <span class="font-label text-[0.6rem] uppercase tracking-widest text-zinc-500 dark:text-outline mb-2">4 Days / 3 Nights</span>
+                            <h3 class="text-xl md:text-2xl font-headline font-bold text-zinc-900 dark:text-white mb-4">The Southern Shoreline</h3>
+                            <p class="text-sm text-zinc-600 dark:text-zinc-400 mb-8 leading-relaxed flex-grow">Chase the sun down Sri Lanka's most iconic coast. Explore the colonial splendour of Galle Fort, the sea-turtle beaches of Mirissa, and optional whale watching excursions off the southern tip.</p>
+                            <div class="border-t border-zinc-200 dark:border-white/10 pt-6 mt-auto flex items-end justify-between">
+                                <div>
+                                    <span class="block text-[0.65rem] uppercase tracking-widest text-zinc-500 dark:text-outline mb-1">Route</span>
+                                    <span class="text-[0.65rem] text-zinc-600 dark:text-zinc-400">Colombo ➔ Galle ➔ Mirissa ➔ Tangalle</span>
+                                </div>
+                                <a href="#inquire" class="inline-block text-xs uppercase tracking-widest text-zinc-900 dark:text-white border-b border-zinc-400 hover:border-zinc-900 dark:border-white/30 dark:hover:border-white transition-all py-1">Inquire</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 5. Wild Kingdom Safari — NEW -->
+                    <div class="tour-card group relative overflow-hidden bg-white dark:bg-surface-container-high shadow-md hover:shadow-xl dark:shadow-none rounded-sm transition-all duration-500 border border-zinc-200 dark:border-white/5 flex flex-col h-full"
+                         data-tags="mid wildlife">
+                        <div class="aspect-[16/9] overflow-hidden relative">
+                            <div class="absolute inset-0 bg-gradient-to-br from-zinc-200 to-zinc-400 dark:from-zinc-700 dark:to-zinc-900"></div>
+                            <img src="./images/tour-safari.jpg" alt="Wild Kingdom Safari" 
+                                 class="w-full h-full object-cover grayscale opacity-90 md:group-hover:grayscale-0 md:group-hover:opacity-100 md:group-hover:scale-105 transition-all duration-1000 relative z-[1]"
+                                 onerror="this.style.opacity='0'">
+                            <div class="tour-card-overlay"></div>
+                            <div class="absolute top-4 right-4 z-10">
+                                <span class="text-[0.55rem] uppercase tracking-wider bg-zinc-900/80 backdrop-blur-sm text-white dark:bg-white/20 dark:text-white px-3 py-1 font-label font-bold border border-white/20">New</span>
+                            </div>
+                            <div class="absolute top-4 left-4 z-10">
+                                <span class="duration-pill bg-white/10 backdrop-blur-sm text-white border-white/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                    <span class="material-symbols-outlined text-[10px]">schedule</span>
+                                    6 Days
+                                </span>
+                            </div>
+                            <div class="absolute bottom-4 left-4 right-4 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                <div class="flex flex-wrap gap-1">
+                                    <span class="text-[0.55rem] uppercase tracking-wider bg-white/15 backdrop-blur-sm text-white px-2 py-0.5 rounded-full">Leopard Safari</span>
+                                    <span class="text-[0.55rem] uppercase tracking-wider bg-white/15 backdrop-blur-sm text-white px-2 py-0.5 rounded-full">Elephants</span>
+                                    <span class="text-[0.55rem] uppercase tracking-wider bg-white/15 backdrop-blur-sm text-white px-2 py-0.5 rounded-full">Wilderness</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-6 md:p-8 flex flex-col flex-grow">
+                            <span class="font-label text-[0.6rem] uppercase tracking-widest text-zinc-500 dark:text-outline mb-2">6 Days / 5 Nights</span>
+                            <h3 class="text-xl md:text-2xl font-headline font-bold text-zinc-900 dark:text-white mb-4">Wild Kingdom Safari</h3>
+                            <p class="text-sm text-zinc-600 dark:text-zinc-400 mb-8 leading-relaxed flex-grow">Three of Sri Lanka's finest national parks in one curated circuit. Track leopards at Yala, observe elephant herds at Udawalawe, and discover the bird-rich lagoons of Bundala — all from the comfort of a private vehicle.</p>
+                            <div class="border-t border-zinc-200 dark:border-white/10 pt-6 mt-auto flex items-end justify-between">
+                                <div>
+                                    <span class="block text-[0.65rem] uppercase tracking-widest text-zinc-500 dark:text-outline mb-1">Route</span>
+                                    <span class="text-[0.65rem] text-zinc-600 dark:text-zinc-400">Colombo ➔ Udawalawe ➔ Yala ➔ Bundala</span>
+                                </div>
+                                <a href="#inquire" class="inline-block text-xs uppercase tracking-widest text-zinc-900 dark:text-white border-b border-zinc-400 hover:border-zinc-900 dark:border-white/30 dark:hover:border-white transition-all py-1">Inquire</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 6. The North Unveiled — NEW -->
+                    <div class="tour-card group relative overflow-hidden bg-white dark:bg-surface-container-high shadow-md hover:shadow-xl dark:shadow-none rounded-sm transition-all duration-500 border border-zinc-200 dark:border-white/5 flex flex-col h-full"
+                         data-tags="long culture beach">
+                        <div class="aspect-[16/9] overflow-hidden relative">
+                            <div class="absolute inset-0 bg-gradient-to-br from-zinc-200 to-zinc-400 dark:from-zinc-700 dark:to-zinc-900"></div>
+                            <img src="./images/tour-north.jpg" alt="The North Unveiled" 
+                                 class="w-full h-full object-cover grayscale opacity-90 md:group-hover:grayscale-0 md:group-hover:opacity-100 md:group-hover:scale-105 transition-all duration-1000 relative z-[1]"
+                                 onerror="this.style.opacity='0'">
+                            <div class="tour-card-overlay"></div>
+                            <div class="absolute top-4 right-4 z-10">
+                                <span class="text-[0.55rem] uppercase tracking-wider bg-zinc-900/80 backdrop-blur-sm text-white dark:bg-white/20 dark:text-white px-3 py-1 font-label font-bold border border-white/20">New</span>
+                            </div>
+                            <div class="absolute top-4 left-4 z-10">
+                                <span class="duration-pill bg-white/10 backdrop-blur-sm text-white border-white/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                    <span class="material-symbols-outlined text-[10px]">schedule</span>
+                                    10 Days
+                                </span>
+                            </div>
+                            <div class="absolute bottom-4 left-4 right-4 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                <div class="flex flex-wrap gap-1">
+                                    <span class="text-[0.55rem] uppercase tracking-wider bg-white/15 backdrop-blur-sm text-white px-2 py-0.5 rounded-full">Jaffna</span>
+                                    <span class="text-[0.55rem] uppercase tracking-wider bg-white/15 backdrop-blur-sm text-white px-2 py-0.5 rounded-full">Off the Beaten Path</span>
+                                    <span class="text-[0.55rem] uppercase tracking-wider bg-white/15 backdrop-blur-sm text-white px-2 py-0.5 rounded-full">Tamil Heritage</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-6 md:p-8 flex flex-col flex-grow">
+                            <span class="font-label text-[0.6rem] uppercase tracking-widest text-zinc-500 dark:text-outline mb-2">10 Days / 9 Nights</span>
+                            <h3 class="text-xl md:text-2xl font-headline font-bold text-zinc-900 dark:text-white mb-4">The North Unveiled</h3>
+                            <p class="text-sm text-zinc-600 dark:text-zinc-400 mb-8 leading-relaxed flex-grow">Sri Lanka's least-explored chapter. Journey to the peninsula city of Jaffna, discover ancient Hindu temples, pristine lagoon islands, and the timeless causeway to Nainativu — a route most tourists never see.</p>
+                            <div class="border-t border-zinc-200 dark:border-white/10 pt-6 mt-auto flex items-end justify-between">
+                                <div>
+                                    <span class="block text-[0.65rem] uppercase tracking-widest text-zinc-500 dark:text-outline mb-1">Route</span>
+                                    <span class="text-[0.65rem] text-zinc-600 dark:text-zinc-400">Colombo ➔ Anuradhapura ➔ Jaffna ➔ Islands</span>
+                                </div>
+                                <a href="#inquire" class="inline-block text-xs uppercase tracking-widest text-zinc-900 dark:text-white border-b border-zinc-400 hover:border-zinc-900 dark:border-white/30 dark:hover:border-white transition-all py-1">Inquire</a>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
+                <!-- /tours-grid -->
+
+                <!-- Marquee strip: destinations -->
+                <div class="mt-20 overflow-hidden border-t border-b border-zinc-200 dark:border-white/10 py-5 relative">
+                    <div class="marquee-track text-zinc-400 dark:text-zinc-600 text-[0.6rem] uppercase tracking-[0.3em] font-label select-none">
+                        <span class="px-8">Sigiriya</span><span class="px-2 text-zinc-200 dark:text-zinc-800">·</span>
+                        <span class="px-8">Ella</span><span class="px-2 text-zinc-200 dark:text-zinc-800">·</span>
+                        <span class="px-8">Galle Fort</span><span class="px-2 text-zinc-200 dark:text-zinc-800">·</span>
+                        <span class="px-8">Yala National Park</span><span class="px-2 text-zinc-200 dark:text-zinc-800">·</span>
+                        <span class="px-8">Kandy</span><span class="px-2 text-zinc-200 dark:text-zinc-800">·</span>
+                        <span class="px-8">Nuwara Eliya</span><span class="px-2 text-zinc-200 dark:text-zinc-800">·</span>
+                        <span class="px-8">Jaffna</span><span class="px-2 text-zinc-200 dark:text-zinc-800">·</span>
+                        <span class="px-8">Mirissa</span><span class="px-2 text-zinc-200 dark:text-zinc-800">·</span>
+                        <span class="px-8">Udawalawe</span><span class="px-2 text-zinc-200 dark:text-zinc-800">·</span>
+                        <span class="px-8">Polonnaruwa</span><span class="px-2 text-zinc-200 dark:text-zinc-800">·</span>
+                        <span class="px-8">Tangalle</span><span class="px-2 text-zinc-200 dark:text-zinc-800">·</span>
+                        <span class="px-8">Trincomalee</span><span class="px-2 text-zinc-200 dark:text-zinc-800">·</span>
+                        <!-- duplicate for seamless loop -->
+                        <span class="px-8">Sigiriya</span><span class="px-2 text-zinc-200 dark:text-zinc-800">·</span>
+                        <span class="px-8">Ella</span><span class="px-2 text-zinc-200 dark:text-zinc-800">·</span>
+                        <span class="px-8">Galle Fort</span><span class="px-2 text-zinc-200 dark:text-zinc-800">·</span>
+                        <span class="px-8">Yala National Park</span><span class="px-2 text-zinc-200 dark:text-zinc-800">·</span>
+                        <span class="px-8">Kandy</span><span class="px-2 text-zinc-200 dark:text-zinc-800">·</span>
+                        <span class="px-8">Nuwara Eliya</span><span class="px-2 text-zinc-200 dark:text-zinc-800">·</span>
+                        <span class="px-8">Jaffna</span><span class="px-2 text-zinc-200 dark:text-zinc-800">·</span>
+                        <span class="px-8">Mirissa</span><span class="px-2 text-zinc-200 dark:text-zinc-800">·</span>
+                        <span class="px-8">Udawalawe</span><span class="px-2 text-zinc-200 dark:text-zinc-800">·</span>
+                        <span class="px-8">Polonnaruwa</span><span class="px-2 text-zinc-200 dark:text-zinc-800">·</span>
+                        <span class="px-8">Tangalle</span><span class="px-2 text-zinc-200 dark:text-zinc-800">·</span>
+                        <span class="px-8">Trincomalee</span><span class="px-2 text-zinc-200 dark:text-zinc-800">·</span>
+                    </div>
+                </div>
+
             </div>
         </section>
+        <!-- /tours -->
 
         <section id="fleet" class="py-20 md:py-32 px-6 md:px-16 bg-white dark:bg-surface-container-lowest transition-colors duration-500 scroll-mt-24 border-t border-zinc-200 dark:border-white/5 relative overflow-hidden">
             <div class="max-w-[1440px] mx-auto relative z-10">
@@ -533,6 +845,9 @@
                                 <option>THE CULTURAL EXPLORER (5 DAYS)</option>
                                 <option>HIGHLAND SERENITY (7 DAYS)</option>
                                 <option>THE GRAND CIRCUIT (14 DAYS)</option>
+                                <option>THE SOUTHERN SHORELINE (4 DAYS)</option>
+                                <option>WILD KINGDOM SAFARI (6 DAYS)</option>
+                                <option>THE NORTH UNVEILED (10 DAYS)</option>
                             </optgroup>
                             <optgroup label="Other" class="bg-white text-zinc-900 dark:bg-surface dark:text-on-surface">
                                 <option>AIRPORT TRANSFER ONLY</option>
@@ -584,10 +899,10 @@
             span.className = 'material-symbols-outlined floating-symbol text-zinc-900 dark:text-white transition-colors duration-500';
             span.innerText = icons[Math.floor(Math.random() * icons.length)];
             
-            const size = Math.random() * 60 + 30; // 30px to 90px
-            const left = Math.random() * 100; // 0% to 100%
-            const animDuration = Math.random() * 30 + 30; // 30s to 60s
-            const animDelay = Math.random() * -60; // Negative delay to pre-fill screen
+            const size = Math.random() * 60 + 30;
+            const left = Math.random() * 100;
+            const animDuration = Math.random() * 30 + 30;
+            const animDelay = Math.random() * -60;
             
             span.style.fontSize = `${size}px`;
             span.style.left = `${left}vw`;
@@ -633,7 +948,6 @@
         // CUSTOM CURSOR LOGIC & SPARKS
         const cursor = document.querySelector('.custom-cursor');
         
-        // Setup Canvas for Sparks
         const canvas = document.getElementById('sparkles');
         const ctx = canvas.getContext('2d');
         let particles = [];
@@ -649,19 +963,17 @@
             constructor(x, y, isDark) {
                 this.x = x;
                 this.y = y;
-                // REVERTED SIZE: Slightly larger to be visible
                 this.size = Math.random() * 2.5 + 1.5; 
-                this.speedX = Math.random() * 2 - 1; // Drift left/right
-                this.speedY = Math.random() * 2 - 1.5; // Slight upward drift
+                this.speedX = Math.random() * 2 - 1;
+                this.speedY = Math.random() * 2 - 1.5;
                 this.life = 1;
-                this.decay = Math.random() * 0.02 + 0.02; // How fast they fade
+                this.decay = Math.random() * 0.02 + 0.02;
                 
-                // Color based on theme (UPDATED TO BLACK IN LIGHT MODE)
                 if (isDark) {
-                    const darkColors = ['#cbd5e1', '#93c5fd', '#bae6fd', '#e2e8f0']; // Silvers/light blues
+                    const darkColors = ['#cbd5e1', '#93c5fd', '#bae6fd', '#e2e8f0'];
                     this.color = darkColors[Math.floor(Math.random() * darkColors.length)];
                 } else {
-                    const lightColors = ['#000000', '#1c1917', '#334155']; // Black & dark slate grays
+                    const lightColors = ['#000000', '#1c1917', '#334155'];
                     this.color = lightColors[Math.floor(Math.random() * lightColors.length)];
                 }
             }
@@ -694,10 +1006,8 @@
 
         if (cursor) {
             document.addEventListener('mousemove', (e) => {
-                // Move custom ring cursor
                 cursor.style.transform = `translate(${e.clientX - 6}px, ${e.clientY - 6}px)`;
                 
-                // Add new sparks on mouse move (only if it's a mouse pointer)
                 if(window.matchMedia("(pointer: fine)").matches) {
                     const isDark = htmlElement.classList.contains('dark');
                     for(let i = 0; i < 2; i++) {
@@ -746,7 +1056,6 @@
             });
 
             navLinks.forEach((link) => {
-                const isDark = htmlElement.classList.contains('dark');
                 link.classList.remove("text-zinc-900", "dark:text-white", "border-b", "border-zinc-900", "dark:border-white/50", "pb-1");
                 link.classList.add("text-zinc-500", "dark:text-zinc-400");
                 
@@ -754,6 +1063,35 @@
                     link.classList.add("text-zinc-900", "dark:text-white", "border-b", "border-zinc-900", "dark:border-white/50", "pb-1");
                     link.classList.remove("text-zinc-500", "dark:text-zinc-400");
                 }
+            });
+        });
+
+        // ── TOUR FILTER LOGIC ──
+        const filterBtns = document.querySelectorAll('.tour-filter-btn');
+        const tourCards  = document.querySelectorAll('.tour-card');
+        const tourCount  = document.getElementById('tour-count');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Update active state
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                const filter = btn.dataset.filter;
+                let visible = 0;
+
+                tourCards.forEach(card => {
+                    const tags = card.dataset.tags || '';
+                    const show = filter === 'all' || tags.includes(filter);
+                    if (show) {
+                        card.classList.remove('hidden-card');
+                        visible++;
+                    } else {
+                        card.classList.add('hidden-card');
+                    }
+                });
+
+                tourCount.textContent = visible;
             });
         });
     </script>
