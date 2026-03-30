@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>SerenDrive | Vehicle Details</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+    <style>
+        body { background: #f4f4f4; color: #111; font-family: Inter, sans-serif; }
+        .card { background: white; border-radius: 8px; border: 1px solid #e5e5e5; box-shadow: 0 10px 25px rgba(0,0,0,.08); }
+        .hero { background: radial-gradient(circle at top, #f8fafc, #dbeafe); }
+        .anchor-link { text-decoration: none; border-bottom: 1px solid; }
+    </style>
+</head>
+<body>
+    <div class="max-w-6xl mx-auto px-4 py-12">
+        <header class="hero rounded-xl p-8 mb-10 text-center">
+            <h1 class="text-4xl font-bold mb-3">SerenDrive Fleet Details</h1>
+            <p class="text-gray-700">Detailed specifications and use cases for every vehicle category in our simplified 6-car fleet.</p>
+            <p class="mt-4 text-sm text-gray-600">Click to jump to a vehicle: 
+                <a href="#wagonr" class="anchor-link">Wagon R</a> ·
+                <a href="#shuttle" class="anchor-link">Honda Shuttle</a> ·
+                <a href="#kdh-flat" class="anchor-link">KDH Flat</a> ·
+                <a href="#kdh-high" class="anchor-link">KDH High</a> ·
+                <a href="#prius" class="anchor-link">Prius</a> ·
+                <a href="#axio" class="anchor-link">Axio</a>
+            </p>
+            <p class="mt-5"><a href="index.html#fleet" class="px-5 py-2 bg-slate-900 text-white rounded-lg text-sm">Back to Fleet</a></p>
+        </header>
+
+        <div class="space-y-10">
+            <section id="wagonr" class="card p-8">
+                <h2 class="text-2xl font-bold mb-2">Suzuki Wagon R</h2>
+                <p class="text-gray-700 mb-4">Category: Economy Hatchback</p>
+                <ul class="list-disc list-inside text-gray-700 mb-4">
+                    <li>Passengers: up to 3</li>
+                    <li>Luggage: 2 medium bags</li>
+                    <li>Fuel: Petrol, excellent city mileage (up to 18 km/l)</li>
+                    <li>Best for airport runs, city visits, short transfers</li>
+                    <li>Key features: Compact parking, reliable engine, low price point</li>
+                </ul>
+                <p class="text-sm text-gray-600">This is our most budget-friendly vehicle. We recommend it when you need basic transportation with essential comfort and great fuel economy.</p>
+            </section>
+
+            <section id="shuttle" class="card p-8">
+                <h2 class="text-2xl font-bold mb-2">Honda Shuttle</h2>
+                <p class="text-gray-700 mb-4">Category: Practical Wagon</p>
+                <ul class="list-disc list-inside text-gray-700 mb-4">
+                    <li>Passengers: up to 4</li>
+                    <li>Luggage: 3 medium bags</li>
+                    <li>Fuel: Petrol, smooth city to highway performance</li>
+                    <li>Best for small groups, airport + hotel shuttles, day circuits</li>
+                    <li>Key features: Spacious rear, comfortable rear seat, stable ride</li>
+                </ul>
+                <p class="text-sm text-gray-600">Honda Shuttle balances economy and practicality with a little extra room for luggage and passengers, ideal for compact groups who enjoy smooth city handling.</p>
+            </section>
+
+            <section id="kdh-flat" class="card p-8">
+                <h2 class="text-2xl font-bold mb-2">Toyota KDH (Flat Roof)</h2>
+                <p class="text-gray-700 mb-4">Category: Standard Minivan</p>
+                <ul class="list-disc list-inside text-gray-700 mb-4">
+                    <li>Passengers: up to 6</li>
+                    <li>Luggage: 5 medium bags</li>
+                    <li>Fuel: Diesel, good efficiency for longer transfers</li>
+                    <li>Best for families, multi-day itineraries, airport transfers with cargo</li>
+                    <li>Key features: Easy curb access, moderate cabin height, flexible seating</li>
+                </ul>
+                <p class="text-sm text-gray-600">This is the standard people-mover for groups who need affordable space and dependable reliability without high roof overhead charges.</p>
+            </section>
+
+            <section id="kdh-high" class="card p-8">
+                <h2 class="text-2xl font-bold mb-2">Toyota KDH (High Roof)</h2>
+                <p class="text-gray-700 mb-4">Category: Premium Minivan</p>
+                <ul class="list-disc list-inside text-gray-700 mb-4">
+                    <li>Passengers: up to 9</li>
+                    <li>Luggage: 8 medium bags</li>
+                    <li>Fuel: Diesel, best for long-route comfort</li>
+                    <li>Best for larger groups, long hill-country journeys, comfortable load-in/out</li>
+                    <li>Key features: Tall cabin, walk-in comfort, more overhead space</li>
+                </ul>
+                <p class="text-sm text-gray-600">Perfect for multi-stop tours where people need to stretch, stand, and enjoy more legroom on lengthy travel days.</p>
+            </section>
+
+            <section id="prius" class="card p-8">
+                <h2 class="text-2xl font-bold mb-2">Toyota Prius</h2>
+                <p class="text-gray-700 mb-4">Category: Eco Hybrid</p>
+                <ul class="list-disc list-inside text-gray-700 mb-4">
+                    <li>Passengers: up to 3</li>
+                    <li>Luggage: 3 medium bags</li>
+                    <li>Fuel: Hybrid Petrol/Electric, best-in-class efficiency</li>
+                    <li>Best for green-conscious clients, airport pickup, city circuits</li>
+                    <li>Key features: Quiet cabin, advanced hybrid mode, chargeless braking energy regen</li>
+                </ul>
+                <p class="text-sm text-gray-600">The premium eco choice in our lineup: low running costs and a smaller footprint for guest use within city limits and beyond.</p>
+            </section>
+
+            <section id="axio" class="card p-8">
+                <h2 class="text-2xl font-bold mb-2">Toyota Axio</h2>
+                <p class="text-gray-700 mb-4">Category: City Sedan</p>
+                <ul class="list-disc list-inside text-gray-700 mb-4">
+                    <li>Passengers: up to 3</li>
+                    <li>Luggage: 3 medium bags</li>
+                    <li>Fuel: Petrol, ideal short/medium trips</li>
+                    <li>Best for corporate airport transfer, compact routes, quick handles</li>
+                    <li>Key features: Corporate profile, smooth steering, ample boot space</li>
+                </ul>
+                <p class="text-sm text-gray-600">A balanced sedan for guests who want a quiet drive and reliable city to highway transition without bulk.</p>
+            </section>
+        </div>
+
+        <div class="text-center mt-12">
+            <a href="index.html#inquire" class="px-7 py-3 bg-blue-600 text-white rounded-lg">Inquire About Fleet Booking</a>
+        </div>
+    </div>
+</body>
+</html>
