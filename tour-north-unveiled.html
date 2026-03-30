@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html class="scroll-smooth" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>The North Unveiled - SerenDrive</title>
+
+    <script>
+        if (localStorage.theme === 'dark') {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+            localStorage.theme = 'light';
+        }
+    </script>
+
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#ffffff", "on-primary": "#1a1c1c",
+                        "surface-variant": "#353534", "outline": "#919191",
+                        "surface-container-high": "#2a2a2a", "surface": "#131313",
+                        "primary-container": "#d4d4d4", "surface-container-low": "#1c1b1b",
+                        "background": "#131313", "on-surface-variant": "#c6c6c6",
+                        "surface-container-lowest": "#0e0e0e", "surface-container": "#201f1f",
+                    },
+                    fontFamily: {
+                        "headline": ["Manrope"], "body": ["Inter"], "label": ["Inter"]
+                    }
+                },
+            },
+        }
+    </script>
+
+    <style>
+        body { overflow-x: hidden; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+
+        @media (pointer: fine) {
+            body, a, button, input, select, textarea { cursor: none !important; }
+        }
+
+        .liquid-glass {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(24px) saturate(120%);
+            -webkit-backdrop-filter: blur(24px) saturate(120%);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
+            transition: all 0.5s ease-in-out;
+        }
+        .dark .liquid-glass {
+            background: rgba(20, 20, 20, 0.55);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.6);
+        }
+
+        .text-stroke { -webkit-text-stroke: 1px rgba(0, 0, 0, 0.2); color: transparent; }
+        .dark .text-stroke { -webkit-text-stroke: 1px rgba(255, 255, 255, 0.2); }
+
+        .custom-cursor {
+            width: 12px; height: 12px;
+            border: 1px solid rgba(0, 0, 0, 0.4);
+            border-radius: 50%;
+            position: fixed; pointer-events: none; z-index: 9999;
+            transition: transform 0.1s ease-out, width 0.3s ease, height 0.3s ease, border-color 0.3s ease, background-color 0.3s ease;
+        }
+        .dark .custom-cursor { border: 1px solid rgba(255, 255, 255, 0.4); }
+
+        #sparkles {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            pointer-events: none;
+            z-index: 9998;
+        }
+
+        .hero-gradient {
+            background: linear-gradient(135deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 100%);
+        }
+
+        .day-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .dark .day-card {
+            background: rgba(20, 20, 20, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .dark .highlight-box {
+            background: linear-gradient(135deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.1) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+    </style>
+</head>
+<body class="bg-zinc-50 dark:bg-surface text-zinc-900 dark:text-white transition-colors duration-500">
+
+    <div class="custom-cursor"></div>
+    <canvas id="sparkles"></canvas>
+
+    <nav class="fixed top-0 left-0 right-0 z-50 liquid-glass">
+        <div class="max-w-[1440px] mx-auto px-6 md:px-16 py-4">
+            <div class="flex items-center justify-between">
+                <a href="index.html" class="text-2xl font-headline font-bold text-zinc-900 dark:text-white">SerenDrive</a>
+                <div class="flex items-center gap-8">
+                    <a href="index.html" class="text-sm uppercase tracking-widest text-zinc-700 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-white transition-colors">← Back to Tours</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section class="relative h-screen flex items-center justify-center overflow-hidden">
+        <div class="absolute inset-0">
+            <img src="./images/tour-north.jpg" alt="The North Unveiled" class="w-full h-full object-cover">
+            <div class="hero-gradient absolute inset-0"></div>
+        </div>
+        <div class="relative z-10 text-center text-white px-6 md:px-16 max-w-4xl mx-auto">
+            <span class="font-label text-sm uppercase tracking-[0.2em] text-white/80 mb-4 block">10 Days / 9 Nights</span>
+            <h1 class="font-headline text-5xl md:text-7xl font-extrabold mb-6 text-stroke">The North Unveiled</h1>
+            <p class="text-xl md:text-2xl font-light leading-relaxed mb-8">Sri Lanka's least-explored chapter. Journey to the peninsula city of Jaffna, discover ancient Hindu temples, pristine lagoon islands, and the timeless causeway to Nainativu — a route most tourists never see.</p>
+            <div class="flex flex-wrap justify-center gap-4 mb-8">
+                <span class="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm uppercase tracking-wider">Jaffna</span>
+                <span class="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm uppercase tracking-wider">Off the Beaten Path</span>
+                <span class="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm uppercase tracking-wider">Tamil Heritage</span>
+            </div>
+            <a href="#itinerary" class="inline-block px-8 py-4 bg-white text-zinc-900 font-semibold uppercase tracking-widest text-sm hover:bg-zinc-100 transition-colors rounded-sm">View Itinerary</a>
+        </div>
+    </section>
+
+    <section class="py-20 md:py-32 px-6 md:px-16 bg-white dark:bg-surface-container-lowest">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid md:grid-cols-2 gap-16">
+                <div>
+                    <h2 class="font-headline text-3xl md:text-4xl font-bold mb-6">Tour Overview</h2>
+                    <p class="text-zinc-600 dark:text-zinc-400 leading-relaxed mb-6">
+                        Venture into Sri Lanka's northern region, a culturally rich area that remains largely unexplored by most tourists. This comprehensive 10-day journey takes you through ancient Tamil heritage, pristine lagoons, and the unique cultural landscape of the north.
+                    </p>
+                    <p class="text-zinc-600 dark:text-zinc-400 leading-relaxed mb-8">
+                        From the historic city of Anuradhapura to the vibrant peninsula of Jaffna, experience the Tamil culture, Hindu temples, and the natural beauty of Sri Lanka's northern territories that few travelers get to see.
+                    </p>
+
+                    <div class="highlight-box p-6 rounded-sm">
+                        <h3 class="font-headline text-xl font-bold mb-4">What's Included</h3>
+                        <ul class="space-y-2 text-sm text-zinc-600 dark:text-zinc-400">
+                            <li class="flex items-center gap-3"><span class="material-symbols-outlined text-green-500 text-sm">check_circle</span> Private air-conditioned vehicle</li>
+                            <li class="flex items-center gap-3"><span class="material-symbols-outlined text-green-500 text-sm">check_circle</span> Professional chauffeur-guide with northern expertise</li>
+                            <li class="flex items-center gap-3"><span class="material-symbols-outlined text-green-500 text-sm">check_circle</span> All entrance fees to sites and temples</li>
+                            <li class="flex items-center gap-3"><span class="material-symbols-outlined text-green-500 text-sm">check_circle</span> 9 nights accommodation in 4-5 star hotels</li>
+                            <li class="flex items-center gap-3"><span class="material-symbols-outlined text-green-500 text-sm">check_circle</span> Daily breakfast and selected meals</li>
+                            <li class="flex items-center gap-3"><span class="material-symbols-outlined text-green-500 text-sm">check_circle</span> Local cultural experiences and interactions</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="font-headline text-2xl font-bold mb-6">Route Map</h3>
+                    <div class="bg-zinc-100 dark:bg-surface-container p-6 rounded-sm mb-8">
+                        <div class="space-y-4">
+                            <div class="flex items-center gap-4">
+                                <div class="w-8 h-8 bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 rounded-full flex items-center justify-center text-sm font-bold">1</div>
+                                <div><div class="font-semibold">Colombo</div><div class="text-sm text-zinc-500 dark:text-zinc-400">Starting point</div></div>
+                            </div>
+                            <div class="w-px h-8 bg-zinc-300 dark:bg-zinc-600 ml-4"></div>
+                            <div class="flex items-center gap-4">
+                                <div class="w-8 h-8 bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 rounded-full flex items-center justify-center text-sm font-bold">2</div>
+                                <div><div class="font-semibold">Anuradhapura</div><div class="text-sm text-zinc-500 dark:text-zinc-400">Ancient Capital</div></div>
+                            </div>
+                            <div class="w-px h-8 bg-zinc-300 dark:bg-zinc-600 ml-4"></div>
+                            <div class="flex items-center gap-4">
+                                <div class="w-8 h-8 bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 rounded-full flex items-center justify-center text-sm font-bold">3</div>
+                                <div><div class="font-semibold">Mihintale</div><div class="text-sm text-zinc-500 dark:text-zinc-400">Sacred Mountain</div></div>
+                            </div>
+                            <div class="w-px h-8 bg-zinc-300 dark:bg-zinc-600 ml-4"></div>
+                            <div class="flex items-center gap-4">
+                                <div class="w-8 h-8 bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 rounded-full flex items-center justify-center text-sm font-bold">4</div>
+                                <div><div class="font-semibold">Jaffna</div><div class="text-sm text-zinc-500 dark:text-zinc-400">Cultural Capital</div></div>
+                            </div>
+                            <div class="w-px h-8 bg-zinc-300 dark:bg-zinc-600 ml-4"></div>
+                            <div class="flex items-center gap-4">
+                                <div class="w-8 h-8 bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 rounded-full flex items-center justify-center text-sm font-bold">5</div>
+                                <div><div class="font-semibold">Nainativu</div><div class="text-sm text-zinc-500 dark:text-zinc-400">Sacred Island</div></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="highlight-box p-6 rounded-sm">
+                        <h3 class="font-headline text-xl font-bold mb-4">Tour Highlights</h3>
+                        <ul class="space-y-3 text-sm">
+                            <li class="flex items-start gap-3"><span class="material-symbols-outlined text-amber-500 text-lg mt-0.5">star</span><span>Jaffna Peninsula - Tamil culture and cuisine</span></li>
+                            <li class="flex items-start gap-3"><span class="material-symbols-outlined text-amber-500 text-lg mt-0.5">star</span><span>Nagadeepa and Nainativu - Sacred Buddhist islands</span></li>
+                            <li class="flex items-start gap-3"><span class="material-symbols-outlined text-amber-500 text-lg mt-0.5">star</span><span>Ancient Anuradhapura - UNESCO World Heritage Site</span></li>
+                            <li class="flex items-start gap-3"><span class="material-symbols-outlined text-amber-500 text-lg mt-0.5">star</span><span>Mihintale - Cradle of Buddhism in Sri Lanka</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="itinerary" class="py-20 md:py-32 px-6 md:px-16 bg-zinc-50 dark:bg-surface">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-16">
+                <span class="font-label text-zinc-500 dark:text-outline tracking-[0.2em] uppercase text-xs">Day by Day</span>
+                <h2 class="font-headline text-4xl md:text-5xl font-extrabold mt-4">Detailed Itinerary</h2>
+            </div>
+
+            <div class="space-y-8">
+                <div class="day-card p-8 rounded-sm">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="w-12 h-12 bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 rounded-full flex items-center justify-center font-bold">1</div>
+                        <div><h3 class="font-headline text-2xl font-bold">Day 1: Colombo to Anuradhapura</h3><p class="text-zinc-500 dark:text-zinc-400">Ancient Capital Arrival</p></div>
+                    </div>
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div><h4 class="font-semibold mb-3">Activities</h4><ul class="space-y-2 text-sm text-zinc-600 dark:text-zinc-400">
+                            <li>• Airport pickup and transfer to Anuradhapura (approximately 5 hours)</li><li>• Visit the sacred Bodhi Tree and Sri Maha Bodhi Temple</li><li>• Explore the ancient city ruins and stupas</li><li>• Visit Ruwanwelisaya and Thuparamaya</li><li>• Evening visit to Jetavanaramaya</li></ul></div>
+                        <div><h4 class="font-semibold mb-3">Accommodation</h4><p class="text-sm text-zinc-600 dark:text-zinc-400 mb-3">4-5 star hotel in Anuradhapura</p><h4 class="font-semibold mb-3">Meals</h4><p class="text-sm text-zinc-600 dark:text-zinc-400">Breakfast (hotel), Lunch & Dinner (local restaurants)</p></div>
+                    </div>
+                </div>
+
+                <div class="day-card p-8 rounded-sm">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="w-12 h-12 bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 rounded-full flex items-center justify-center font-bold">2</div>
+                        <div><h3 class="font-headline text-2xl font-bold">Day 2: Anuradhapura Exploration</h3><p class="text-zinc-500 dark:text-zinc-400">UNESCO World Heritage</p></div>
+                    </div>
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div><h4 class="font-semibold mb-3">Activities</h4><ul class="space-y-2 text-sm text-zinc-600 dark:text-zinc-400">
+                            <li>• Full day exploration of Anuradhapura</li><li>• Visit Abhayagiri and Lovamahapaya monasteries</li><li>• Explore the archaeological museum</li><li>• Visit Isurumuniya rock temple</li><li>• Optional visit to local villages</li></ul></div>
+                        <div><h4 class="font-semibold mb-3">Accommodation</h4><p class="text-sm text-zinc-600 dark:text-zinc-400 mb-3">4-5 star hotel in Anuradhapura</p><h4 class="font-semibold mb-3">Meals</h4><p class="text-sm text-zinc-600 dark:text-zinc-400">Breakfast (hotel), Lunch & Dinner (local restaurants)</p></div>
+                    </div>
+                </div>
+
+                <div class="day-card p-8 rounded-sm">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="w-12 h-12 bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 rounded-full flex items-center justify-center font-bold">3</div>
+                        <div><h3 class="font-headline text-2xl font-bold">Day 3: Mihintale</h3><p class="text-zinc-500 dark:text-zinc-400">Cradle of Buddhism</p></div>
+                    </div>
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div><h4 class="font-semibold mb-3">Activities</h4><ul class="space-y-2 text-sm text-zinc-600 dark:text-zinc-400">
+                            <li>• Transfer to Mihintale (approximately 2 hours)</li><li>• Climb the sacred mountain of Mihintale</li><li>• Visit the Kantaka Cetiya and Ambasthala Dagoba</li><li>• Explore the ancient hospital and refectory</li><li>• Visit the Aradhana Gala and Mahaseya Dagoba</li></ul></div>
+                        <div><h4 class="font-semibold mb-3">Accommodation</h4><p class="text-sm text-zinc-600 dark:text-zinc-400 mb-3">4-5 star hotel in Anuradhapura</p><h4 class="font-semibold mb-3">Meals</h4><p class="text-sm text-zinc-600 dark:text-zinc-400">Breakfast (hotel), Lunch & Dinner (local restaurants)</p></div>
+                    </div>
+                </div>
+
+                <div class="day-card p-8 rounded-sm">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="w-12 h-12 bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 rounded-full flex items-center justify-center font-bold">4</div>
+                        <div><h3 class="font-headline text-2xl font-bold">Day 4: Transfer to Jaffna</h3><p class="text-zinc-500 dark:text-zinc-400">Northern Peninsula</p></div>
+                    </div>
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div><h4 class="font-semibold mb-3">Activities</h4><ul class="space-y-2 text-sm text-zinc-600 dark:text-zinc-400">
+                            <li>• Long transfer to Jaffna (approximately 6-7 hours)</li><li>• Scenic drive through northern landscapes</li><li>• Arrive in Jaffna and check into hotel</li><li>• Evening walk around Jaffna town</li><li>• Optional visit to local markets</li></ul></div>
+                        <div><h4 class="font-semibold mb-3">Accommodation</h4><p class="text-sm text-zinc-600 dark:text-zinc-400 mb-3">4-5 star hotel in Jaffna</p><h4 class="font-semibold mb-3">Meals</h4><p class="text-sm text-zinc-600 dark:text-zinc-400">Breakfast (hotel), Lunch (en route), Dinner (local restaurant)</p></div>
+                    </div>
+                </div>
+
+                <div class="day-card p-8 rounded-sm">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="w-12 h-12 bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 rounded-full flex items-center justify-center font-bold">5</div>
+                        <div><h3 class="font-headline text-2xl font-bold">Day 5: Jaffna City</h3><p class="text-zinc-500 dark:text-zinc-400">Tamil Cultural Hub</p></div>
+                    </div>
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div><h4 class="font-semibold mb-3">Activities</h4><ul class="space-y-2 text-sm text-zinc-600 dark:text-zinc-400">
+                            <li>• Visit Nallur Kandaswamy Kovil temple</li><li>• Explore the Jaffna Fort and Dutch Cemetery</li><li>• Visit the Jaffna Public Library</li><li>• Explore local markets and handicraft centers</li><li>• Experience Tamil cuisine and culture</li></ul></div>
+                        <div><h4 class="font-semibold mb-3">Accommodation</h4><p class="text-sm text-zinc-600 dark:text-zinc-400 mb-3">4-5 star hotel in Jaffna</p><h4 class="font-semibold mb-3">Meals</h4><p class="text-sm text-zinc-600 dark:text-zinc-400">Breakfast (hotel), Lunch & Dinner (local restaurants)</p></div>
+                    </div>
+                </div>
+
+                <div class="day-card p-8 rounded-sm">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="w-12 h-12 bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 rounded-full flex items-center justify-center font-bold">6</div>
+                        <div><h3 class="font-headline text-2xl font-bold">Day 6: Jaffna Peninsula</h3><p class="text-zinc-500 dark:text-zinc-400">Northern Exploration</p></div>
+                    </div>
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div><h4 class="font-semibold mb-3">Activities</h4><ul class="space-y-2 text-sm text-zinc-600 dark:text-zinc-400">
+                            <li>• Visit Point Pedro and the northern tip</li><li>• Explore the Casuarina Beach</li><li>• Visit Keerimalai Hot Springs</li><li>• Explore local fishing villages</li><li>• Visit the Naguleswaram Temple</li></ul></div>
+                        <div><h4 class="font-semibold mb-3">Accommodation</h4><p class="text-sm text-zinc-600 dark:text-zinc-400 mb-3">4-5 star hotel in Jaffna</p><h4 class="font-semibold mb-3">Meals</h4><p class="text-sm text-zinc-600 dark:text-zinc-400">Breakfast (hotel), Lunch & Dinner (local restaurants)</p></div>
+                    </div>
+                </div>
+
+                <div class="day-card p-8 rounded-sm">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="w-12 h-12 bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 rounded-full flex items-center justify-center font-bold">7</div>
+                        <div><h3 class="font-headline text-2xl font-bold">Day 7: Nainativu Island</h3><p class="text-zinc-500 dark:text-zinc-400">Sacred Pilgrimage</p></div>
+                    </div>
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div><h4 class="font-semibold mb-3">Activities</h4><ul class="space-y-2 text-sm text-zinc-600 dark:text-zinc-400">
+                            <li>• Ferry to Nainativu Island</li><li>• Visit the Naga Pooshani Amman Temple</li><li>• Explore the ancient causeway</li><li>• Visit the Buddhist ruins on the island</li><li>• Return to Jaffna in the evening</li></ul></div>
+                        <div><h4 class="font-semibold mb-3">Accommodation</h4><p class="text-sm text-zinc-600 dark:text-zinc-400 mb-3">4-5 star hotel in Jaffna</p><h4 class="font-semibold mb-3">Meals</h4><p class="text-sm text-zinc-600 dark:text-zinc-400">Breakfast (hotel), Lunch & Dinner (local restaurants)</p></div>
+                    </div>
+                </div>
+
+                <div class="day-card p-8 rounded-sm">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="w-12 h-12 bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 rounded-full flex items-center justify-center font-bold">8</div>
+                        <div><h3 class="font-headline text-2xl font-bold">Day 8: Delft Island</h3><p class="text-zinc-500 dark:text-zinc-400">Wildlife and History</p></div>
+                    </div>
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div><h4 class="font-semibold mb-3">Activities</h4><ul class="space-y-2 text-sm text-zinc-600 dark:text-zinc-400">
+                            <li>• Optional boat excursion to Delft Island</li><li>• Visit the wild ponies of Delft</li><li>• Explore the Dutch Fort and Baobab trees</li><li>• Visit the Hindu temples on the island</li><li>• Return to Jaffna</li></ul></div>
+                        <div><h4 class="font-semibold mb-3">Accommodation</h4><p class="text-sm text-zinc-600 dark:text-zinc-400 mb-3">4-5 star hotel in Jaffna</p><h4 class="font-semibold mb-3">Meals</h4><p class="text-sm text-zinc-600 dark:text-zinc-400">Breakfast (hotel), Lunch & Dinner (local restaurants)</p></div>
+                    </div>
+                </div>
+
+                <div class="day-card p-8 rounded-sm">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="w-12 h-12 bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 rounded-full flex items-center justify-center font-bold">9</div>
+                        <div><h3 class="font-headline text-2xl font-bold">Day 9: Mannar and Return</h3><p class="text-zinc-500 dark:text-zinc-400">Western Coast</p></div>
+                    </div>
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div><h4 class="font-semibold mb-3">Activities</h4><ul class="space-y-2 text-sm text-zinc-600 dark:text-zinc-400">
+                            <li>• Transfer to Mannar (approximately 4 hours)</li><li>• Visit the Mannar Fort and Dutch Cemetery</li><li>• Explore the Adam's Bridge (Ram Setu)</li><li>• Visit local churches and Hindu temples</li><li>• Continue to Colombo</li></ul></div>
+                        <div><h4 class="font-semibold mb-3">Accommodation</h4><p class="text-sm text-zinc-600 dark:text-zinc-400 mb-3">4-5 star hotel in Colombo</p><h4 class="font-semibold mb-3">Meals</h4><p class="text-sm text-zinc-600 dark:text-zinc-400">Breakfast (hotel), Lunch & Dinner (local restaurants)</p></div>
+                    </div>
+                </div>
+
+                <div class="day-card p-8 rounded-sm">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="w-12 h-12 bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 rounded-full flex items-center justify-center font-bold">10</div>
+                        <div><h3 class="font-headline text-2xl font-bold">Day 10: Colombo Departure</h3><p class="text-zinc-500 dark:text-zinc-400">End of Journey</p></div>
+                    </div>
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div><h4 class="font-semibold mb-3">Activities</h4><ul class="space-y-2 text-sm text-zinc-600 dark:text-zinc-400">
+                            <li>• Morning at leisure in Colombo</li><li>• Optional shopping or city exploration</li><li>• Transfer to airport for departure</li><li>• End of tour services</li></ul></div>
+                        <div><h4 class="font-semibold mb-3">Meals</h4><p class="text-sm text-zinc-600 dark:text-zinc-400">Breakfast (hotel)</p></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 md:py-32 px-6 md:px-16 bg-white dark:bg-surface-container-lowest">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="font-headline text-4xl md:text-5xl font-extrabold mb-8">Ready to Explore?</h2>
+            <p class="text-xl text-zinc-600 dark:text-zinc-400 mb-12">Contact us for personalized pricing and availability. All tours can be customized to your preferences.</p>
+            <div class="grid md:grid-cols-3 gap-8 mb-12">
+                <div class="highlight-box p-6 rounded-sm"><span class="material-symbols-outlined text-3xl text-zinc-900 dark:text-white mb-4">phone</span><h3 class="font-headline text-xl font-bold mb-2">Call Us</h3><p class="text-zinc-600 dark:text-zinc-400">+94 11 123 4567</p></div>
+                <div class="highlight-box p-6 rounded-sm"><span class="material-symbols-outlined text-3xl text-zinc-900 dark:text-white mb-4">email</span><h3 class="font-headline text-xl font-bold mb-2">Email Us</h3><p class="text-zinc-600 dark:text-zinc-400">info@serendrive.lk</p></div>
+                <div class="highlight-box p-6 rounded-sm"><span class="material-symbols-outlined text-3xl text-zinc-900 dark:text-white mb-4">chat</span><h3 class="font-headline text-xl font-bold mb-2">WhatsApp</h3><p class="text-zinc-600 dark:text-zinc-400">+94 77 123 4567</p></div>
+            </div>
+            <a href="index.html#inquire" class="inline-block px-12 py-4 bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 font-semibold uppercase tracking-widest text-sm hover:bg-zinc-800 dark:hover:bg-zinc-100 transition-colors rounded-sm">Inquire Now</a>
+        </div>
+    </section>
+
+    <footer class="py-12 px-6 md:px-16 bg-zinc-900 dark:bg-black text-white">
+        <div class="max-w-6xl mx-auto text-center">
+            <p class="text-zinc-400">&copy; 2024 SerenDrive. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
