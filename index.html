@@ -136,6 +136,138 @@
             border-color: #fff;
         }
 
+        /* Destination Highlights */
+        .map-shell {
+            background: linear-gradient(135deg, rgba(255,255,255,0.96) 0%, rgba(248,250,252,0.92) 100%);
+            border: 1px solid rgba(24,24,27,0.08);
+            box-shadow: 0 18px 50px rgba(15,23,42,0.08);
+        }
+        .dark .map-shell {
+            background: linear-gradient(135deg, rgba(24,24,27,0.95) 0%, rgba(9,9,11,0.92) 100%);
+            border: 1px solid rgba(255,255,255,0.08);
+            box-shadow: 0 18px 50px rgba(0,0,0,0.22);
+        }
+        .map-stage {
+            position: relative;
+            min-height: 420px;
+            overflow: hidden;
+            border: 1px solid rgba(24,24,27,0.06);
+            background: radial-gradient(circle at 50% 28%, rgba(59,130,246,0.14), transparent 42%), linear-gradient(180deg, rgba(255,255,255,0.92) 0%, rgba(239,246,255,0.72) 100%);
+        }
+        .dark .map-stage {
+            border: 1px solid rgba(255,255,255,0.06);
+            background: radial-gradient(circle at 50% 28%, rgba(34,211,238,0.12), transparent 42%), linear-gradient(180deg, rgba(17,24,39,0.92) 0%, rgba(9,9,11,0.88) 100%);
+        }
+        .map-island {
+            fill: rgba(255,255,255,0.82);
+            stroke: rgba(15,23,42,0.18);
+            stroke-width: 2;
+            filter: drop-shadow(0 18px 30px rgba(15,23,42,0.10));
+        }
+        .dark .map-island {
+            fill: rgba(226,232,240,0.12);
+            stroke: rgba(255,255,255,0.18);
+        }
+        .map-route {
+            fill: none;
+            stroke: rgba(6,182,212,0.45);
+            stroke-width: 2.5;
+            stroke-dasharray: 6 8;
+        }
+        .destination-tab {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.7rem 1rem;
+            border-radius: 999px;
+            border: 1px solid rgba(24,24,27,0.08);
+            background: rgba(255,255,255,0.8);
+            color: rgb(39,39,42);
+            font-size: 0.72rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+        }
+        .dark .destination-tab {
+            background: rgba(255,255,255,0.05);
+            color: rgba(244,244,245,0.92);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .destination-tab.active {
+            transform: translateY(-1px);
+            background: rgb(24 24 27);
+            color: #fff;
+            border-color: rgb(24 24 27);
+            box-shadow: 0 10px 26px rgba(24, 24, 27, 0.16);
+        }
+        .dark .destination-tab.active {
+            background: #fff;
+            color: rgb(24 24 27);
+            border-color: #fff;
+            box-shadow: 0 10px 26px rgba(0, 0, 0, 0.20);
+        }
+        .destination-preview {
+            background: linear-gradient(135deg, rgba(255,255,255,0.97) 0%, rgba(244,244,245,0.92) 100%);
+        }
+        .dark .destination-preview {
+            background: linear-gradient(135deg, rgba(39,39,42,0.94) 0%, rgba(24,24,27,0.92) 100%);
+        }
+        .map-pin {
+            position: absolute;
+            transform: translate(-50%, -50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.4rem;
+            background: transparent;
+            border: 0;
+            padding: 0;
+        }
+        .map-pin-dot {
+            width: 14px;
+            height: 14px;
+            border-radius: 999px;
+            background: rgb(15 23 42);
+            box-shadow: 0 0 0 6px rgba(15,23,42,0.12);
+            transition: all 0.25s ease;
+        }
+        .dark .map-pin-dot {
+            background: rgb(244 244 245);
+            box-shadow: 0 0 0 6px rgba(255,255,255,0.10);
+        }
+        .map-popup {
+            opacity: 0;
+            transform: translateY(4px) scale(0.98);
+            pointer-events: none;
+            white-space: nowrap;
+            border-radius: 999px;
+            padding: 0.35rem 0.65rem;
+            font-size: 0.62rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            background: rgba(15,23,42,0.82);
+            color: #fff;
+            border: 1px solid rgba(255,255,255,0.08);
+            transition: all 0.25s ease;
+        }
+        .dark .map-popup {
+            background: rgba(255,255,255,0.10);
+            color: #fff;
+        }
+        .map-pin:hover .map-popup,
+        .map-pin.active .map-popup {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+        .map-pin.active .map-pin-dot {
+            background: rgb(6 182 212);
+            box-shadow: 0 0 0 8px rgba(6,182,212,0.22);
+        }
+        .dark .map-pin.active .map-pin-dot {
+            background: rgb(103 232 249);
+            box-shadow: 0 0 0 8px rgba(103,232,249,0.20);
+        }
+
         /* Tour card hover overlay badge */
         .tour-card-overlay {
             position: absolute;
@@ -226,6 +358,7 @@
             
             <div class="hidden md:flex gap-10 items-center">
                 <a class="text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors duration-300 text-[0.75rem] uppercase tracking-widest nav-scroll-link" href="#services">Services</a>
+                <a class="text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors duration-300 text-[0.75rem] uppercase tracking-widest nav-scroll-link" href="#highlights">Highlights</a>
                 <a class="text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors duration-300 text-[0.75rem] uppercase tracking-widest nav-scroll-link" href="#tours">Tours</a>
                 <a class="text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors duration-300 text-[0.75rem] uppercase tracking-widest nav-scroll-link" href="#fleet">The Fleet</a>
                 <a class="text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors duration-300 text-[0.75rem] uppercase tracking-widest nav-scroll-link" href="#curators">Curators</a>
@@ -252,6 +385,7 @@
             <span class="material-symbols-outlined text-3xl">close</span>
         </button>
         <a class="text-2xl font-headline font-bold text-zinc-900 dark:text-white uppercase tracking-widest mobile-link" href="#services">Services</a>
+        <a class="text-2xl font-headline font-bold text-zinc-900 dark:text-white uppercase tracking-widest mobile-link" href="#highlights">Highlights</a>
         <a class="text-2xl font-headline font-bold text-zinc-900 dark:text-white uppercase tracking-widest mobile-link" href="#tours">Tours</a>
         <a class="text-2xl font-headline font-bold text-zinc-900 dark:text-white uppercase tracking-widest mobile-link" href="#fleet">The Fleet</a>
         <a class="text-2xl font-headline font-bold text-zinc-900 dark:text-white uppercase tracking-widest mobile-link" href="#curators">Curators</a>
@@ -336,6 +470,116 @@
                         <span class="material-symbols-outlined text-3xl md:text-4xl text-zinc-900 dark:text-white mb-6">auto_awesome</span>
                         <h3 class="text-xl md:text-2xl font-headline font-bold text-zinc-900 dark:text-white mb-4">Curated Day Escapes</h3>
                         <p class="text-zinc-600 dark:text-zinc-400 text-sm leading-relaxed mb-4 md:mb-8">Single-day immersive trips from your hotel to iconic landmarks (Galle Fort, Yala, Sigiriya) returning you safely by nightfall.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="highlights" class="py-20 md:py-32 px-6 md:px-16 bg-zinc-50 dark:bg-surface transition-colors duration-500 scroll-mt-24 border-t border-zinc-200 dark:border-white/5 relative overflow-hidden">
+            <div class="max-w-[1440px] mx-auto relative z-10">
+                <div class="flex flex-col md:flex-row md:items-end justify-between mb-10 md:mb-14 gap-4 md:gap-8">
+                    <div class="max-w-2xl text-center md:text-left">
+                        <span class="font-label text-zinc-500 dark:text-outline tracking-[0.2em] uppercase text-xs">Destination Highlights</span>
+                        <h2 class="font-headline text-4xl md:text-6xl font-extrabold text-zinc-900 dark:text-white mt-4 transition-colors duration-500">Explore Sri Lanka by Map</h2>
+                    </div>
+                    <div class="text-center md:text-right">
+                        <p class="text-zinc-600 dark:text-zinc-300 font-light text-sm md:text-base max-w-sm mx-auto md:ml-auto">Tap a pin on the Sri Lanka mini-map to reveal a quick popup, photo preview, and route details for that place.</p>
+                    </div>
+                </div>
+
+                <div class="grid lg:grid-cols-12 gap-6 md:gap-8 items-start">
+                    <div class="lg:col-span-7 order-1">
+                        <div class="map-shell rounded-[28px] p-4 md:p-6">
+                            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
+                                <div>
+                                    <p class="text-[0.65rem] uppercase tracking-[0.2em] text-zinc-500 dark:text-zinc-400 font-label">Mini Sri Lanka Map</p>
+                                    <p class="text-sm text-zinc-600 dark:text-zinc-300 mt-1">Touch the glowing pins to preview destinations.</p>
+                                </div>
+                                <span class="inline-flex px-3 py-1 rounded-full bg-zinc-900 text-white dark:bg-white dark:text-zinc-900 text-[0.6rem] uppercase tracking-widest w-fit">5 iconic stops</span>
+                            </div>
+
+                            <div class="map-stage rounded-[24px]">
+                                <svg viewBox="0 0 320 520" class="absolute inset-0 w-full h-full max-w-[340px] mx-auto my-auto left-0 right-0">
+                                    <path class="map-island" d="M166 22c18-3 37 4 50 17 14 15 21 35 20 55-1 17 5 30 15 44 12 16 27 33 29 56 2 25-11 47-18 69-6 20-3 39 2 59 5 24 6 49-4 72-10 24-29 44-51 61-16 13-27 28-44 38-16 10-36 12-53 6-19-7-34-22-48-38-17-18-31-39-37-64-6-25-2-49-4-74-2-22-13-40-22-59-10-20-16-42-12-66 5-30 26-52 48-68 17-12 37-20 51-35 16-18 23-45 46-60 9-6 20-11 32-13z"></path>
+                                    <path class="map-route" d="M165 122 C180 158, 193 205, 190 255 S163 355, 139 432"></path>
+                                </svg>
+
+                                <button type="button" class="destination-control map-pin active" data-place="sigiriya" data-name="Sigiriya Rock Fortress" data-region="Cultural Triangle" data-best="Best Dec – Apr" data-copy="Rise early for Sigiriya and watch jungle plains glow from the top of Sri Lanka’s most iconic rock fortress. Pair it with cave temples and village experiences for a rich cultural day." data-image="./images/tour-cultural.jpg" data-route="Dambulla → Sigiriya → Polonnaruwa" data-mood="History, sunrise views, village culture" data-tags="UNESCO site|Sunrise climb|Ancient ruins" style="top: 31%; left: 53%;">
+                                    <span class="map-pin-dot"></span>
+                                    <span class="map-popup">Sigiriya</span>
+                                </button>
+
+                                <button type="button" class="destination-control map-pin" data-place="ella" data-name="Ella Hill Country" data-region="Central Highlands" data-best="Best Jan – May" data-copy="Ella brings tea country air, train-ride views, waterfalls, and slow scenic mornings. It is one of the easiest places for travelers to fall in love with Sri Lanka." data-image="./images/tour-highland.jpg" data-route="Kandy → Nuwara Eliya → Ella" data-mood="Cool climate, tea trails, train views" data-tags="Nine Arch Bridge|Tea estates|Hiking" style="top: 47%; left: 56%;">
+                                    <span class="map-pin-dot"></span>
+                                    <span class="map-popup">Ella</span>
+                                </button>
+
+                                <button type="button" class="destination-control map-pin" data-place="yala" data-name="Yala National Park" data-region="South East Wildlands" data-best="Best Feb – Jul" data-copy="For safari lovers, Yala delivers leopard country, elephant sightings, and dramatic dawn drives through raw scrubland and lagoon edges." data-image="./images/tour-safari.jpg" data-route="Ella → Yala → Southern Coast" data-mood="Safari thrills, wildlife, golden-hour drives" data-tags="Leopard safari|Elephants|Birdlife" style="top: 69%; left: 57%;">
+                                    <span class="map-pin-dot"></span>
+                                    <span class="map-popup">Yala</span>
+                                </button>
+
+                                <button type="button" class="destination-control map-pin" data-place="galle" data-name="Galle Fort" data-region="Southern Coast" data-best="Best Nov – Apr" data-copy="Walk sea-facing ramparts, boutique lanes, sunset cafés, and a polished colonial atmosphere. Galle is perfect when guests want charm and the ocean in one stop." data-image="./images/tour-coastal.jpg" data-route="Colombo → Galle → Mirissa" data-mood="Coastal charm, cafés, sunset strolls" data-tags="Dutch fort|Sunset walk|South coast" style="top: 71%; left: 35%;">
+                                    <span class="map-pin-dot"></span>
+                                    <span class="map-popup">Galle</span>
+                                </button>
+
+                                <button type="button" class="destination-control map-pin" data-place="mirissa" data-name="Mirissa Bay" data-region="Deep South Beaches" data-best="Best Nov – Apr" data-copy="Mirissa is all about easy beach days, whale watching, coconut-hill sunsets, and slowing down after a circuit through the island interior." data-image="./images/southern-shores.jpg" data-route="Galle → Mirissa → Tangalle" data-mood="Beach time, sea breeze, relaxed nights" data-tags="Whale watching|Beach cafés|Sunset points" style="top: 77%; left: 40%;">
+                                    <span class="map-pin-dot"></span>
+                                    <span class="map-popup">Mirissa</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="mt-4 flex flex-wrap gap-3">
+                            <button type="button" class="destination-control destination-tab active" data-place="sigiriya">Sigiriya</button>
+                            <button type="button" class="destination-control destination-tab" data-place="ella">Ella</button>
+                            <button type="button" class="destination-control destination-tab" data-place="yala">Yala</button>
+                            <button type="button" class="destination-control destination-tab" data-place="galle">Galle</button>
+                            <button type="button" class="destination-control destination-tab" data-place="mirissa">Mirissa</button>
+                        </div>
+                    </div>
+
+                    <div class="lg:col-span-5 order-2">
+                        <div class="destination-preview rounded-[28px] overflow-hidden border border-zinc-200 dark:border-white/10 shadow-lg dark:shadow-none">
+                            <div class="aspect-[16/10] overflow-hidden">
+                                <img id="destination-image" src="./images/tour-cultural.jpg" alt="Sigiriya Rock Fortress" class="w-full h-full object-cover transition-all duration-700">
+                            </div>
+                            <div class="p-6 md:p-8">
+                                <div class="flex flex-wrap gap-2 mb-4">
+                                    <span id="destination-region" class="inline-flex px-3 py-1 rounded-full bg-zinc-900 text-white dark:bg-white dark:text-zinc-900 text-[0.6rem] uppercase tracking-widest">Cultural Triangle</span>
+                                    <span id="destination-best" class="inline-flex px-3 py-1 rounded-full border border-zinc-300 dark:border-white/15 text-zinc-700 dark:text-zinc-300 text-[0.6rem] uppercase tracking-widest">Best Dec – Apr</span>
+                                </div>
+
+                                <h3 id="destination-name" class="font-headline text-3xl md:text-4xl font-extrabold text-zinc-900 dark:text-white mb-4">Sigiriya Rock Fortress</h3>
+                                <p id="destination-copy" class="text-zinc-600 dark:text-zinc-300 leading-relaxed mb-6">Rise early for Sigiriya and watch jungle plains glow from the top of Sri Lanka’s most iconic rock fortress. Pair it with cave temples and village experiences for a rich cultural day.</p>
+
+                                <div class="grid sm:grid-cols-2 gap-3 mb-6">
+                                    <div class="rounded-2xl bg-white/70 dark:bg-white/5 border border-zinc-200 dark:border-white/10 p-4">
+                                        <span class="block text-[0.6rem] uppercase tracking-widest text-zinc-500 dark:text-outline mb-2">Suggested Route</span>
+                                        <span id="destination-route" class="text-sm text-zinc-900 dark:text-white">Dambulla → Sigiriya → Polonnaruwa</span>
+                                    </div>
+                                    <div class="rounded-2xl bg-white/70 dark:bg-white/5 border border-zinc-200 dark:border-white/10 p-4">
+                                        <span class="block text-[0.6rem] uppercase tracking-widest text-zinc-500 dark:text-outline mb-2">Travel Mood</span>
+                                        <span id="destination-mood" class="text-sm text-zinc-900 dark:text-white">History, sunrise views, village culture</span>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <span class="block text-[0.6rem] uppercase tracking-widest text-zinc-500 dark:text-outline mb-2">Top experiences</span>
+                                    <div id="destination-tags" class="flex flex-wrap gap-2">
+                                        <span class="px-3 py-1 rounded-full bg-zinc-100 dark:bg-white/5 text-[0.65rem] uppercase tracking-wider text-zinc-700 dark:text-zinc-300 border border-zinc-200 dark:border-white/10">UNESCO site</span>
+                                        <span class="px-3 py-1 rounded-full bg-zinc-100 dark:bg-white/5 text-[0.65rem] uppercase tracking-wider text-zinc-700 dark:text-zinc-300 border border-zinc-200 dark:border-white/10">Sunrise climb</span>
+                                        <span class="px-3 py-1 rounded-full bg-zinc-100 dark:bg-white/5 text-[0.65rem] uppercase tracking-wider text-zinc-700 dark:text-zinc-300 border border-zinc-200 dark:border-white/10">Ancient ruins</span>
+                                    </div>
+                                </div>
+
+                                <div class="mt-8 flex flex-col sm:flex-row gap-3">
+                                    <a href="#tours" class="inline-flex items-center justify-center px-5 py-3 bg-zinc-900 text-white dark:bg-white dark:text-zinc-900 text-xs uppercase tracking-widest font-label">Explore Tours</a>
+                                    <a href="#inquire" class="inline-flex items-center justify-center px-5 py-3 border border-zinc-300 dark:border-white/15 text-zinc-900 dark:text-white text-xs uppercase tracking-widest font-label">Plan This Route</a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1115,6 +1359,45 @@
                 }
             });
         });
+
+        // DESTINATION HIGHLIGHTS INTERACTION
+        const destinationControls = document.querySelectorAll('.destination-control');
+        const destinationImage = document.getElementById('destination-image');
+        const destinationName = document.getElementById('destination-name');
+        const destinationRegion = document.getElementById('destination-region');
+        const destinationBest = document.getElementById('destination-best');
+        const destinationCopy = document.getElementById('destination-copy');
+        const destinationRoute = document.getElementById('destination-route');
+        const destinationMood = document.getElementById('destination-mood');
+        const destinationTags = document.getElementById('destination-tags');
+
+        function updateDestination(place) {
+            const source = document.querySelector(`.map-pin[data-place="${place}"]`) || document.querySelector(`.destination-control[data-place="${place}"]`);
+            if (!source || !destinationImage) return;
+
+            destinationControls.forEach((control) => {
+                control.classList.toggle('active', control.dataset.place === place);
+            });
+
+            destinationImage.src = source.dataset.image || destinationImage.src;
+            destinationImage.alt = source.dataset.name || 'Sri Lanka destination';
+            destinationName.textContent = source.dataset.name || '';
+            destinationRegion.textContent = source.dataset.region || '';
+            destinationBest.textContent = source.dataset.best || '';
+            destinationCopy.textContent = source.dataset.copy || '';
+            destinationRoute.textContent = source.dataset.route || '';
+            destinationMood.textContent = source.dataset.mood || '';
+
+            const tags = (source.dataset.tags || '').split('|').filter(Boolean);
+            destinationTags.innerHTML = tags.map((tag) => `<span class="px-3 py-1 rounded-full bg-zinc-100 dark:bg-white/5 text-[0.65rem] uppercase tracking-wider text-zinc-700 dark:text-zinc-300 border border-zinc-200 dark:border-white/10">${tag}</span>`).join('');
+        }
+
+        if (destinationControls.length && destinationImage) {
+            destinationControls.forEach((control) => {
+                control.addEventListener('click', () => updateDestination(control.dataset.place));
+            });
+            updateDestination('sigiriya');
+        }
 
         // ── TOUR FILTER LOGIC ──
         const filterBtns = document.querySelectorAll('.tour-filter-btn');
