@@ -7,6 +7,7 @@ const pages = [
     title: 'Suzuki Wagon R',
     subheading: 'Economy Hatchback',
     image: './images/fleet-classic.jpg',
+    model: './models/wagonr.glb',
     intro: 'Our lightest and most economical ride, ideal for solo travelers and chilled city drives.',
     overview: 'The Wagon R is compact, efficient, and tuned for Sri Lanka city conditions. Its compact dimensions make traffic and parking easy without sacrificing reliability.',
     usage: 'Best for short-distance transfers, airport pickups, and short day trips where cost efficiency is a priority.',
@@ -23,6 +24,7 @@ const pages = [
     title: 'Honda Shuttle',
     subheading: 'Practical Wagon',
     image: './images/fleet-van.jpg',
+    model: './models/shuttle.glb',
     intro: 'A versatile family-friendly wagon with extra passenger comfort and storage space.',
     overview: 'Honda Shuttle blends hatchback agility with hatchback cargo room, making it an excellent choice for travellers carrying bags and souvenirs.',
     usage: 'Perfect for 2-4 travellers and short to medium distance transfers with extra luggage needs.',
@@ -39,6 +41,7 @@ const pages = [
     title: 'Toyota KDH (Flat Roof)',
     subheading: 'Standard Minivan',
     image: './images/fleet-kdh-flat.jpg',
+    model: './models/kdh-flat.glb',
     intro: 'The go-to family van with reliable comfort, easy access, and a clean interior feel.',
     overview: 'KDH Flat is the standard minivan choice for groups up to 6. It keeps the center of gravity lower and provides easy boarding at any stop.',
     usage: 'Ideal for family outings, circuit tours, and hotel-to-site transfers for 5-6 guests.',
@@ -55,6 +58,7 @@ const pages = [
     title: 'Toyota KDH (High Roof)',
     subheading: 'Premium Minivan',
     image: './images/fleet-kdh-high.jpg',
+    model: './models/kdh-high.glb',
     intro: 'Premium tall-roof minivan with top-level space and comfort for longer journeys.',
     overview: 'KDH High Roof offers additional headroom and more luggage capacity, making it ideal for premium tour experience and bigger groups.',
     usage: 'Best for long-distance circuits, wildlife trips, and groups requiring maximal cabin height and luggage capacity.',
@@ -70,7 +74,8 @@ const pages = [
     file: 'fleet-prius.html',
     title: 'Toyota Prius',
     subheading: 'Eco Hybrid',
-    image: './images/fleet-classic.jpg',
+    image: './images/fleet-prius.jpg',
+    model: './models/prius.glb',
     intro: 'A quiet hybrid option for environmentally conscious travelers with great city efficiency.',
     overview: 'Prius uses hybrid technology to maximize fuel economy and minimize emissions, while keeping a smooth and silent drive for your transfer requirements.',
     usage: 'Perfect for solo or couple transfers, corporate airport pickups, and eco-friendly daily rentals.',
@@ -87,6 +92,7 @@ const pages = [
     title: 'Toyota Axio',
     subheading: 'City Sedan',
     image: './images/fleet-sedan.jpg',
+    model: './models/axio.glb',
     intro: 'A reliable sedan that provides quiet comfort and a refined ride for private transfers.',
     overview: 'Axio is the go-to sedan for professional airport transfers, corporate travelers, and efficient medium-range travel with a clean profile.',
     usage: 'Suitable for couples and small families who need comfortable seats and good boot space at a reasonable price.',
@@ -103,6 +109,19 @@ const pages = [
 const template = fs.readFileSync(path.join(__dirname, 'fleet-details.html'), 'utf8'); // not needed; we'll re-use function below if wanted
 
 function makeHtml(item) {
+  const mediaMarkup = item.model ? `
+            <div class="image-shell rounded-[28px] p-[1px]">
+                <div class="viewer-stage min-h-[280px] md:min-h-[420px]">
+                    <model-viewer class="vehicle-model" src="${item.model}" alt="${item.title} 3D model" auto-rotate camera-controls environment-image="neutral" exposure="1.5" shadow-intensity="1.5" interaction-prompt="auto" style="width:100%; height:500px;"></model-viewer>
+                    <div class="viewer-hint">Drag to rotate 360°</div>
+                </div>
+            </div>` : `
+            <div class="image-shell rounded-[28px] p-[1px]">
+                <div class="viewer-stage min-h-[280px] md:min-h-[420px] flex items-center justify-center">
+                    <div class="text-sm uppercase tracking-[0.25em] text-zinc-500 dark:text-zinc-400">3D model unavailable</div>
+                </div>
+            </div>`;
+
   const html = `<!DOCTYPE html>
 <html class="scroll-smooth" lang="en">
 <head>
@@ -121,6 +140,7 @@ function makeHtml(item) {
     </script>
 
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
 
@@ -162,11 +182,20 @@ function makeHtml(item) {
         #sparkles { position:fixed; top:0; left:0; width:100vw; height:100vh; pointer-events:none; z-index:9998; }
         .floating-symbol { position:absolute; color:inherit; pointer-events:none; animation: floatSymbol linear infinite; }
         @keyframes floatSymbol { 0% { transform: translateY(110vh) rotate(0deg); opacity:0; } 10% { opacity:var(--symbol-opacity); } 90% { opacity:var(--symbol-opacity); } 100% { transform: translateY(-20vh) rotate(359deg); opacity:0; } }
-        .hero-gradient { background: linear-gradient(135deg, rgba(0,0,0,.7) 0%, rgba(0,0,0,.3) 100%); }
-        .day-card { background: rgba(255,255,255,.95); backdrop-filter: blur(10px); border:1px solid rgba(255,255,255,.2); }
-        .dark .day-card { background: rgba(20,20,20,.8); border:1px solid rgba(255,255,255,.1); }
-        .highlight-box { background: linear-gradient(135deg, rgba(255,255,255,.1) 0%, rgba(255,255,255,.05) 100%); border:1px solid rgba(255,255,255,.1); }
-        .dark .highlight-box { background: linear-gradient(135deg, rgba(0,0,0,.3) 0%, rgba(0,0,0,.05) 100%); border:1px solid rgba(255,255,255,.05); }
+        .image-shell { background: linear-gradient(135deg, rgba(255,255,255,.18) 0%, rgba(255,255,255,.04) 100%); border:1px solid rgba(255,255,255,.18); box-shadow:0 16px 40px rgba(15,23,42,.12); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px); }
+        .dark .image-shell { background: linear-gradient(135deg, rgba(255,255,255,.05) 0%, rgba(255,255,255,.02) 100%); border:1px solid rgba(255,255,255,.08); box-shadow:0 18px 45px rgba(0,0,0,.28); }
+        .stat-pill { display:inline-flex; align-items:center; gap:.45rem; padding:.55rem .85rem; border-radius:999px; background:rgba(255,255,255,.8); border:1px solid rgba(0,0,0,.08); font-size:.78rem; letter-spacing:.02em; }
+        .dark .stat-pill { background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.08); }
+        .detail-card { background: rgba(255,255,255,.9); backdrop-filter: blur(10px); border:1px solid rgba(24,24,27,.08); box-shadow:0 10px 30px rgba(0,0,0,.04); }
+        .dark .detail-card { background: rgba(24,24,27,.85); border:1px solid rgba(255,255,255,.07); box-shadow:0 10px 30px rgba(0,0,0,.22); }
+        .feature-list li { position:relative; padding-left:1.1rem; }
+        .feature-list li::before { content:'•'; position:absolute; left:0; opacity:.7; }
+        .viewer-stage { position:relative; min-height:500px; border-radius:1.5rem; overflow:hidden; background: radial-gradient(circle at top, rgba(34,211,238,.12), transparent 55%), linear-gradient(180deg, rgba(255,255,255,.55) 0%, rgba(241,245,249,.32) 100%); }
+        .dark .viewer-stage { background: radial-gradient(circle at top, rgba(34,211,238,.12), transparent 55%), linear-gradient(180deg, rgba(15,23,42,.88) 0%, rgba(9,9,11,.75) 100%); }
+        .vehicle-model { width:100%; height:500px; min-height:500px; --poster-color: transparent; background:transparent; display:block; filter: drop-shadow(0 8px 18px rgba(34, 211, 238, 0.24)); }
+        .dark .vehicle-model { filter: drop-shadow(0 10px 20px rgba(103, 232, 249, 0.22)); }
+        .viewer-hint { position:absolute; left:50%; bottom:14px; transform:translateX(-50%); padding:.45rem .8rem; border-radius:999px; background:rgba(15,23,42,.58); backdrop-filter:blur(10px); color:#fff; font-size:.68rem; letter-spacing:.08em; text-transform:uppercase; border:1px solid rgba(255,255,255,.08); }
+        .dark .viewer-hint { background:rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.08); }
     </style>
 </head>
 <body class="bg-zinc-50 dark:bg-surface text-zinc-900 dark:text-white transition-colors duration-500">
@@ -188,51 +217,59 @@ function makeHtml(item) {
         </div>
     </nav>
 
-    <section class="relative h-screen flex items-center justify-center overflow-hidden mt-16">
-        <div class="absolute inset-0">
-            <img src="${item.image}" alt="${item.title}" class="w-full h-full object-cover">
-            <div class="hero-gradient absolute inset-0"></div>
-        </div>
-        <div class="relative z-10 text-center text-white px-6 md:px-16 max-w-4xl mx-auto">
-            <span class="font-label text-sm uppercase tracking-[0.2em] text-white/80 mb-4 block">${item.subheading}</span>
-            <h1 class="font-headline text-5xl md:text-7xl font-extrabold mb-6">${item.title}</h1>
-            <p class="text-xl md:text-2xl font-light leading-relaxed mb-8">${item.intro}</p>
-            <a href="#details" class="inline-block px-8 py-4 bg-white text-zinc-900 font-semibold uppercase tracking-widest text-sm hover:bg-zinc-100 transition-colors rounded-sm">View Specifications</a>
+    <section class="pt-28 md:pt-36 pb-14 md:pb-20 px-6 md:px-16 bg-gradient-to-b from-zinc-100 via-white to-white dark:from-surface dark:via-surface-container dark:to-surface-container-lowest">
+        <div class="max-w-6xl mx-auto grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+            <div>
+                <span class="font-label text-xs uppercase tracking-[0.3em] text-zinc-500 dark:text-zinc-400 mb-4 block">${item.subheading}</span>
+                <h1 class="font-headline text-4xl md:text-6xl font-extrabold tracking-tight mb-5">${item.title}</h1>
+                <p class="text-lg md:text-xl text-zinc-600 dark:text-zinc-300 leading-relaxed mb-6">${item.intro}</p>
+                <div class="flex flex-wrap gap-3 mb-8">
+                    <span class="stat-pill"><span class="material-symbols-outlined text-[18px]">group</span>${item.capacity}</span>
+                    <span class="stat-pill"><span class="material-symbols-outlined text-[18px]">luggage</span>${item.luggage}</span>
+                    <span class="stat-pill"><span class="material-symbols-outlined text-[18px]">local_gas_station</span>${item.fuel}</span>
+                </div>
+                <div class="flex flex-col sm:flex-row gap-3">
+                    <a href="#details" class="inline-block px-8 py-4 bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 font-semibold uppercase tracking-widest text-sm hover:bg-zinc-800 dark:hover:bg-zinc-100 transition-colors rounded-sm text-center">View Details</a>
+                    <a href="index.html#inquire" class="inline-block px-8 py-4 border border-zinc-300 dark:border-white/15 text-zinc-900 dark:text-white font-semibold uppercase tracking-widest text-sm hover:bg-zinc-100 dark:hover:bg-white/5 transition-colors rounded-sm text-center">Book This Vehicle</a>
+                </div>
+            </div>
+            ${mediaMarkup}
         </div>
     </section>
 
-    <section id="details" class="py-20 md:py-32 px-6 md:px-16 bg-white dark:bg-surface-container-lowest">
-        <div class="max-w-6xl mx-auto">
-            <div class="grid md:grid-cols-2 gap-16 mb-12">
-                <div>
-                    <h2 class="font-headline text-4xl md:text-5xl font-bold mb-6">${item.title} Overview</h2>
+    <section id="details" class="pb-20 md:pb-28 px-6 md:px-16 bg-white dark:bg-surface-container-lowest">
+        <div class="max-w-6xl mx-auto space-y-8">
+            <div class="grid lg:grid-cols-2 gap-8">
+                <div class="detail-card p-7 md:p-8 rounded-2xl">
+                    <h2 class="font-headline text-3xl md:text-4xl font-bold mb-5">${item.title} Overview</h2>
                     <p class="text-zinc-600 dark:text-zinc-400 leading-relaxed mb-4">${item.overview}</p>
-                    <p class="text-zinc-600 dark:text-zinc-400 leading-relaxed mb-8">${item.usage}</p>
-                    <div class="highlight-box p-6 rounded-sm">
-                        <h3 class="font-headline text-xl font-bold mb-4">Key Features</h3>
-                        <ul class="space-y-2 text-sm text-zinc-600 dark:text-zinc-400">${item.features}</ul>
+                    <p class="text-zinc-600 dark:text-zinc-400 leading-relaxed">${item.usage}</p>
+                    <div class="mt-6 rounded-xl bg-zinc-50 dark:bg-white/5 p-5">
+                        <h3 class="font-headline text-xl font-bold mb-3">Why guests choose it</h3>
+                        <ul class="feature-list space-y-2 text-sm text-zinc-600 dark:text-zinc-400">${item.features}</ul>
                     </div>
                 </div>
-                <div class="bg-zinc-100 dark:bg-surface p-6 rounded-sm">
-                    <h3 class="font-headline text-2xl font-bold mb-4">Specifications</h3>
-                    <ul class="space-y-3 text-sm text-zinc-700 dark:text-zinc-300">
+                <div class="detail-card p-7 md:p-8 rounded-2xl">
+                    <h3 class="font-headline text-2xl font-bold mb-4">Ride Details</h3>
+                    <ul class="space-y-3 text-sm md:text-base text-zinc-700 dark:text-zinc-300">
                         <li><strong>Category:</strong> ${item.subheading}</li>
                         <li><strong>Seating:</strong> ${item.capacity}</li>
                         <li><strong>Luggage:</strong> ${item.luggage}</li>
                         <li><strong>Fuel Type:</strong> ${item.fuel}</li>
                         <li><strong>Comfort Level:</strong> ${item.comfort}</li>
                         <li><strong>Driver:</strong> Professional chauffeur included</li>
+                        <li><strong>Ideal for:</strong> Private transfers, airport runs, and relaxed day travel</li>
                     </ul>
                 </div>
             </div>
 
-            <div class="day-card p-8 rounded-sm">
-                <h3 class="font-headline text-3xl font-bold mb-4">Suggested Use Case</h3>
-                <p class="text-zinc-600 dark:text-zinc-400 leading-relaxed mb-4">${item.use_case_intro}</p>
+            <div class="detail-card p-7 md:p-8 rounded-2xl">
+                <h3 class="font-headline text-3xl font-bold mb-4">Suggested Use Cases</h3>
+                <p class="text-zinc-600 dark:text-zinc-400 leading-relaxed mb-6">${item.use_case_intro}</p>
                 <div class="grid md:grid-cols-3 gap-4">${item.use_case_items}</div>
             </div>
 
-            <div class="mt-12 text-center">
+            <div class="mt-10 text-center">
                 <a href="index.html#inquire" class="inline-block px-12 py-4 bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 font-semibold uppercase tracking-widest text-sm hover:bg-zinc-800 dark:hover:bg-zinc-100 transition-colors rounded-sm">Inquire for Bookings</a>
             </div>
         </div>
@@ -306,6 +343,12 @@ function makeHtml(item) {
 
         function animateSparks() { ctx.clearRect(0, 0, canvas.width, canvas.height); particles.forEach((p, i) => { p.update(); p.draw(); if (p.life <= 0) particles.splice(i, 1); }); requestAnimationFrame(animateSparks); }
         animateSparks();
+
+        document.querySelectorAll('model-viewer').forEach((viewer) => {
+            viewer.addEventListener('error', () => {
+                viewer.style.display = 'none';
+            });
+        });
 
         if (cursor) {
             document.addEventListener('mousemove', (e) => {
