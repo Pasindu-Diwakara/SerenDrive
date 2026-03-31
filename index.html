@@ -138,6 +138,9 @@
 
         /* Destination Highlights */
         .map-shell {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
             background: linear-gradient(135deg, rgba(255,255,255,0.96) 0%, rgba(248,250,252,0.92) 100%);
             border: 1px solid rgba(24,24,27,0.08);
             box-shadow: 0 18px 50px rgba(15,23,42,0.08);
@@ -149,7 +152,9 @@
         }
         .map-stage {
             position: relative;
-            min-height: 440px;
+            display: flex;
+            flex: 1 1 auto;
+            min-height: 520px;
             overflow: hidden;
             border: 1px solid rgba(24,24,27,0.06);
             background: radial-gradient(circle at 50% 28%, rgba(59,130,246,0.14), transparent 42%), linear-gradient(180deg, rgba(255,255,255,0.92) 0%, rgba(239,246,255,0.72) 100%);
@@ -160,20 +165,36 @@
         }
         #map {
             width: 100%;
-            min-height: 470px;
+            flex: 1 1 auto;
+            min-height: 520px;
             display: flex;
             align-items: center;
             justify-content: center;
             position: relative;
+            padding: 0.55rem 0.4rem 0.3rem;
         }
         .sri-lanka-map {
-            width: min(100%, 380px);
+            width: min(100%, 420px);
+            max-width: 100%;
+            max-height: 580px;
             height: auto;
             display: block;
+            margin: 0 auto;
+            transform: none;
             filter: drop-shadow(0 18px 34px rgba(15, 23, 42, 0.14));
         }
         .dark .sri-lanka-map {
             filter: drop-shadow(0 18px 34px rgba(0, 0, 0, 0.34));
+        }
+        @media (max-width: 640px) {
+            #map {
+                min-height: 430px;
+                padding: 0.45rem 0.4rem 0.35rem;
+            }
+            .sri-lanka-map {
+                width: min(100%, 330px);
+                max-height: 470px;
+            }
         }
         .map-chip {
             position: absolute;
@@ -216,10 +237,207 @@
             box-shadow: 0 10px 26px rgba(0, 0, 0, 0.20);
         }
         .destination-preview {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            min-height: 100%;
             background: linear-gradient(135deg, rgba(255,255,255,0.97) 0%, rgba(244,244,245,0.92) 100%);
         }
         .dark .destination-preview {
             background: linear-gradient(135deg, rgba(39,39,42,0.94) 0%, rgba(24,24,27,0.92) 100%);
+        }
+        .destination-preview-body {
+            display: flex;
+            flex: 1 1 auto;
+            flex-direction: column;
+        }
+        .destination-meta-row {
+            min-height: 2.4rem;
+            align-content: flex-start;
+        }
+        #destination-name {
+            min-height: 4.8rem;
+        }
+        #destination-copy {
+            min-height: 5.5rem;
+        }
+        .destination-detail-grid > div {
+            min-height: 88px;
+        }
+        #destination-tags {
+            min-height: 3.4rem;
+            align-content: flex-start;
+        }
+        .destination-tip-card {
+            min-height: 6.6rem;
+        }
+        .district-picker {
+            position: relative;
+            z-index: 5;
+            width: 100%;
+            max-width: 320px;
+        }
+        .district-dropdown-copy {
+            min-width: 0;
+            flex: 1 1 auto;
+        }
+        #selected-district-label {
+            display: block;
+            max-width: 100%;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .district-dropdown-trigger {
+            position: relative;
+            width: 100%;
+            min-height: 74px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.75rem;
+            padding: 0.95rem 1rem;
+            border-radius: 18px;
+            border: 1px solid rgba(255,255,255,0.3);
+            background: linear-gradient(135deg, rgba(255,255,255,0.28), rgba(255,255,255,0.1));
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.45), 0 18px 34px rgba(15,23,42,0.14);
+            backdrop-filter: blur(18px) saturate(155%);
+            -webkit-backdrop-filter: blur(18px) saturate(155%);
+            overflow: hidden;
+            transition: border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+        }
+        .district-dropdown-trigger::before {
+            content: '';
+            position: absolute;
+            inset: 1px;
+            border-radius: inherit;
+            background: linear-gradient(120deg, rgba(255,255,255,0.2), transparent 42%, rgba(34,211,238,0.12));
+            pointer-events: none;
+        }
+        .district-dropdown-trigger > * {
+            position: relative;
+            z-index: 1;
+        }
+        .district-dropdown-trigger:hover {
+            transform: translateY(-1px);
+            border-color: rgba(103,232,249,0.45);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.5), 0 20px 36px rgba(15,23,42,0.18);
+        }
+        .dark .district-dropdown-trigger {
+            background: linear-gradient(135deg, rgba(255,255,255,0.09), rgba(255,255,255,0.03));
+            border-color: rgba(255,255,255,0.12);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.08), 0 18px 34px rgba(0,0,0,0.28);
+        }
+        .district-picker-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 2.4rem;
+            height: 2.4rem;
+            border-radius: 999px;
+            background: linear-gradient(135deg, rgba(34,211,238,0.28), rgba(14,116,144,0.16));
+            color: rgb(8 145 178);
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+        .dark .district-picker-icon {
+            background: linear-gradient(135deg, rgba(34,211,238,0.22), rgba(14,116,144,0.14));
+            color: rgb(103 232 249);
+        }
+        .district-dropdown-panel {
+            position: absolute;
+            top: calc(100% + 0.7rem);
+            left: 0;
+            right: 0;
+            z-index: 20;
+            padding: 0.85rem;
+            border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.26);
+            background: linear-gradient(135deg, rgba(255,255,255,0.3), rgba(255,255,255,0.14));
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.4), 0 24px 50px rgba(15,23,42,0.18);
+            backdrop-filter: blur(18px) saturate(155%);
+            -webkit-backdrop-filter: blur(18px) saturate(155%);
+        }
+        .dark .district-dropdown-panel {
+            background: linear-gradient(135deg, rgba(39,39,42,0.88), rgba(24,24,27,0.78));
+            border-color: rgba(255,255,255,0.1);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.08), 0 24px 50px rgba(0,0,0,0.36);
+        }
+        .district-search-row {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.75rem 0.85rem;
+            border-radius: 14px;
+            border: 1px solid rgba(255,255,255,0.24);
+            background: rgba(255,255,255,0.22);
+            margin-bottom: 0.75rem;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .dark .district-search-row {
+            background: rgba(255,255,255,0.05);
+            border-color: rgba(255,255,255,0.08);
+        }
+        .district-search-input {
+            width: 100%;
+            border: 0;
+            background: transparent;
+            color: inherit;
+            font-size: 0.9rem;
+            outline: none;
+        }
+        .district-search-input::placeholder {
+            color: rgb(113 113 122);
+        }
+        .district-options-list {
+            max-height: 17rem;
+            overflow-y: auto;
+            display: grid;
+            gap: 0.45rem;
+            padding-right: 0.2rem;
+        }
+        .district-option {
+            width: 100%;
+            text-align: left;
+            padding: 0.78rem 0.9rem;
+            border-radius: 14px;
+            border: 1px solid rgba(255,255,255,0.2);
+            background: rgba(255,255,255,0.16);
+            color: rgb(39,39,42);
+            font-size: 0.72rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            transition: all 0.25s ease;
+        }
+        .district-option:hover {
+            transform: translateY(-1px);
+            border-color: rgba(103,232,249,0.45);
+            color: rgb(8 145 178);
+            background: rgba(255,255,255,0.24);
+        }
+        .district-option.active {
+            background: linear-gradient(135deg, rgba(34,211,238,0.86), rgba(14,116,144,0.74));
+            color: #04131a;
+            border-color: rgba(103,232,249,0.55);
+            box-shadow: 0 12px 24px rgba(6,182,212,0.22);
+        }
+        .dark .district-option {
+            background: rgba(255,255,255,0.04);
+            color: rgba(244,244,245,0.92);
+            border-color: rgba(255,255,255,0.08);
+        }
+        .dark .district-option.active {
+            background: linear-gradient(135deg, rgba(103,232,249,0.9), rgba(34,211,238,0.72));
+            color: rgb(24 24 27);
+            border-color: rgba(103,232,249,0.7);
+        }
+        @media (max-width: 1023px) {
+            .district-picker {
+                max-width: none;
+            }
         }
         .map-spot {
             display: none;
@@ -256,8 +474,14 @@
             display: none;
         }
         @media (max-width: 768px) {
-            #map { min-height: 420px; }
-            .sri-lanka-map { width: min(100%, 320px); }
+            #map {
+                min-height: 420px;
+                padding: 0.75rem 0.25rem 0.5rem;
+            }
+            .sri-lanka-map {
+                width: min(100%, 290px);
+                transform: none;
+            }
         }
         @keyframes pinPulse {
             0%, 100% { transform: scale(1); opacity: 0.72; }
@@ -483,21 +707,74 @@
                     </div>
                 </div>
 
-                <div class="grid lg:grid-cols-12 gap-6 md:gap-8 items-start">
-                    <div class="lg:col-span-7 order-1">
-                        <div class="map-shell rounded-[28px] p-4 md:p-6">
-                            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
+                <div class="grid lg:grid-cols-12 gap-6 md:gap-8 items-stretch">
+                    <div class="lg:col-span-7 order-1 flex">
+                        <div class="map-shell rounded-[28px] p-4 md:p-6 w-full">
+                            <div class="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4 mb-4">
                                 <div>
                                     <p class="text-[0.65rem] uppercase tracking-[0.2em] text-zinc-500 dark:text-zinc-400 font-label">Interactive Sri Lanka District Map</p>
-                                    <p class="text-sm text-zinc-600 dark:text-zinc-300 mt-1">No more small dots — the districts themselves are now directly clickable for mobile users.</p>
+                                    <p class="text-sm text-zinc-600 dark:text-zinc-300 mt-1">Tap the full district shape on the map, or use the quick district finder right here.</p>
                                 </div>
-                                <span class="inline-flex px-3 py-1 rounded-full bg-zinc-900 text-white dark:bg-white dark:text-zinc-900 text-[0.6rem] uppercase tracking-widest w-fit">25 Sri Lanka districts</span>
+                                <div class="flex flex-col sm:items-end gap-2 w-full lg:w-[320px] lg:min-w-[320px]">
+                                    <span class="inline-flex px-3 py-1 rounded-full bg-zinc-900 text-white dark:bg-white dark:text-zinc-900 text-[0.6rem] uppercase tracking-widest w-fit sm:self-end">25 Sri Lanka districts</span>
+
+                                    <div class="district-picker w-full">
+                                        <div id="district-dropdown" class="relative">
+                                            <button type="button" id="district-dropdown-toggle" class="district-dropdown-trigger" aria-haspopup="listbox" aria-expanded="false">
+                                                <span class="flex items-center gap-3 min-w-0 w-full">
+                                                    <span class="material-symbols-outlined district-picker-icon">search</span>
+                                                    <span class="district-dropdown-copy flex min-w-0 flex-col text-left leading-tight">
+                                                        <span class="text-[0.58rem] uppercase tracking-[0.22em] text-zinc-500 dark:text-zinc-400 font-label">Find a district</span>
+                                                        <span id="selected-district-label" class="text-sm font-semibold text-zinc-900 dark:text-white">Kandy District</span>
+                                                    </span>
+                                                </span>
+                                                <span class="material-symbols-outlined text-zinc-500 dark:text-zinc-300" data-chevron>expand_more</span>
+                                            </button>
+
+                                            <div id="district-dropdown-panel" class="district-dropdown-panel hidden">
+                                                <div class="district-search-row">
+                                                    <span class="material-symbols-outlined text-zinc-500 dark:text-zinc-300 text-[18px]">search</span>
+                                                    <input id="district-search" type="text" placeholder="Search a district..." class="district-search-input" aria-label="Search districts">
+                                                </div>
+                                                <p id="district-search-empty" class="hidden text-xs text-zinc-500 dark:text-zinc-400 px-1 py-2">No district found.</p>
+
+                                                <div class="district-options-list" role="listbox" aria-label="Sri Lanka district list">
+                                                    <button type="button" class="destination-control district-option active" data-place="kandy">Kandy</button>
+                                                    <button type="button" class="destination-control district-option" data-place="colombo">Colombo</button>
+                                                    <button type="button" class="destination-control district-option" data-place="gampaha">Gampaha</button>
+                                                    <button type="button" class="destination-control district-option" data-place="kalutara">Kalutara</button>
+                                                    <button type="button" class="destination-control district-option" data-place="kegalle">Kegalle</button>
+                                                    <button type="button" class="destination-control district-option" data-place="ratnapura">Ratnapura</button>
+                                                    <button type="button" class="destination-control district-option" data-place="matale">Matale</button>
+                                                    <button type="button" class="destination-control district-option" data-place="nuwara-eliya">Nuwara Eliya</button>
+                                                    <button type="button" class="destination-control district-option" data-place="badulla">Badulla</button>
+                                                    <button type="button" class="destination-control district-option" data-place="monaragala">Monaragala</button>
+                                                    <button type="button" class="destination-control district-option" data-place="galle">Galle</button>
+                                                    <button type="button" class="destination-control district-option" data-place="matara">Matara</button>
+                                                    <button type="button" class="destination-control district-option" data-place="hambantota">Hambantota</button>
+                                                    <button type="button" class="destination-control district-option" data-place="puttalam">Puttalam</button>
+                                                    <button type="button" class="destination-control district-option" data-place="kurunegala">Kurunegala</button>
+                                                    <button type="button" class="destination-control district-option" data-place="anuradhapura">Anuradhapura</button>
+                                                    <button type="button" class="destination-control district-option" data-place="polonnaruwa">Polonnaruwa</button>
+                                                    <button type="button" class="destination-control district-option" data-place="trincomalee">Trincomalee</button>
+                                                    <button type="button" class="destination-control district-option" data-place="batticaloa">Batticaloa</button>
+                                                    <button type="button" class="destination-control district-option" data-place="ampara">Ampara</button>
+                                                    <button type="button" class="destination-control district-option" data-place="jaffna">Jaffna</button>
+                                                    <button type="button" class="destination-control district-option" data-place="kilinochchi">Kilinochchi</button>
+                                                    <button type="button" class="destination-control district-option" data-place="mannar">Mannar</button>
+                                                    <button type="button" class="destination-control district-option" data-place="vavuniya">Vavuniya</button>
+                                                    <button type="button" class="destination-control district-option" data-place="mullaitivu">Mullaitivu</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
 
-                            <div class="map-stage rounded-[24px] p-3 md:p-4">
+                            <div class="map-stage rounded-[24px] p-3 md:p-4 flex-1">
                                 <div id="map" aria-label="Sri Lanka tourism map">
                                     <span class="map-chip inline-flex px-3 py-1 rounded-full bg-white/80 dark:bg-zinc-900/80 border border-zinc-200 dark:border-white/10 text-[0.58rem] uppercase tracking-widest text-zinc-700 dark:text-zinc-200 font-label">Tap any district</span>
-                                    <svg class="sri-lanka-map" viewBox="0 0 450 900" xmlns="http://www.w3.org/2000/svg">
+                                    <svg class="sri-lanka-map" viewBox="8 -8 405 820" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
                                         <defs>
                                             <filter id="sh">
                                                 <feDropShadow dx="2" dy="3" stdDeviation="3" flood-opacity="0.18"/>
@@ -603,55 +880,20 @@
                                         <g class="map-spot" data-place="yala" tabindex="0" role="button" aria-label="Explore Yala">
                                             <circle class="pin" cx="248" cy="705" r="6" data-place="yala"/>
                                         </g>
-                                        <g transform="translate(418,60)">
-                                            <circle r="18" fill="rgba(255,255,255,0.75)" stroke="rgba(255,255,255,0.9)" stroke-width="0.8"/>
-                                            <polygon points="0,-13 -3.5,-5 0,-8 3.5,-5" fill="#06b6d4"/>
-                                            <polygon points="0,13 -3.5,5 0,8 3.5,5" fill="#a1a1aa"/>
-                                            <polygon points="-13,0 -5,3.5 -8,0 -5,-3.5" fill="#d4d4d8"/>
-                                            <polygon points="13,0 5,3.5 8,0 5,-3.5" fill="#d4d4d8"/>
-                                            <text x="0" y="-15" text-anchor="middle" font-size="7" fill="#06b6d4" font-family="Inter" font-weight="700">N</text>
-                                        </g>
+
                                     </svg>
                                 </div>
                             </div>
                         </div>
-
-                        <div class="mt-4 flex flex-wrap gap-2 max-h-36 overflow-y-auto pr-1">
-                            <button type="button" class="destination-control destination-tab active" data-place="kandy">Kandy</button>
-                            <button type="button" class="destination-control destination-tab" data-place="colombo">Colombo</button>
-                            <button type="button" class="destination-control destination-tab" data-place="gampaha">Gampaha</button>
-                            <button type="button" class="destination-control destination-tab" data-place="kalutara">Kalutara</button>
-                            <button type="button" class="destination-control destination-tab" data-place="kegalle">Kegalle</button>
-                            <button type="button" class="destination-control destination-tab" data-place="ratnapura">Ratnapura</button>
-                            <button type="button" class="destination-control destination-tab" data-place="matale">Matale</button>
-                            <button type="button" class="destination-control destination-tab" data-place="nuwara-eliya">Nuwara Eliya</button>
-                            <button type="button" class="destination-control destination-tab" data-place="badulla">Badulla</button>
-                            <button type="button" class="destination-control destination-tab" data-place="monaragala">Monaragala</button>
-                            <button type="button" class="destination-control destination-tab" data-place="galle">Galle</button>
-                            <button type="button" class="destination-control destination-tab" data-place="matara">Matara</button>
-                            <button type="button" class="destination-control destination-tab" data-place="hambantota">Hambantota</button>
-                            <button type="button" class="destination-control destination-tab" data-place="puttalam">Puttalam</button>
-                            <button type="button" class="destination-control destination-tab" data-place="kurunegala">Kurunegala</button>
-                            <button type="button" class="destination-control destination-tab" data-place="anuradhapura">Anuradhapura</button>
-                            <button type="button" class="destination-control destination-tab" data-place="polonnaruwa">Polonnaruwa</button>
-                            <button type="button" class="destination-control destination-tab" data-place="trincomalee">Trincomalee</button>
-                            <button type="button" class="destination-control destination-tab" data-place="batticaloa">Batticaloa</button>
-                            <button type="button" class="destination-control destination-tab" data-place="ampara">Ampara</button>
-                            <button type="button" class="destination-control destination-tab" data-place="jaffna">Jaffna</button>
-                            <button type="button" class="destination-control destination-tab" data-place="kilinochchi">Kilinochchi</button>
-                            <button type="button" class="destination-control destination-tab" data-place="mannar">Mannar</button>
-                            <button type="button" class="destination-control destination-tab" data-place="vavuniya">Vavuniya</button>
-                            <button type="button" class="destination-control destination-tab" data-place="mullaitivu">Mullaitivu</button>
-                        </div>
                     </div>
 
-                    <div class="lg:col-span-5 order-2">
-                        <div class="destination-preview rounded-[28px] overflow-hidden border border-zinc-200 dark:border-white/10 shadow-lg dark:shadow-none">
+                    <div class="lg:col-span-5 order-2 flex">
+                        <div class="destination-preview rounded-[28px] overflow-hidden border border-zinc-200 dark:border-white/10 shadow-lg dark:shadow-none w-full h-full">
                             <div class="aspect-[16/10] overflow-hidden">
                                 <img id="destination-image" src="./images/map-kandy.jpg" alt="Sri Lanka destination preview" class="w-full h-full object-cover transition-all duration-700">
                             </div>
-                            <div class="p-6 md:p-8">
-                                <div class="flex flex-wrap gap-2 mb-4">
+                            <div class="p-6 md:p-8 flex flex-1 flex-col destination-preview-body">
+                                <div class="destination-meta-row flex flex-wrap gap-2 mb-4">
                                     <span id="destination-region" class="inline-flex px-3 py-1 rounded-full bg-zinc-900 text-white dark:bg-white dark:text-zinc-900 text-[0.6rem] uppercase tracking-widest">Central Province</span>
                                     <span id="destination-best" class="inline-flex px-3 py-1 rounded-full border border-zinc-300 dark:border-white/15 text-zinc-700 dark:text-zinc-300 text-[0.6rem] uppercase tracking-widest">Best Jan – Apr</span>
                                     <span id="destination-entry" class="inline-flex px-3 py-1 rounded-full border border-cyan-200 dark:border-cyan-500/30 text-cyan-700 dark:text-cyan-300 text-[0.6rem] uppercase tracking-widest">Temple + lake + gardens</span>
@@ -660,7 +902,7 @@
                                 <h3 id="destination-name" class="font-headline text-3xl md:text-4xl font-extrabold text-zinc-900 dark:text-white mb-4">Kandy District</h3>
                                 <p id="destination-copy" class="text-zinc-600 dark:text-zinc-300 leading-relaxed mb-6">Kandy District combines sacred heritage, cool hill-country air, and easy scenic day trips in one of Sri Lanka’s most loved inland regions.</p>
 
-                                <div class="grid sm:grid-cols-2 gap-3 mb-6">
+                                <div class="destination-detail-grid grid sm:grid-cols-2 gap-3 mb-6">
                                     <div class="rounded-2xl bg-white/70 dark:bg-white/5 border border-zinc-200 dark:border-white/10 p-4">
                                         <span class="block text-[0.6rem] uppercase tracking-widest text-zinc-500 dark:text-outline mb-2">Best mini-route</span>
                                         <span id="destination-route" class="text-sm text-zinc-900 dark:text-white">Kandy Lake → Temple of the Tooth → Peradeniya</span>
@@ -680,12 +922,12 @@
                                     </div>
                                 </div>
 
-                                <div class="mt-6 rounded-2xl bg-cyan-50/80 dark:bg-cyan-500/10 border border-cyan-100 dark:border-cyan-500/20 p-4">
+                                <div class="destination-tip-card mt-6 rounded-2xl bg-cyan-50/80 dark:bg-cyan-500/10 border border-cyan-100 dark:border-cyan-500/20 p-4">
                                     <span class="block text-[0.6rem] uppercase tracking-widest text-cyan-700 dark:text-cyan-300 mb-2">Seren tip</span>
                                     <p id="destination-tip" class="text-sm text-zinc-700 dark:text-zinc-200 leading-relaxed">Start in the late afternoon for a lake walk, temple atmosphere, and cooler weather through the hill capital.</p>
                                 </div>
 
-                                <div class="mt-8 flex flex-col sm:flex-row gap-3">
+                                <div class="mt-auto pt-6 flex flex-col sm:flex-row gap-3">
                                     <a href="#tours" class="inline-flex items-center justify-center px-5 py-3 bg-zinc-900 text-white dark:bg-white dark:text-zinc-900 text-xs uppercase tracking-widest font-label">Explore Tours</a>
                                     <a href="#inquire" class="inline-flex items-center justify-center px-5 py-3 border border-zinc-300 dark:border-white/15 text-zinc-900 dark:text-white text-xs uppercase tracking-widest font-label">Plan This District</a>
                                 </div>
@@ -1805,6 +2047,12 @@
 
         const destinationControls = document.querySelectorAll('.destination-control');
         const districtPaths = Array.from(document.querySelectorAll('.sri-lanka-map .district'));
+        const districtDropdown = document.getElementById('district-dropdown');
+        const districtDropdownToggle = document.getElementById('district-dropdown-toggle');
+        const districtDropdownPanel = document.getElementById('district-dropdown-panel');
+        const districtSearch = document.getElementById('district-search');
+        const districtSearchEmpty = document.getElementById('district-search-empty');
+        const selectedDistrictLabel = document.getElementById('selected-district-label');
         const destinationImage = document.getElementById('destination-image');
         const destinationName = document.getElementById('destination-name');
         const destinationRegion = document.getElementById('destination-region');
@@ -1826,6 +2074,36 @@
             district.setAttribute('aria-label', `Show ${destinationData[place].name}`);
         });
 
+        function setDistrictDropdownState(isOpen) {
+            if (!districtDropdownPanel || !districtDropdownToggle) return;
+
+            districtDropdownPanel.classList.toggle('hidden', !isOpen);
+            districtDropdownToggle.setAttribute('aria-expanded', String(isOpen));
+
+            const chevron = districtDropdownToggle.querySelector('[data-chevron]');
+            if (chevron) {
+                chevron.textContent = isOpen ? 'expand_less' : 'expand_more';
+            }
+
+            if (isOpen && districtSearch) {
+                window.requestAnimationFrame(() => districtSearch.focus());
+            }
+        }
+
+        function resetDistrictSearch() {
+            if (districtSearch) {
+                districtSearch.value = '';
+            }
+
+            destinationControls.forEach((control) => {
+                control.classList.remove('hidden');
+            });
+
+            if (districtSearchEmpty) {
+                districtSearchEmpty.classList.add('hidden');
+            }
+        }
+
         function updateDestination(place) {
             const data = destinationData[place];
             if (!data || !destinationImage) return;
@@ -1843,6 +2121,7 @@
             destinationName.textContent = data.name;
             destinationRegion.textContent = data.region;
             destinationBest.textContent = data.best;
+            if (selectedDistrictLabel) selectedDistrictLabel.textContent = data.name;
             if (destinationEntry) destinationEntry.textContent = data.entry;
             destinationCopy.textContent = data.copy;
             destinationRoute.textContent = data.route;
@@ -1853,7 +2132,42 @@
         }
 
         destinationControls.forEach((control) => {
-            control.addEventListener('click', () => updateDestination(control.dataset.place));
+            control.addEventListener('click', () => {
+                updateDestination(control.dataset.place);
+                setDistrictDropdownState(false);
+                resetDistrictSearch();
+            });
+        });
+
+        districtDropdownToggle?.addEventListener('click', () => {
+            const shouldOpen = districtDropdownPanel?.classList.contains('hidden');
+            setDistrictDropdownState(Boolean(shouldOpen));
+        });
+
+        districtSearch?.addEventListener('input', () => {
+            const query = districtSearch.value.trim().toLowerCase();
+            let matches = 0;
+
+            destinationControls.forEach((control) => {
+                const isMatch = control.textContent.toLowerCase().includes(query);
+                control.classList.toggle('hidden', !isMatch);
+                if (isMatch) matches += 1;
+            });
+
+            if (districtSearchEmpty) {
+                districtSearchEmpty.classList.toggle('hidden', matches !== 0);
+            }
+        });
+
+        document.addEventListener('click', (event) => {
+            if (!districtDropdown || districtDropdown.contains(event.target)) return;
+            setDistrictDropdownState(false);
+        });
+
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape') {
+                setDistrictDropdownState(false);
+            }
         });
 
         districtPaths.forEach((district) => {
@@ -1869,6 +2183,7 @@
 
         if (destinationControls.length && destinationImage) {
             updateDestination('kandy');
+            resetDistrictSearch();
         }
 
         // ── TOUR FILTER LOGIC ──
