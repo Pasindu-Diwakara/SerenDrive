@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html class="scroll-smooth" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>The Ultimate Yala Safari Guide - SerenDrive Blog</title>
+    <meta name="description" content="Everything you need to know before your first Yala National Park safari — leopards, elephants, best time slots, and what to bring."/>
+
+    <script>
+        if (localStorage.theme === 'dark') { document.documentElement.classList.add('dark'); } else { document.documentElement.classList.remove('dark'); localStorage.theme = 'light'; }
+    </script>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <script id="tailwind-config">
+        tailwind.config = { darkMode: "class", theme: { extend: { colors: { "primary": "#ffffff", "on-primary": "#1a1c1c", "surface-variant": "#353534", "outline": "#919191", "surface-container-high": "#2a2a2a", "surface": "#131313", "primary-container": "#d4d4d4", "surface-container-low": "#1c1b1b", "background": "#131313", "on-surface-variant": "#c6c6c6", "surface-container-lowest": "#0e0e0e", "surface-container": "#201f1f" }, fontFamily: { "headline": ["Manrope"], "body": ["Inter"], "label": ["Inter"] } } } }
+    </script>
+    <style>
+        :root { --symbol-opacity: 0.15; } .dark { --symbol-opacity: 0.10; }
+        body { overflow-x: hidden; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        @media (pointer: fine) { body, a, button, input, select, textarea { cursor: none !important; } }
+        .liquid-glass { background: rgba(255,255,255,0.85); backdrop-filter: blur(24px) saturate(120%); -webkit-backdrop-filter: blur(24px) saturate(120%); border: 1px solid rgba(255,255,255,0.4); box-shadow: 0 8px 32px 0 rgba(0,0,0,0.1); transition: all 0.5s ease-in-out; }
+        .dark .liquid-glass { background: rgba(20,20,20,0.55); border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 8px 32px 0 rgba(0,0,0,0.6); }
+        .custom-cursor { width: 12px; height: 12px; border: 1px solid rgba(0,0,0,0.4); border-radius: 50%; position: fixed; pointer-events: none; z-index: 9999; transition: transform 0.1s ease-out, width 0.3s ease, height 0.3s ease, border-color 0.3s ease, background-color 0.3s ease; }
+        .dark .custom-cursor { border: 1px solid rgba(255,255,255,0.4); }
+        #sparkles { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 9998; }
+        @keyframes floatSymbol { 0% { transform: translateY(110vh) rotate(0deg); opacity: 0; } 10% { opacity: var(--symbol-opacity); } 90% { opacity: var(--symbol-opacity); } 100% { transform: translateY(-20vh) rotate(359deg); opacity: 0; } }
+        .floating-symbol { position: absolute; color: inherit; pointer-events: none; animation: floatSymbol linear infinite; }
+        .hero-gradient { background: linear-gradient(135deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 100%); }
+        .prose-content h2 { font-family: 'Manrope', sans-serif; font-weight: 700; font-size: 1.5rem; margin-top: 2.5rem; margin-bottom: 1rem; }
+        .prose-content h3 { font-family: 'Manrope', sans-serif; font-weight: 600; font-size: 1.15rem; margin-top: 2rem; margin-bottom: 0.75rem; }
+        .prose-content p { margin-bottom: 1.25rem; line-height: 1.85; }
+        .prose-content ul { list-style: disc; padding-left: 1.5rem; margin-bottom: 1.25rem; }
+        .prose-content ul li { margin-bottom: 0.5rem; line-height: 1.75; }
+    </style>
+</head>
+<body class="bg-white dark:bg-background text-zinc-900 dark:text-white transition-colors duration-500 font-body">
+    <div class="custom-cursor hidden md:block"></div>
+    <canvas id="sparkles"></canvas>
+
+    <nav class="fixed top-0 w-full z-50 bg-white/90 dark:bg-zinc-900/80 backdrop-blur-xl shadow-sm dark:shadow-[0px_20px_40px_rgba(0,0,0,0.4)] transition-colors duration-500 font-['Manrope'] tracking-tight">
+        <div class="flex justify-between items-center px-6 md:px-16 py-5 md:py-6 w-full max-w-[1920px] mx-auto">
+            <a href="./index.html" class="group"><img src="./images/serendrive-logo.png" alt="SerenDrive Logo" class="h-8 md:h-10 w-auto invert dark:invert-0 transition-all duration-1000"></a>
+            <div class="flex items-center gap-4 md:gap-6">
+                <a href="./blog.html" class="text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors duration-300 text-[0.75rem] uppercase tracking-widest hidden md:inline">All Articles</a>
+                <a href="./index.html#inquire" class="hidden md:inline-block px-8 py-2 bg-transparent border border-zinc-300 text-zinc-900 hover:bg-zinc-900 hover:text-white dark:bg-white/5 dark:border-white/20 dark:hover:bg-white dark:text-white dark:hover:text-on-primary transition-all duration-500 text-xs uppercase tracking-[0.2em]">Inquire</a>
+                <button id="theme-toggle" class="flex items-center justify-center p-2 rounded-full border border-zinc-300 dark:border-white/20 hover:bg-zinc-200 dark:hover:bg-white/10 transition-colors">
+                    <span class="material-symbols-outlined text-zinc-800 dark:hidden text-[18px]">dark_mode</span>
+                    <span class="material-symbols-outlined hidden dark:block text-white text-[18px]">light_mode</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <header class="relative min-h-[60vh] flex items-end overflow-hidden">
+        <img src="./images/tour-safari.jpg" alt="Yala National Park" class="absolute inset-0 w-full h-full object-cover"/>
+        <div class="absolute inset-0 hero-gradient"></div>
+        <div class="relative z-10 w-full max-w-4xl mx-auto px-6 md:px-16 pb-12 md:pb-16 pt-32">
+            <span class="inline-block bg-white/20 backdrop-blur-sm text-white text-[0.65rem] uppercase tracking-[0.2em] font-label px-4 py-1.5 rounded-full mb-4">Wildlife</span>
+            <h1 class="font-headline text-3xl md:text-5xl font-extrabold text-white tracking-tight leading-tight">The Ultimate Yala Safari Guide</h1>
+            <div class="flex items-center gap-4 mt-4 text-white/70 text-sm font-label">
+                <span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm">schedule</span> 7 min read</span>
+                <span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm">calendar_month</span> February 2026</span>
+            </div>
+        </div>
+    </header>
+
+    <article class="max-w-3xl mx-auto px-6 md:px-8 py-12 md:py-20">
+        <div class="prose-content text-zinc-700 dark:text-zinc-300 text-[0.95rem] md:text-base transition-colors duration-500">
+
+            <p class="text-lg md:text-xl leading-relaxed text-zinc-800 dark:text-zinc-200">Yala National Park is Sri Lanka's most visited wildlife reserve and home to the <strong>highest density of leopards in the world</strong>. Here's everything you need for an unforgettable game drive.</p>
+
+            <h2 class="text-zinc-900 dark:text-white">Why Yala?</h2>
+            <p>Spanning 979 square kilometres along the southeast coast, Yala's Block 1 packs an extraordinary concentration of wildlife into a relatively compact area. Beyond leopards, you'll encounter Asian elephants, sloth bears, crocodiles, wild boar, spotted deer, and over 200 bird species including flamingos and painted storks.</p>
+
+            <h2 class="text-zinc-900 dark:text-white">Best Time to Visit</h2>
+            <p>The park is open year-round except during the annual maintenance closure in September. The <strong>dry season (February – July)</strong> is peak time: water holes shrink, forcing animals into the open. Leopard sighting probability is highest from February to April when vegetation is sparse and cats sun themselves on rocky outcrops.</p>
+
+            <h2 class="text-zinc-900 dark:text-white">Morning vs Afternoon Drives</h2>
+            <h3 class="text-zinc-900 dark:text-white">Dawn Safari (5:30 AM – 10:00 AM)</h3>
+            <p>The most productive slot. Gates open at 6 AM and the first hour is golden — animals are active, the light is magical for photography, and you beat the midday heat. Leopards are most likely spotted in the first 90 minutes. Our drivers know the territory and will have you positioned at the gate well before opening.</p>
+
+            <h3 class="text-zinc-900 dark:text-white">Afternoon Safari (2:00 PM – 6:00 PM)</h3>
+            <p>A calmer experience with fewer jeeps. Elephants congregate around water holes, and the sunset over Patanangala beach inside the park is an iconic shot. Bird watching is excellent in the late afternoon.</p>
+
+            <h2 class="text-zinc-900 dark:text-white">What to Bring</h2>
+            <ul>
+                <li><strong>Binoculars</strong> — essential for spotting leopards resting in distant trees</li>
+                <li><strong>Camera with telephoto lens</strong> — a 200mm minimum; 400mm+ ideal</li>
+                <li><strong>Sunscreen and hat</strong> — the jeeps are open-top and the tropical sun is fierce</li>
+                <li><strong>Light layers</strong> — surprisingly cool at dawn, especially in January/February</li>
+                <li><strong>Water and snacks</strong> — there are no shops inside the park</li>
+                <li><strong>Dust mask or bandana</strong> — the dry-season trails kick up a lot of dust</li>
+            </ul>
+
+            <h2 class="text-zinc-900 dark:text-white">Etiquette & Tips</h2>
+            <ul>
+                <li>Stay seated in the jeep — standing up startles animals and is technically a park violation</li>
+                <li>Keep voices low when near a sighting; sudden noise causes animals to retreat</li>
+                <li>Don't pressure your driver to chase animals — patience yields better encounters</li>
+                <li>Carry a plastic bag for rubbish; nothing should be left in the park</li>
+            </ul>
+
+            <h2 class="text-zinc-900 dark:text-white">SerenDrive Safari Transfers</h2>
+            <p>We offer direct transfers from Ella, Mirissa, Tangalle, or Colombo to Yala with an early-morning arrival timed to the gate opening. Your chauffeur waits while you're on your game drive and continues the journey afterward — no rental jeep logistics to worry about.</p>
+
+            <div class="mt-12 p-6 md:p-8 liquid-glass rounded-2xl border border-zinc-200 dark:border-white/10">
+                <p class="font-headline font-bold text-zinc-900 dark:text-white text-lg mb-2">Book a Safari Transfer</p>
+                <p class="text-zinc-600 dark:text-zinc-400 text-sm mb-4">Let us handle the early-morning logistics so you can focus on the wildlife.</p>
+                <a href="./index.html#inquire" class="inline-block px-8 py-3 bg-zinc-900 text-white dark:bg-white dark:text-zinc-900 font-headline font-bold uppercase tracking-widest text-xs transition-all duration-500 hover:bg-zinc-700 dark:hover:bg-zinc-200">Get a Quote</a>
+            </div>
+        </div>
+    </article>
+
+    <section class="max-w-5xl mx-auto px-6 md:px-8 pb-16 md:pb-24">
+        <h3 class="font-headline font-bold text-xl text-zinc-900 dark:text-white mb-6">More from the Journal</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <a href="./blog-best-time-to-visit.html" class="group block rounded-xl overflow-hidden border border-zinc-200 dark:border-white/5 hover:shadow-lg transition-all duration-300">
+                <img src="./images/tour-highland.jpg" alt="Best time to visit" class="w-full h-36 object-cover transition-transform duration-500 group-hover:scale-105"/>
+                <div class="p-4"><h4 class="font-headline font-bold text-sm text-zinc-900 dark:text-white">Best Time to Visit Sri Lanka</h4></div>
+            </a>
+            <a href="./blog-colombo-to-ella-train.html" class="group block rounded-xl overflow-hidden border border-zinc-200 dark:border-white/5 hover:shadow-lg transition-all duration-300">
+                <img src="./images/tour-grand.jpg" alt="Train to Ella" class="w-full h-36 object-cover transition-transform duration-500 group-hover:scale-105"/>
+                <div class="p-4"><h4 class="font-headline font-bold text-sm text-zinc-900 dark:text-white">The Scenic Train to Ella</h4></div>
+            </a>
+            <a href="./blog-sri-lankan-food-guide.html" class="group block rounded-xl overflow-hidden border border-zinc-200 dark:border-white/5 hover:shadow-lg transition-all duration-300">
+                <img src="./images/tour-cultural.jpg" alt="Food guide" class="w-full h-36 object-cover transition-transform duration-500 group-hover:scale-105"/>
+                <div class="p-4"><h4 class="font-headline font-bold text-sm text-zinc-900 dark:text-white">A Foodie's Guide to Sri Lanka</h4></div>
+            </a>
+        </div>
+    </section>
+
+    <footer class="py-12 px-6 md:px-16 bg-zinc-900 dark:bg-black text-white">
+        <div class="max-w-6xl mx-auto text-center"><p class="text-zinc-400">&copy; 2026 SerenDrive. All rights reserved.</p></div>
+    </footer>
+
+    <script>
+        const themeToggleBtn = document.getElementById('theme-toggle'); const htmlElement = document.documentElement;
+        themeToggleBtn.addEventListener('click', () => { htmlElement.classList.toggle('dark'); const isDark = htmlElement.classList.contains('dark'); localStorage.theme = isDark ? 'dark' : 'light'; if (cursor) cursor.style.border = isDark ? '1px solid rgba(255,255,255,0.4)' : '1px solid rgba(0,0,0,0.4)'; });
+        const symbolsContainer = document.createElement('div'); symbolsContainer.className = 'fixed inset-0 pointer-events-none overflow-hidden z-[2]'; document.body.appendChild(symbolsContainer);
+        const icons = ['flight_takeoff','directions_car','luggage','explore','sailing','landscape','photo_camera','map'];
+        for (let i = 0; i < 20; i++) { const span = document.createElement('span'); span.className = 'material-symbols-outlined floating-symbol text-zinc-900 dark:text-white transition-colors duration-500'; span.innerText = icons[Math.floor(Math.random() * icons.length)]; span.style.fontSize = `${Math.random()*60+30}px`; span.style.left = `${Math.random()*100}vw`; span.style.animationDuration = `${Math.random()*30+30}s`; span.style.animationDelay = `${Math.random()*-60}s`; symbolsContainer.appendChild(span); }
+        const cursor = document.querySelector('.custom-cursor'); const canvas = document.getElementById('sparkles'); const ctx = canvas.getContext('2d'); let particles = [];
+        function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; } window.addEventListener('resize', resizeCanvas); resizeCanvas();
+        class Particle { constructor(x,y,d){this.x=x;this.y=y;this.size=Math.random()*2.5+1.5;this.speedX=Math.random()*2-1;this.speedY=Math.random()*2-1.5;this.life=1;this.decay=Math.random()*0.02+0.02;const c=d?['#cbd5e1','#93c5fd','#bae6fd','#e2e8f0']:['#000000','#1c1917','#334155'];this.color=c[Math.floor(Math.random()*c.length)]}update(){this.x+=this.speedX;this.y+=this.speedY;this.life-=this.decay}draw(){ctx.globalAlpha=Math.max(0,this.life);ctx.fillStyle=this.color;ctx.shadowBlur=8;ctx.shadowColor=this.color;ctx.beginPath();ctx.arc(this.x,this.y,this.size,0,Math.PI*2);ctx.fill()}}
+        function animateSparks(){ctx.clearRect(0,0,canvas.width,canvas.height);particles.forEach((p,i)=>{p.update();p.draw();if(p.life<=0)particles.splice(i,1)});requestAnimationFrame(animateSparks)}animateSparks();
+        if(cursor){document.addEventListener('mousemove',(e)=>{cursor.style.transform=`translate(${e.clientX-6}px, ${e.clientY-6}px)`;if(window.matchMedia("(pointer: fine)").matches){for(let i=0;i<2;i++)particles.push(new Particle(e.clientX,e.clientY,htmlElement.classList.contains('dark')))}});document.querySelectorAll('button, a, .group, input, select, textarea').forEach(el=>{el.addEventListener('mouseenter',()=>{const d=htmlElement.classList.contains('dark');cursor.style.width='40px';cursor.style.height='40px';cursor.style.backgroundColor=d?'rgba(255,255,255,0.05)':'rgba(0,0,0,0.05)';cursor.style.border=d?'1px solid rgba(255,255,255,0.8)':'1px solid rgba(0,0,0,0.8)'});el.addEventListener('mouseleave',()=>{const d=htmlElement.classList.contains('dark');cursor.style.width='12px';cursor.style.height='12px';cursor.style.backgroundColor='transparent';cursor.style.border=d?'1px solid rgba(255,255,255,0.4)':'1px solid rgba(0,0,0,0.4)'})})}
+    </script>
+</body>
+</html>

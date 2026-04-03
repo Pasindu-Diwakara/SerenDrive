@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html class="scroll-smooth" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Best Time to Visit Sri Lanka - SerenDrive Blog</title>
+    <meta name="description" content="Plan your Sri Lanka trip around monsoon seasons, peak months, and regional weather patterns. Our month-by-month guide helps you pick the perfect travel window."/>
+
+    <script>
+        if (localStorage.theme === 'dark') {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+            localStorage.theme = 'light';
+        }
+    </script>
+
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#ffffff", "on-primary": "#1a1c1c",
+                        "surface-variant": "#353534", "outline": "#919191",
+                        "surface-container-high": "#2a2a2a", "surface": "#131313",
+                        "primary-container": "#d4d4d4", "surface-container-low": "#1c1b1b",
+                        "background": "#131313", "on-surface-variant": "#c6c6c6",
+                        "surface-container-lowest": "#0e0e0e", "surface-container": "#201f1f",
+                    },
+                    fontFamily: {
+                        "headline": ["Manrope"], "body": ["Inter"], "label": ["Inter"]
+                    }
+                },
+            },
+        }
+    </script>
+
+    <style>
+        :root { --symbol-opacity: 0.15; }
+        .dark { --symbol-opacity: 0.10; }
+        body { overflow-x: hidden; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        @media (pointer: fine) { body, a, button, input, select, textarea { cursor: none !important; } }
+        .liquid-glass {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(24px) saturate(120%);
+            -webkit-backdrop-filter: blur(24px) saturate(120%);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
+            transition: all 0.5s ease-in-out;
+        }
+        .dark .liquid-glass {
+            background: rgba(20, 20, 20, 0.55);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.6);
+        }
+        .text-stroke { -webkit-text-stroke: 1px rgba(0, 0, 0, 0.2); color: transparent; }
+        .dark .text-stroke { -webkit-text-stroke: 1px rgba(255, 255, 255, 0.2); }
+        .custom-cursor {
+            width: 12px; height: 12px;
+            border: 1px solid rgba(0, 0, 0, 0.4);
+            border-radius: 50%;
+            position: fixed; pointer-events: none; z-index: 9999;
+            transition: transform 0.1s ease-out, width 0.3s ease, height 0.3s ease, border-color 0.3s ease, background-color 0.3s ease;
+        }
+        .dark .custom-cursor { border: 1px solid rgba(255, 255, 255, 0.4); }
+        #sparkles { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 9998; }
+        @keyframes floatSymbol {
+            0% { transform: translateY(110vh) rotate(0deg); opacity: 0; }
+            10% { opacity: var(--symbol-opacity); }
+            90% { opacity: var(--symbol-opacity); }
+            100% { transform: translateY(-20vh) rotate(359deg); opacity: 0; }
+        }
+        .floating-symbol { position: absolute; color: inherit; pointer-events: none; animation: floatSymbol linear infinite; }
+        .hero-gradient { background: linear-gradient(135deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 100%); }
+        .prose-content h2 { font-family: 'Manrope', sans-serif; font-weight: 700; font-size: 1.5rem; margin-top: 2.5rem; margin-bottom: 1rem; }
+        .prose-content h3 { font-family: 'Manrope', sans-serif; font-weight: 600; font-size: 1.15rem; margin-top: 2rem; margin-bottom: 0.75rem; }
+        .prose-content p { margin-bottom: 1.25rem; line-height: 1.85; }
+        .prose-content ul { list-style: disc; padding-left: 1.5rem; margin-bottom: 1.25rem; }
+        .prose-content ul li { margin-bottom: 0.5rem; line-height: 1.75; }
+    </style>
+</head>
+<body class="bg-white dark:bg-background text-zinc-900 dark:text-white transition-colors duration-500 font-body">
+    <div class="custom-cursor hidden md:block"></div>
+    <canvas id="sparkles"></canvas>
+
+    <!-- Nav -->
+    <nav class="fixed top-0 w-full z-50 bg-white/90 dark:bg-zinc-900/80 backdrop-blur-xl shadow-sm dark:shadow-[0px_20px_40px_rgba(0,0,0,0.4)] transition-colors duration-500 font-['Manrope'] tracking-tight">
+        <div class="flex justify-between items-center px-6 md:px-16 py-5 md:py-6 w-full max-w-[1920px] mx-auto">
+            <a href="./index.html" class="group">
+                <img src="./images/serendrive-logo.png" alt="SerenDrive Logo" class="h-8 md:h-10 w-auto invert dark:invert-0 transition-all duration-1000">
+            </a>
+            <div class="flex items-center gap-4 md:gap-6">
+                <a href="./blog.html" class="text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors duration-300 text-[0.75rem] uppercase tracking-widest hidden md:inline">All Articles</a>
+                <a href="./index.html#inquire" class="hidden md:inline-block px-8 py-2 bg-transparent border border-zinc-300 text-zinc-900 hover:bg-zinc-900 hover:text-white dark:bg-white/5 dark:border-white/20 dark:hover:bg-white dark:text-white dark:hover:text-on-primary transition-all duration-500 text-xs uppercase tracking-[0.2em]">Inquire</a>
+                <button id="theme-toggle" class="flex items-center justify-center p-2 rounded-full border border-zinc-300 dark:border-white/20 hover:bg-zinc-200 dark:hover:bg-white/10 transition-colors">
+                    <span class="material-symbols-outlined text-zinc-800 dark:hidden text-[18px]">dark_mode</span>
+                    <span class="material-symbols-outlined hidden dark:block text-white text-[18px]">light_mode</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <header class="relative min-h-[60vh] flex items-end overflow-hidden">
+        <img src="./images/tour-highland.jpg" alt="Sri Lanka tea plantations" class="absolute inset-0 w-full h-full object-cover"/>
+        <div class="absolute inset-0 hero-gradient"></div>
+        <div class="relative z-10 w-full max-w-4xl mx-auto px-6 md:px-16 pb-12 md:pb-16 pt-32">
+            <span class="inline-block bg-white/20 backdrop-blur-sm text-white text-[0.65rem] uppercase tracking-[0.2em] font-label px-4 py-1.5 rounded-full mb-4">Planning</span>
+            <h1 class="font-headline text-3xl md:text-5xl font-extrabold text-white tracking-tight leading-tight">Best Time to Visit Sri Lanka</h1>
+            <div class="flex items-center gap-4 mt-4 text-white/70 text-sm font-label">
+                <span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm">schedule</span> 5 min read</span>
+                <span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm">calendar_month</span> March 2026</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Article -->
+    <article class="max-w-3xl mx-auto px-6 md:px-8 py-12 md:py-20">
+        <div class="prose-content text-zinc-700 dark:text-zinc-300 text-[0.95rem] md:text-base transition-colors duration-500">
+
+            <p class="text-lg md:text-xl leading-relaxed text-zinc-800 dark:text-zinc-200 font-body">Sri Lanka doesn't really have a single "best time" — it has <strong>two monsoon systems</strong> that affect opposite coasts at different times. Understanding this is the key to planning a trip with great weather no matter when you visit.</p>
+
+            <h2 class="text-zinc-900 dark:text-white">The Two Monsoon Seasons</h2>
+            <p>The <strong>Yala monsoon</strong> (southwest monsoon) runs roughly from May to September, bringing heavy rain to the west and south coasts. Meanwhile, the <strong>Maha monsoon</strong> (northeast monsoon) hits from October to January, affecting the east and north. This means there's always a dry side of the island.</p>
+
+            <h2 class="text-zinc-900 dark:text-white">Month-by-Month Breakdown</h2>
+
+            <h3 class="text-zinc-900 dark:text-white">December – March (Peak Season)</h3>
+            <p>This is the driest period for the west coast, south coast, and hill country. Expect sunny skies in Colombo, Galle, Mirissa, Ella, and Nuwara Eliya. Beaches are calm, whale watching is in full swing off Mirissa, and the Cultural Triangle (Sigiriya, Dambulla, Kandy) is at its best. This is also peak tourist season, so book vehicles and accommodation early.</p>
+
+            <h3 class="text-zinc-900 dark:text-white">April – May (Shoulder Season)</h3>
+            <p>Brief inter-monsoon showers across the island. Still very warm. Great time for deals and fewer crowds. The hill country gets afternoon rain but mornings are usually clear and stunning.</p>
+
+            <h3 class="text-zinc-900 dark:text-white">June – September (East Coast Season)</h3>
+            <p>Head east. Trincomalee, Arugam Bay, and Passikudah are dry and gorgeous. Arugam Bay is world-class surf territory during this period. The west coast is rainy but Yala National Park still operates (best leopard sightings actually happen in the drier surrounding months).</p>
+
+            <h3 class="text-zinc-900 dark:text-white">October – November (Second Shoulder)</h3>
+            <p>Short inter-monsoon period. Rain is possible everywhere but usually passes quickly. This is the quietest tourist window — ideal for budget travelers or those who don't mind the occasional downpour.</p>
+
+            <h2 class="text-zinc-900 dark:text-white">Best Months by Activity</h2>
+            <ul>
+                <li><strong>Beach holidays (west/south):</strong> December – April</li>
+                <li><strong>Beach holidays (east coast):</strong> May – September</li>
+                <li><strong>Whale watching (Mirissa):</strong> November – April</li>
+                <li><strong>Surfing (Arugam Bay):</strong> June – September</li>
+                <li><strong>Hill country & tea trails:</strong> January – March</li>
+                <li><strong>Wildlife safaris (Yala):</strong> February – July</li>
+                <li><strong>Cultural Triangle:</strong> January – April</li>
+            </ul>
+
+            <h2 class="text-zinc-900 dark:text-white">Our Tip</h2>
+            <p>If you're booking a multi-region tour that covers coast, culture, and hill country, <strong>January to March</strong> gives you the most consistent weather island-wide. Our chauffeurs know the microclimates and can adjust day-routes if rain appears — that flexibility is built into every SerenDrive itinerary.</p>
+
+            <div class="mt-12 p-6 md:p-8 liquid-glass rounded-2xl border border-zinc-200 dark:border-white/10">
+                <p class="font-headline font-bold text-zinc-900 dark:text-white text-lg mb-2">Ready to plan your trip?</p>
+                <p class="text-zinc-600 dark:text-zinc-400 text-sm mb-4">Our team will match the best vehicle and route to your travel dates.</p>
+                <a href="./index.html#inquire" class="inline-block px-8 py-3 bg-zinc-900 text-white dark:bg-white dark:text-zinc-900 font-headline font-bold uppercase tracking-widest text-xs transition-all duration-500 hover:bg-zinc-700 dark:hover:bg-zinc-200">Get a Quote</a>
+            </div>
+        </div>
+    </article>
+
+    <!-- Related -->
+    <section class="max-w-5xl mx-auto px-6 md:px-8 pb-16 md:pb-24">
+        <h3 class="font-headline font-bold text-xl text-zinc-900 dark:text-white mb-6">More from the Journal</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <a href="./blog-yala-safari-guide.html" class="group block rounded-xl overflow-hidden border border-zinc-200 dark:border-white/5 hover:shadow-lg transition-all duration-300">
+                <img src="./images/tour-safari.jpg" alt="Yala safari" class="w-full h-36 object-cover transition-transform duration-500 group-hover:scale-105"/>
+                <div class="p-4"><h4 class="font-headline font-bold text-sm text-zinc-900 dark:text-white">The Ultimate Yala Safari Guide</h4></div>
+            </a>
+            <a href="./blog-colombo-to-ella-train.html" class="group block rounded-xl overflow-hidden border border-zinc-200 dark:border-white/5 hover:shadow-lg transition-all duration-300">
+                <img src="./images/tour-grand.jpg" alt="Train to Ella" class="w-full h-36 object-cover transition-transform duration-500 group-hover:scale-105"/>
+                <div class="p-4"><h4 class="font-headline font-bold text-sm text-zinc-900 dark:text-white">The Scenic Train to Ella</h4></div>
+            </a>
+            <a href="./blog-packing-list.html" class="group block rounded-xl overflow-hidden border border-zinc-200 dark:border-white/5 hover:shadow-lg transition-all duration-300">
+                <img src="./images/tour-coastal.jpg" alt="Packing list" class="w-full h-36 object-cover transition-transform duration-500 group-hover:scale-105"/>
+                <div class="p-4"><h4 class="font-headline font-bold text-sm text-zinc-900 dark:text-white">What to Pack for Sri Lanka</h4></div>
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 px-6 md:px-16 bg-zinc-900 dark:bg-black text-white">
+        <div class="max-w-6xl mx-auto text-center">
+            <p class="text-zinc-400">&copy; 2026 SerenDrive. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const htmlElement = document.documentElement;
+        themeToggleBtn.addEventListener('click', () => {
+            htmlElement.classList.toggle('dark');
+            const isDark = htmlElement.classList.contains('dark');
+            localStorage.theme = isDark ? 'dark' : 'light';
+            if (cursor) cursor.style.border = isDark ? '1px solid rgba(255, 255, 255, 0.4)' : '1px solid rgba(0, 0, 0, 0.4)';
+        });
+
+        const symbolsContainer = document.createElement('div');
+        symbolsContainer.className = 'fixed inset-0 pointer-events-none overflow-hidden z-[2]';
+        document.body.appendChild(symbolsContainer);
+        const icons = ['flight_takeoff', 'directions_car', 'luggage', 'explore', 'sailing', 'landscape', 'photo_camera', 'map'];
+        for (let i = 0; i < 20; i++) {
+            const span = document.createElement('span');
+            span.className = 'material-symbols-outlined floating-symbol text-zinc-900 dark:text-white transition-colors duration-500';
+            span.innerText = icons[Math.floor(Math.random() * icons.length)];
+            span.style.fontSize = `${Math.random() * 60 + 30}px`;
+            span.style.left = `${Math.random() * 100}vw`;
+            span.style.animationDuration = `${Math.random() * 30 + 30}s`;
+            span.style.animationDelay = `${Math.random() * -60}s`;
+            symbolsContainer.appendChild(span);
+        }
+
+        const cursor = document.querySelector('.custom-cursor');
+        const canvas = document.getElementById('sparkles');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+        window.addEventListener('resize', resizeCanvas); resizeCanvas();
+        class Particle {
+            constructor(x, y, isDark) {
+                this.x = x; this.y = y; this.size = Math.random() * 2.5 + 1.5;
+                this.speedX = Math.random() * 2 - 1; this.speedY = Math.random() * 2 - 1.5;
+                this.life = 1; this.decay = Math.random() * 0.02 + 0.02;
+                const colors = isDark ? ['#cbd5e1','#93c5fd','#bae6fd','#e2e8f0'] : ['#000000','#1c1917','#334155'];
+                this.color = colors[Math.floor(Math.random() * colors.length)];
+            }
+            update() { this.x += this.speedX; this.y += this.speedY; this.life -= this.decay; }
+            draw() { ctx.globalAlpha = Math.max(0, this.life); ctx.fillStyle = this.color; ctx.shadowBlur = 8; ctx.shadowColor = this.color; ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill(); }
+        }
+        function animateSparks() { ctx.clearRect(0, 0, canvas.width, canvas.height); particles.forEach((p, i) => { p.update(); p.draw(); if (p.life <= 0) particles.splice(i, 1); }); requestAnimationFrame(animateSparks); }
+        animateSparks();
+        if (cursor) {
+            document.addEventListener('mousemove', (e) => {
+                cursor.style.transform = `translate(${e.clientX - 6}px, ${e.clientY - 6}px)`;
+                if (window.matchMedia("(pointer: fine)").matches) { for (let i = 0; i < 2; i++) particles.push(new Particle(e.clientX, e.clientY, htmlElement.classList.contains('dark'))); }
+            });
+            document.querySelectorAll('button, a, .group, input, select, textarea').forEach(el => {
+                el.addEventListener('mouseenter', () => { const d = htmlElement.classList.contains('dark'); cursor.style.width = '40px'; cursor.style.height = '40px'; cursor.style.backgroundColor = d ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)'; cursor.style.border = d ? '1px solid rgba(255,255,255,0.8)' : '1px solid rgba(0,0,0,0.8)'; });
+                el.addEventListener('mouseleave', () => { const d = htmlElement.classList.contains('dark'); cursor.style.width = '12px'; cursor.style.height = '12px'; cursor.style.backgroundColor = 'transparent'; cursor.style.border = d ? '1px solid rgba(255,255,255,0.4)' : '1px solid rgba(0,0,0,0.4)'; });
+            });
+        }
+    </script>
+</body>
+</html>

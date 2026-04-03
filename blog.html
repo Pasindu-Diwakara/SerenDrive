@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html class="scroll-smooth" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Travel Journal - SerenDrive Blog</title>
+    <meta name="description" content="Local travel tips, destination guides, and insider knowledge to help you plan the perfect Sri Lankan journey with SerenDrive."/>
+    <script>if(localStorage.theme==='dark'){document.documentElement.classList.add('dark')}else{document.documentElement.classList.remove('dark');localStorage.theme='light'}</script>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <script>tailwind.config={darkMode:"class",theme:{extend:{colors:{"primary":"#ffffff","on-primary":"#1a1c1c","surface-variant":"#353534","outline":"#919191","surface-container-high":"#2a2a2a","surface":"#131313","primary-container":"#d4d4d4","surface-container-low":"#1c1b1b","background":"#131313","on-surface-variant":"#c6c6c6","surface-container-lowest":"#0e0e0e","surface-container":"#201f1f"},fontFamily:{"headline":["Manrope"],"body":["Inter"],"label":["Inter"]}}}}</script>
+    <style>
+        :root{--symbol-opacity:0.15}.dark{--symbol-opacity:0.10}body{overflow-x:hidden}.material-symbols-outlined{font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24}@media(pointer:fine){body,a,button,input,select,textarea{cursor:none !important}}
+        .liquid-glass{background:rgba(255,255,255,0.85);backdrop-filter:blur(24px) saturate(120%);-webkit-backdrop-filter:blur(24px) saturate(120%);border:1px solid rgba(255,255,255,0.4);box-shadow:0 8px 32px 0 rgba(0,0,0,0.1);transition:all .5s ease-in-out}.dark .liquid-glass{background:rgba(20,20,20,0.55);border:1px solid rgba(255,255,255,0.1);box-shadow:0 8px 32px 0 rgba(0,0,0,0.6)}
+        .glass-card{background:rgba(255,255,255,0.85);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);transition:background-color .3s ease}.dark .glass-card{background:rgba(53,53,52,0.6)}
+        .custom-cursor{width:12px;height:12px;border:1px solid rgba(0,0,0,0.4);border-radius:50%;position:fixed;pointer-events:none;z-index:9999;transition:transform .1s ease-out,width .3s ease,height .3s ease,border-color .3s ease,background-color .3s ease}.dark .custom-cursor{border:1px solid rgba(255,255,255,0.4)}
+        #sparkles{position:fixed;top:0;left:0;width:100vw;height:100vh;pointer-events:none;z-index:9998}
+        @keyframes floatSymbol{0%{transform:translateY(110vh) rotate(0deg);opacity:0}10%{opacity:var(--symbol-opacity)}90%{opacity:var(--symbol-opacity)}100%{transform:translateY(-20vh) rotate(359deg);opacity:0}}.floating-symbol{position:absolute;color:inherit;pointer-events:none;animation:floatSymbol linear infinite}
+    </style>
+</head>
+<body class="bg-white dark:bg-background text-zinc-900 dark:text-white transition-colors duration-500 font-body">
+    <div class="custom-cursor hidden md:block"></div><canvas id="sparkles"></canvas>
+
+    <nav class="fixed top-0 w-full z-50 bg-white/90 dark:bg-zinc-900/80 backdrop-blur-xl shadow-sm dark:shadow-[0px_20px_40px_rgba(0,0,0,0.4)] transition-colors duration-500 font-['Manrope'] tracking-tight">
+        <div class="flex justify-between items-center px-6 md:px-16 py-5 md:py-6 w-full max-w-[1920px] mx-auto">
+            <a href="./index.html"><img src="./images/serendrive-logo.png" alt="SerenDrive Logo" class="h-8 md:h-10 w-auto invert dark:invert-0 transition-all duration-1000"></a>
+            <div class="flex items-center gap-4 md:gap-6">
+                <a href="./index.html" class="text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors duration-300 text-[0.75rem] uppercase tracking-widest hidden md:inline">Home</a>
+                <a href="./index.html#inquire" class="hidden md:inline-block px-8 py-2 bg-transparent border border-zinc-300 text-zinc-900 hover:bg-zinc-900 hover:text-white dark:bg-white/5 dark:border-white/20 dark:hover:bg-white dark:text-white dark:hover:text-on-primary transition-all duration-500 text-xs uppercase tracking-[0.2em]">Inquire</a>
+                <button id="theme-toggle" class="flex items-center justify-center p-2 rounded-full border border-zinc-300 dark:border-white/20 hover:bg-zinc-200 dark:hover:bg-white/10 transition-colors"><span class="material-symbols-outlined text-zinc-800 dark:hidden text-[18px]">dark_mode</span><span class="material-symbols-outlined hidden dark:block text-white text-[18px]">light_mode</span></button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <section class="pt-32 md:pt-40 pb-12 md:pb-16 px-6 md:px-16 bg-white dark:bg-background transition-colors duration-500">
+        <div class="max-w-5xl mx-auto text-center">
+            <span class="font-label text-[0.7rem] uppercase tracking-[0.25em] text-zinc-500 dark:text-zinc-400">SerenDrive</span>
+            <h1 class="text-4xl md:text-6xl font-headline font-extrabold text-zinc-900 dark:text-white mt-3 tracking-tight">Travel Journal</h1>
+            <p class="text-base md:text-lg text-zinc-600 dark:text-zinc-300 mt-4 max-w-xl mx-auto leading-relaxed">Local insider knowledge to help you plan the perfect Sri Lankan journey.</p>
+        </div>
+    </section>
+
+    <!-- Featured Article -->
+    <section class="px-6 md:px-16 pb-8">
+        <div class="max-w-5xl mx-auto">
+            <a href="./blog-best-time-to-visit.html" class="group block relative rounded-2xl overflow-hidden border border-zinc-200 dark:border-white/5 hover:shadow-2xl transition-all duration-500">
+                <div class="relative h-64 md:h-96 overflow-hidden">
+                    <img src="./images/tour-highland.jpg" alt="Sri Lanka tea country" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"/>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 right-0 p-6 md:p-10">
+                        <span class="inline-block bg-white/20 backdrop-blur-sm text-white text-[0.6rem] uppercase tracking-[0.15em] font-label px-3 py-1 rounded-full mb-3">Featured</span>
+                        <h2 class="font-headline font-extrabold text-2xl md:text-4xl text-white tracking-tight leading-tight">Best Time to Visit Sri Lanka</h2>
+                        <p class="text-white/70 text-sm md:text-base mt-2 max-w-lg">Monsoon seasons, peak months, and how to pick the perfect window for your coastal or hill country escape.</p>
+                        <div class="flex items-center gap-4 mt-3 text-white/50 text-xs uppercase tracking-widest font-label">
+                            <span>5 min read</span>
+                            <span>Planning</span>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <!-- All Articles Grid -->
+    <section class="px-6 md:px-16 py-8 md:py-16">
+        <div class="max-w-5xl mx-auto">
+            <h3 class="font-headline font-bold text-xl text-zinc-900 dark:text-white mb-8">All Articles</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+
+                <a href="./blog-yala-safari-guide.html" class="group glass-card rounded-2xl overflow-hidden border border-zinc-200 dark:border-white/5 hover:shadow-xl transition-all duration-500 hover:-translate-y-1">
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="./images/tour-safari.jpg" alt="Yala National Park" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"/>
+                        <div class="absolute top-3 left-3">
+                            <span class="bg-white/90 dark:bg-zinc-800/90 backdrop-blur-sm text-[0.6rem] uppercase tracking-[0.15em] font-label text-zinc-700 dark:text-zinc-300 px-3 py-1 rounded-full">Wildlife</span>
+                        </div>
+                    </div>
+                    <div class="p-5">
+                        <h4 class="font-headline font-bold text-lg text-zinc-900 dark:text-white leading-snug group-hover:text-zinc-600 dark:group-hover:text-zinc-300 transition-colors">The Ultimate Yala Safari Guide</h4>
+                        <p class="text-zinc-500 dark:text-zinc-400 text-sm mt-2 leading-relaxed line-clamp-2">What to expect on your first game drive — leopards, elephants, and the best time slots for sightings.</p>
+                        <div class="flex items-center gap-2 mt-3 text-zinc-400 dark:text-zinc-500 text-xs uppercase tracking-widest font-label">
+                            <span class="material-symbols-outlined text-sm">schedule</span> 7 min read
+                        </div>
+                    </div>
+                </a>
+
+                <a href="./blog-colombo-to-ella-train.html" class="group glass-card rounded-2xl overflow-hidden border border-zinc-200 dark:border-white/5 hover:shadow-xl transition-all duration-500 hover:-translate-y-1">
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="./images/tour-grand.jpg" alt="Scenic train" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"/>
+                        <div class="absolute top-3 left-3">
+                            <span class="bg-white/90 dark:bg-zinc-800/90 backdrop-blur-sm text-[0.6rem] uppercase tracking-[0.15em] font-label text-zinc-700 dark:text-zinc-300 px-3 py-1 rounded-full">Experience</span>
+                        </div>
+                    </div>
+                    <div class="p-5">
+                        <h4 class="font-headline font-bold text-lg text-zinc-900 dark:text-white leading-snug group-hover:text-zinc-600 dark:group-hover:text-zinc-300 transition-colors">The Scenic Train to Ella</h4>
+                        <p class="text-zinc-500 dark:text-zinc-400 text-sm mt-2 leading-relaxed line-clamp-2">One of the world's most beautiful rail journeys — tickets, seats, and what to photograph along the way.</p>
+                        <div class="flex items-center gap-2 mt-3 text-zinc-400 dark:text-zinc-500 text-xs uppercase tracking-widest font-label">
+                            <span class="material-symbols-outlined text-sm">schedule</span> 6 min read
+                        </div>
+                    </div>
+                </a>
+
+                <a href="./blog-sri-lankan-food-guide.html" class="group glass-card rounded-2xl overflow-hidden border border-zinc-200 dark:border-white/5 hover:shadow-xl transition-all duration-500 hover:-translate-y-1">
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="./images/tour-cultural.jpg" alt="Sri Lankan cuisine" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"/>
+                        <div class="absolute top-3 left-3">
+                            <span class="bg-white/90 dark:bg-zinc-800/90 backdrop-blur-sm text-[0.6rem] uppercase tracking-[0.15em] font-label text-zinc-700 dark:text-zinc-300 px-3 py-1 rounded-full">Culture</span>
+                        </div>
+                    </div>
+                    <div class="p-5">
+                        <h4 class="font-headline font-bold text-lg text-zinc-900 dark:text-white leading-snug group-hover:text-zinc-600 dark:group-hover:text-zinc-300 transition-colors">A Foodie's Guide to Sri Lanka</h4>
+                        <p class="text-zinc-500 dark:text-zinc-400 text-sm mt-2 leading-relaxed line-clamp-2">From hoppers and kottu to roadside king coconut — the essential dishes every visitor should try.</p>
+                        <div class="flex items-center gap-2 mt-3 text-zinc-400 dark:text-zinc-500 text-xs uppercase tracking-widest font-label">
+                            <span class="material-symbols-outlined text-sm">schedule</span> 5 min read
+                        </div>
+                    </div>
+                </a>
+
+                <a href="./blog-packing-list.html" class="group glass-card rounded-2xl overflow-hidden border border-zinc-200 dark:border-white/5 hover:shadow-xl transition-all duration-500 hover:-translate-y-1">
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="./images/tour-coastal.jpg" alt="Packing for Sri Lanka" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"/>
+                        <div class="absolute top-3 left-3">
+                            <span class="bg-white/90 dark:bg-zinc-800/90 backdrop-blur-sm text-[0.6rem] uppercase tracking-[0.15em] font-label text-zinc-700 dark:text-zinc-300 px-3 py-1 rounded-full">Planning</span>
+                        </div>
+                    </div>
+                    <div class="p-5">
+                        <h4 class="font-headline font-bold text-lg text-zinc-900 dark:text-white leading-snug group-hover:text-zinc-600 dark:group-hover:text-zinc-300 transition-colors">What to Pack for Sri Lanka</h4>
+                        <p class="text-zinc-500 dark:text-zinc-400 text-sm mt-2 leading-relaxed line-clamp-2">Lightweight layers, sun protection, and the items most travelers forget — our concise packing checklist.</p>
+                        <div class="flex items-center gap-2 mt-3 text-zinc-400 dark:text-zinc-500 text-xs uppercase tracking-widest font-label">
+                            <span class="material-symbols-outlined text-sm">schedule</span> 4 min read
+                        </div>
+                    </div>
+                </a>
+
+                <a href="./blog-galle-fort-guide.html" class="group glass-card rounded-2xl overflow-hidden border border-zinc-200 dark:border-white/5 hover:shadow-xl transition-all duration-500 hover:-translate-y-1">
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="./images/galle.jpg" alt="Galle Fort" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"/>
+                        <div class="absolute top-3 left-3">
+                            <span class="bg-white/90 dark:bg-zinc-800/90 backdrop-blur-sm text-[0.6rem] uppercase tracking-[0.15em] font-label text-zinc-700 dark:text-zinc-300 px-3 py-1 rounded-full">Destination</span>
+                        </div>
+                    </div>
+                    <div class="p-5">
+                        <h4 class="font-headline font-bold text-lg text-zinc-900 dark:text-white leading-snug group-hover:text-zinc-600 dark:group-hover:text-zinc-300 transition-colors">Exploring Galle Fort</h4>
+                        <p class="text-zinc-500 dark:text-zinc-400 text-sm mt-2 leading-relaxed line-clamp-2">A walking guide to the UNESCO-listed Dutch fortress — boutique cafés, rampart sunsets, and hidden lanes.</p>
+                        <div class="flex items-center gap-2 mt-3 text-zinc-400 dark:text-zinc-500 text-xs uppercase tracking-widest font-label">
+                            <span class="material-symbols-outlined text-sm">schedule</span> 6 min read
+                        </div>
+                    </div>
+                </a>
+
+                <a href="./blog-best-time-to-visit.html" class="group glass-card rounded-2xl overflow-hidden border border-zinc-200 dark:border-white/5 hover:shadow-xl transition-all duration-500 hover:-translate-y-1">
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="./images/tour-highland.jpg" alt="Tea country" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"/>
+                        <div class="absolute top-3 left-3">
+                            <span class="bg-white/90 dark:bg-zinc-800/90 backdrop-blur-sm text-[0.6rem] uppercase tracking-[0.15em] font-label text-zinc-700 dark:text-zinc-300 px-3 py-1 rounded-full">Planning</span>
+                        </div>
+                    </div>
+                    <div class="p-5">
+                        <h4 class="font-headline font-bold text-lg text-zinc-900 dark:text-white leading-snug group-hover:text-zinc-600 dark:group-hover:text-zinc-300 transition-colors">Best Time to Visit Sri Lanka</h4>
+                        <p class="text-zinc-500 dark:text-zinc-400 text-sm mt-2 leading-relaxed line-clamp-2">Monsoon seasons, peak months, and how to pick the perfect window for your coastal or hill country escape.</p>
+                        <div class="flex items-center gap-2 mt-3 text-zinc-400 dark:text-zinc-500 text-xs uppercase tracking-widest font-label">
+                            <span class="material-symbols-outlined text-sm">schedule</span> 5 min read
+                        </div>
+                    </div>
+                </a>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="px-6 md:px-16 py-12 md:py-20">
+        <div class="max-w-3xl mx-auto text-center liquid-glass rounded-2xl p-8 md:p-14 border border-zinc-200 dark:border-white/10">
+            <span class="material-symbols-outlined text-4xl text-zinc-400 dark:text-zinc-500 mb-4">directions_car</span>
+            <h3 class="font-headline font-extrabold text-2xl md:text-3xl text-zinc-900 dark:text-white tracking-tight">Ready to explore Sri Lanka?</h3>
+            <p class="text-zinc-600 dark:text-zinc-400 text-sm md:text-base mt-3 max-w-md mx-auto">Choose a vehicle, pick a tour, or tell us your dream itinerary. Our team will craft the perfect quote.</p>
+            <a href="./index.html#inquire" class="inline-block mt-6 px-10 py-4 bg-zinc-900 text-white dark:bg-white dark:text-zinc-900 font-headline font-bold uppercase tracking-widest text-xs transition-all duration-500 hover:bg-zinc-700 dark:hover:bg-zinc-200">Request a Quote</a>
+        </div>
+    </section>
+
+    <footer class="py-12 px-6 md:px-16 bg-zinc-900 dark:bg-black text-white"><div class="max-w-6xl mx-auto text-center"><p class="text-zinc-400">&copy; 2026 SerenDrive. All rights reserved.</p></div></footer>
+
+    <script>
+        const themeToggleBtn=document.getElementById('theme-toggle'),htmlElement=document.documentElement;themeToggleBtn.addEventListener('click',()=>{htmlElement.classList.toggle('dark');const d=htmlElement.classList.contains('dark');localStorage.theme=d?'dark':'light';if(cursor)cursor.style.border=d?'1px solid rgba(255,255,255,0.4)':'1px solid rgba(0,0,0,0.4)'});
+        const symbolsContainer=document.createElement('div');symbolsContainer.className='fixed inset-0 pointer-events-none overflow-hidden z-[2]';document.body.appendChild(symbolsContainer);const icons=['flight_takeoff','directions_car','luggage','explore','sailing','landscape','photo_camera','map'];for(let i=0;i<20;i++){const s=document.createElement('span');s.className='material-symbols-outlined floating-symbol text-zinc-900 dark:text-white transition-colors duration-500';s.innerText=icons[Math.floor(Math.random()*icons.length)];s.style.fontSize=`${Math.random()*60+30}px`;s.style.left=`${Math.random()*100}vw`;s.style.animationDuration=`${Math.random()*30+30}s`;s.style.animationDelay=`${Math.random()*-60}s`;symbolsContainer.appendChild(s)}
+        const cursor=document.querySelector('.custom-cursor'),canvas=document.getElementById('sparkles'),ctx=canvas.getContext('2d');let particles=[];function resizeCanvas(){canvas.width=window.innerWidth;canvas.height=window.innerHeight}window.addEventListener('resize',resizeCanvas);resizeCanvas();
+        class Particle{constructor(x,y,d){this.x=x;this.y=y;this.size=Math.random()*2.5+1.5;this.speedX=Math.random()*2-1;this.speedY=Math.random()*2-1.5;this.life=1;this.decay=Math.random()*.02+.02;const c=d?['#cbd5e1','#93c5fd','#bae6fd','#e2e8f0']:['#000000','#1c1917','#334155'];this.color=c[Math.floor(Math.random()*c.length)]}update(){this.x+=this.speedX;this.y+=this.speedY;this.life-=this.decay}draw(){ctx.globalAlpha=Math.max(0,this.life);ctx.fillStyle=this.color;ctx.shadowBlur=8;ctx.shadowColor=this.color;ctx.beginPath();ctx.arc(this.x,this.y,this.size,0,Math.PI*2);ctx.fill()}}
+        function animateSparks(){ctx.clearRect(0,0,canvas.width,canvas.height);particles.forEach((p,i)=>{p.update();p.draw();if(p.life<=0)particles.splice(i,1)});requestAnimationFrame(animateSparks)}animateSparks();
+        if(cursor){document.addEventListener('mousemove',e=>{cursor.style.transform=`translate(${e.clientX-6}px, ${e.clientY-6}px)`;if(window.matchMedia("(pointer: fine)").matches)for(let i=0;i<2;i++)particles.push(new Particle(e.clientX,e.clientY,htmlElement.classList.contains('dark')))});document.querySelectorAll('button, a, .group, input, select, textarea').forEach(el=>{el.addEventListener('mouseenter',()=>{const d=htmlElement.classList.contains('dark');cursor.style.width='40px';cursor.style.height='40px';cursor.style.backgroundColor=d?'rgba(255,255,255,0.05)':'rgba(0,0,0,0.05)';cursor.style.border=d?'1px solid rgba(255,255,255,0.8)':'1px solid rgba(0,0,0,0.8)'});el.addEventListener('mouseleave',()=>{const d=htmlElement.classList.contains('dark');cursor.style.width='12px';cursor.style.height='12px';cursor.style.backgroundColor='transparent';cursor.style.border=d?'1px solid rgba(255,255,255,0.4)':'1px solid rgba(0,0,0,0.4)'})})}
+    </script>
+</body>
+</html>
