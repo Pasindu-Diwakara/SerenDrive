@@ -78,24 +78,32 @@
         .dark .text-stroke { -webkit-text-stroke: 1px rgba(255, 255, 255, 0.2); }
         .text-obsidian { letter-spacing: -0.02em; line-height: 1.1; }
         
-        /* Cursors & Sparks Canvas */
-        .custom-cursor {
-            width: 12px; height: 12px;
-            border: 1px solid rgba(0, 0, 0, 0.4);
-            border-radius: 50%;
+        /* Cursors */
+        .cursor-dot {
+            position: fixed; pointer-events: none; z-index: 10000;
+            width: 7px; height: 7px; border-radius: 50%;
+            background: #fff;
+            box-shadow: 0 0 8px 2px rgba(255,255,255,0.35), 0 0 20px 4px rgba(255,255,255,0.12);
+            transition: opacity 0.25s ease, transform 0.25s ease;
+            mix-blend-mode: difference;
+        }
+        .cursor-dot.hovering {
+            opacity: 0; transform: scale(0);
+        }
+        .cursor-ring {
             position: fixed; pointer-events: none; z-index: 9999;
-            transition: transform 0.1s ease-out, width 0.3s ease, height 0.3s ease, border-color 0.3s ease, background-color 0.3s ease;
+            width: 36px; height: 36px; border-radius: 50%;
+            border: 1.5px solid rgba(255,255,255,0.45);
+            transition: width 0.35s cubic-bezier(.25,.8,.25,1), height 0.35s cubic-bezier(.25,.8,.25,1), border-color 0.3s ease, background 0.3s ease, backdrop-filter 0.3s ease;
+            mix-blend-mode: difference;
         }
-        .dark .custom-cursor { border: 1px solid rgba(255, 255, 255, 0.4); }
+        .cursor-ring.hovering {
+            width: 56px; height: 56px;
+            border-color: rgba(255,255,255,0.25);
+            background: rgba(255,255,255,0.06);
+            backdrop-filter: blur(2px);
+        }
         
-        #sparkles {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100vw; height: 100vh;
-            pointer-events: none;
-            z-index: 9998; /* Just below the cursor ring */
-        }
-
         /* TOURISM BACKGROUND CANVAS */
         #bg-canvas {
             position: fixed;
@@ -107,7 +115,7 @@
             pointer-events: none;
         }
 
-        /* â”€â”€ TOURS SECTION UNIQUE STYLES â”€â”€ */
+        /* -- TOURS SECTION UNIQUE STYLES -- */
 
         /* Filter tabs */
         .tour-filter-btn {
@@ -553,9 +561,9 @@
 <body class="bg-zinc-50 dark:bg-background text-zinc-900 dark:text-on-background font-body antialiased selection:bg-zinc-900 selection:text-white dark:selection:bg-primary dark:selection:text-on-primary transition-colors duration-500 relative">
 
     <canvas id="bg-canvas"></canvas>
-    <canvas id="sparkles"></canvas>
     
-    <div class="custom-cursor top-0 left-0"></div>
+    <div class="cursor-dot"></div>
+    <div class="cursor-ring"></div>
 
     <nav class="fixed top-0 w-full z-50 bg-white/90 dark:bg-zinc-900/80 backdrop-blur-xl shadow-sm dark:shadow-[0px_20px_40px_rgba(0,0,0,0.4)] transition-colors duration-500 font-['Manrope'] tracking-tight">
         <div class="flex justify-between items-center px-6 md:px-16 py-5 md:py-6 w-full max-w-[1920px] mx-auto">
@@ -566,14 +574,14 @@
             </div>
             
             <div class="hidden md:flex gap-10 items-center">
-                <a class="text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors duration-300 text-[0.75rem] uppercase tracking-widest nav-scroll-link" href="#services">Services</a>
-                <a class="text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors duration-300 text-[0.75rem] uppercase tracking-widest nav-scroll-link" href="#highlights">Highlights</a>
                 <a class="text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors duration-300 text-[0.75rem] uppercase tracking-widest nav-scroll-link" href="#tours">Tours</a>
-                <a class="text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors duration-300 text-[0.75rem] uppercase tracking-widest nav-scroll-link" href="#fleet">The Fleet</a>
-                <a class="text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors duration-300 text-[0.75rem] uppercase tracking-widest nav-scroll-link" href="#curators">Curators</a>
+                <a class="text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors duration-300 text-[0.75rem] uppercase tracking-widest nav-scroll-link" href="#fleet">Fleet</a>
+                <a class="text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors duration-300 text-[0.75rem] uppercase tracking-widest nav-scroll-link" href="#highlights">Destinations</a>
+                <a class="text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors duration-300 text-[0.75rem] uppercase tracking-widest nav-scroll-link" href="#services">Services</a>
                 <a class="text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors duration-300 text-[0.75rem] uppercase tracking-widest nav-scroll-link" href="#reviews">Reviews</a>
                 <a class="text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors duration-300 text-[0.75rem] uppercase tracking-widest nav-scroll-link" href="#blog">Blog</a>
                 <a class="text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors duration-300 text-[0.75rem] uppercase tracking-widest" href="./shop.html">Shop</a>
+                <a class="text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors duration-300 text-[0.75rem] uppercase tracking-widest" href="./about.html">About</a>
             </div>
             
             <div class="flex items-center gap-4 md:gap-6">
@@ -595,14 +603,14 @@
         <button id="close-menu-btn" class="absolute top-6 right-6 text-zinc-900 dark:text-white p-2">
             <span class="material-symbols-outlined text-3xl">close</span>
         </button>
-        <a class="text-2xl font-headline font-bold text-zinc-900 dark:text-white uppercase tracking-widest mobile-link" href="#services">Services</a>
-        <a class="text-2xl font-headline font-bold text-zinc-900 dark:text-white uppercase tracking-widest mobile-link" href="#highlights">Highlights</a>
         <a class="text-2xl font-headline font-bold text-zinc-900 dark:text-white uppercase tracking-widest mobile-link" href="#tours">Tours</a>
-        <a class="text-2xl font-headline font-bold text-zinc-900 dark:text-white uppercase tracking-widest mobile-link" href="#fleet">The Fleet</a>
-        <a class="text-2xl font-headline font-bold text-zinc-900 dark:text-white uppercase tracking-widest mobile-link" href="#curators">Curators</a>
+        <a class="text-2xl font-headline font-bold text-zinc-900 dark:text-white uppercase tracking-widest mobile-link" href="#fleet">Fleet</a>
+        <a class="text-2xl font-headline font-bold text-zinc-900 dark:text-white uppercase tracking-widest mobile-link" href="#highlights">Destinations</a>
+        <a class="text-2xl font-headline font-bold text-zinc-900 dark:text-white uppercase tracking-widest mobile-link" href="#services">Services</a>
         <a class="text-2xl font-headline font-bold text-zinc-900 dark:text-white uppercase tracking-widest mobile-link" href="#reviews">Reviews</a>
         <a class="text-2xl font-headline font-bold text-zinc-900 dark:text-white uppercase tracking-widest mobile-link" href="#blog">Blog</a>
         <a class="text-2xl font-headline font-bold text-zinc-900 dark:text-white uppercase tracking-widest mobile-link" href="./shop.html">Shop</a>
+        <a class="text-2xl font-headline font-bold text-zinc-900 dark:text-white uppercase tracking-widest mobile-link" href="./about.html">About</a>
         <a class="mt-8 px-12 py-4 bg-zinc-900 text-white dark:bg-white dark:text-zinc-900 font-label uppercase text-sm tracking-widest mobile-link" href="#inquire">Inquire Now</a>
     </div>
 
@@ -888,7 +896,7 @@
                             <div class="p-6 md:p-8 flex flex-1 flex-col destination-preview-body">
                                 <div class="destination-meta-row flex flex-wrap gap-2 mb-4">
                                     <span id="destination-region" class="inline-flex px-3 py-1 rounded-full bg-zinc-900 text-white dark:bg-white dark:text-zinc-900 text-[0.6rem] uppercase tracking-widest">Central Province</span>
-                                    <span id="destination-best" class="inline-flex px-3 py-1 rounded-full border border-zinc-300 dark:border-white/15 text-zinc-700 dark:text-zinc-300 text-[0.6rem] uppercase tracking-widest">Best May â€“ Sep</span>
+                                    <span id="destination-best" class="inline-flex px-3 py-1 rounded-full border border-zinc-300 dark:border-white/15 text-zinc-700 dark:text-zinc-300 text-[0.6rem] uppercase tracking-widest">Best May - Sep</span>
                                     <span id="destination-entry" class="inline-flex px-3 py-1 rounded-full border border-cyan-200 dark:border-cyan-500/30 text-cyan-700 dark:text-cyan-300 text-[0.6rem] uppercase tracking-widest">Rock + caves + views</span>
                                 </div>
 
@@ -898,7 +906,7 @@
                                 <div class="destination-detail-grid grid sm:grid-cols-2 gap-3 mb-6">
                                     <div class="rounded-2xl bg-white/70 dark:bg-white/5 border border-zinc-200 dark:border-white/10 p-4">
                                         <span class="block text-[0.6rem] uppercase tracking-widest text-zinc-500 dark:text-outline mb-2">Best mini-route</span>
-                                        <span id="destination-route" class="text-sm text-zinc-900 dark:text-white">Dambulla â†’ Sigiriya â†’ Riverston</span>
+                                        <span id="destination-route" class="text-sm text-zinc-900 dark:text-white">Dambulla → Sigiriya → Riverston</span>
                                     </div>
                                     <div class="rounded-2xl bg-white/70 dark:bg-white/5 border border-zinc-200 dark:border-white/10 p-4">
                                         <span class="block text-[0.6rem] uppercase tracking-widest text-zinc-500 dark:text-outline mb-2">Travel Mood</span>
@@ -917,7 +925,7 @@
 
                                 <div class="destination-tip-card mt-6 rounded-2xl bg-cyan-50/80 dark:bg-cyan-500/10 border border-cyan-100 dark:border-cyan-500/20 p-4">
                                     <span class="block text-[0.6rem] uppercase tracking-widest text-cyan-700 dark:text-cyan-300 mb-2">Seren tip</span>
-                                    <p id="destination-tip" class="text-sm text-zinc-700 dark:text-zinc-200 leading-relaxed">Start early here â€” the district is ideal for sunrise climbs and cool morning drives.</p>
+                                    <p id="destination-tip" class="text-sm text-zinc-700 dark:text-zinc-200 leading-relaxed">Start early here - the district is ideal for sunrise climbs and cool morning drives.</p>
                                 </div>
 
                                 <div class="mt-auto pt-6 flex flex-col sm:flex-row gap-3">
@@ -946,8 +954,8 @@
 
                 <div class="flex flex-wrap gap-2 md:gap-3 mb-10 md:mb-14 justify-center md:justify-start">
                     <button data-filter="all" class="tour-filter-btn active px-5 py-2 text-[0.65rem] uppercase tracking-widest font-label border border-zinc-300 dark:border-white/20 text-zinc-600 dark:text-zinc-300 hover:border-zinc-900 dark:hover:border-white hover:text-zinc-900 dark:hover:text-white transition-all duration-300 rounded-full">All Tours</button>
-                    <button data-filter="short" class="tour-filter-btn px-5 py-2 text-[0.65rem] uppercase tracking-widest font-label border border-zinc-300 dark:border-white/20 text-zinc-600 dark:text-zinc-300 hover:border-zinc-900 dark:hover:border-white hover:text-zinc-900 dark:hover:text-white transition-all duration-300 rounded-full">1â€“5 Days</button>
-                    <button data-filter="mid" class="tour-filter-btn px-5 py-2 text-[0.65rem] uppercase tracking-widest font-label border border-zinc-300 dark:border-white/20 text-zinc-600 dark:text-zinc-300 hover:border-zinc-900 dark:hover:border-white hover:text-zinc-900 dark:hover:text-white transition-all duration-300 rounded-full">6â€“10 Days</button>
+                    <button data-filter="short" class="tour-filter-btn px-5 py-2 text-[0.65rem] uppercase tracking-widest font-label border border-zinc-300 dark:border-white/20 text-zinc-600 dark:text-zinc-300 hover:border-zinc-900 dark:hover:border-white hover:text-zinc-900 dark:hover:text-white transition-all duration-300 rounded-full">1-5 Days</button>
+                    <button data-filter="mid" class="tour-filter-btn px-5 py-2 text-[0.65rem] uppercase tracking-widest font-label border border-zinc-300 dark:border-white/20 text-zinc-600 dark:text-zinc-300 hover:border-zinc-900 dark:hover:border-white hover:text-zinc-900 dark:hover:text-white transition-all duration-300 rounded-full">6-10 Days</button>
                     <button data-filter="long" class="tour-filter-btn px-5 py-2 text-[0.65rem] uppercase tracking-widest font-label border border-zinc-300 dark:border-white/20 text-zinc-600 dark:text-zinc-300 hover:border-zinc-900 dark:hover:border-white hover:text-zinc-900 dark:hover:text-white transition-all duration-300 rounded-full">11+ Days</button>
                     <button data-filter="beach" class="tour-filter-btn px-5 py-2 text-[0.65rem] uppercase tracking-widest font-label border border-zinc-300 dark:border-white/20 text-zinc-600 dark:text-zinc-300 hover:border-zinc-900 dark:hover:border-white hover:text-zinc-900 dark:hover:text-white transition-all duration-300 rounded-full">Beach</button>
                     <button data-filter="wildlife" class="tour-filter-btn px-5 py-2 text-[0.65rem] uppercase tracking-widest font-label border border-zinc-300 dark:border-white/20 text-zinc-600 dark:text-zinc-300 hover:border-zinc-900 dark:hover:border-white hover:text-zinc-900 dark:hover:text-white transition-all duration-300 rounded-full">Wildlife</button>
@@ -986,7 +994,7 @@
                             <div class="border-t border-zinc-200 dark:border-white/10 pt-6 mt-auto flex items-end justify-between">
                                 <div>
                                     <span class="block text-[0.65rem] uppercase tracking-widest text-zinc-500 dark:text-outline mb-1">Route</span>
-                                    <span class="text-[0.65rem] text-zinc-600 dark:text-zinc-400">Colombo âž” Sigiriya âž” Kandy</span>
+                                    <span class="text-[0.65rem] text-zinc-600 dark:text-zinc-400">Colombo → Sigiriya → Kandy</span>
                                 </div>
                                 <div class="flex gap-4">
                                     <a href="tour-cultural-explorer.html" class="inline-block text-xs uppercase tracking-widest text-zinc-900 dark:text-white border-b border-zinc-400 hover:border-zinc-900 dark:border-white/30 dark:hover:border-white transition-all py-1">See Details</a>
@@ -1022,7 +1030,7 @@
                             <div class="border-t border-zinc-200 dark:border-white/10 pt-6 mt-auto flex items-end justify-between">
                                 <div>
                                     <span class="block text-[0.65rem] uppercase tracking-widest text-zinc-500 dark:text-outline mb-1">Route</span>
-                                    <span class="text-[0.65rem] text-zinc-600 dark:text-zinc-400">Kandy âž” Ella âž” Yala âž” Galle</span>
+                                    <span class="text-[0.65rem] text-zinc-600 dark:text-zinc-400">Kandy → Ella → Yala → Galle</span>
                                 </div>
                                 <div class="flex gap-4">
                                     <a href="tour-highland-serenity.html" class="inline-block text-xs uppercase tracking-widest text-zinc-900 dark:text-white border-b border-zinc-400 hover:border-zinc-900 dark:border-white/30 dark:hover:border-white transition-all py-1">See Details</a>
@@ -1102,7 +1110,7 @@
                             <div class="border-t border-zinc-200 dark:border-white/10 pt-6 mt-auto flex items-end justify-between">
                                 <div>
                                     <span class="block text-[0.65rem] uppercase tracking-widest text-zinc-500 dark:text-outline mb-1">Route</span>
-                                    <span class="text-[0.65rem] text-zinc-600 dark:text-zinc-400">Colombo âž” Galle âž” Mirissa âž” Tangalle</span>
+                                    <span class="text-[0.65rem] text-zinc-600 dark:text-zinc-400">Colombo → Galle → Mirissa → Tangalle</span>
                                 </div>
                                 <div class="flex gap-4">
                                     <a href="tour-southern-shoreline.html" class="inline-block text-xs uppercase tracking-widest text-zinc-900 dark:text-white border-b border-zinc-400 hover:border-zinc-900 dark:border-white/30 dark:hover:border-white transition-all py-1">See Details</a>
@@ -1140,11 +1148,11 @@
                         <div class="p-6 md:p-8 flex flex-col flex-grow">
                             <span class="font-label text-[0.6rem] uppercase tracking-widest text-zinc-500 dark:text-outline mb-2">6 Days / 5 Nights</span>
                             <h3 class="text-xl md:text-2xl font-headline font-bold text-zinc-900 dark:text-white mb-4">Wild Kingdom Safari</h3>
-                            <p class="text-sm text-zinc-600 dark:text-zinc-400 mb-8 leading-relaxed flex-grow">Three of Sri Lanka's finest national parks in one curated circuit. Track leopards at Yala, observe elephant herds at Udawalawe, and discover the bird-rich lagoons of Bundala â€” all from the comfort of a private vehicle.</p>
+                            <p class="text-sm text-zinc-600 dark:text-zinc-400 mb-8 leading-relaxed flex-grow">Three of Sri Lanka's finest national parks in one curated circuit. Track leopards at Yala, observe elephant herds at Udawalawe, and discover the bird-rich lagoons of Bundala - all from the comfort of a private vehicle.</p>
                             <div class="border-t border-zinc-200 dark:border-white/10 pt-6 mt-auto flex items-end justify-between">
                                 <div>
                                     <span class="block text-[0.65rem] uppercase tracking-widest text-zinc-500 dark:text-outline mb-1">Route</span>
-                                    <span class="text-[0.65rem] text-zinc-600 dark:text-zinc-400">Colombo âž” Udawalawe âž” Yala âž” Bundala</span>
+                                    <span class="text-[0.65rem] text-zinc-600 dark:text-zinc-400">Colombo → Udawalawe → Yala → Bundala</span>
                                 </div>
                                 <div class="flex gap-4">
                                     <a href="tour-wild-kingdom-safari.html" class="inline-block text-xs uppercase tracking-widest text-zinc-900 dark:text-white border-b border-zinc-400 hover:border-zinc-900 dark:border-white/30 dark:hover:border-white transition-all py-1">See Details</a>
@@ -1182,11 +1190,11 @@
                         <div class="p-6 md:p-8 flex flex-col flex-grow">
                             <span class="font-label text-[0.6rem] uppercase tracking-widest text-zinc-500 dark:text-outline mb-2">10 Days / 9 Nights</span>
                             <h3 class="text-xl md:text-2xl font-headline font-bold text-zinc-900 dark:text-white mb-4">The North Unveiled</h3>
-                            <p class="text-sm text-zinc-600 dark:text-zinc-400 mb-8 leading-relaxed flex-grow">Sri Lanka's least-explored chapter. Journey to the peninsula city of Jaffna, discover ancient Hindu temples, pristine lagoon islands, and the timeless causeway to Nainativu â€” a route most tourists never see.</p>
+                            <p class="text-sm text-zinc-600 dark:text-zinc-400 mb-8 leading-relaxed flex-grow">Sri Lanka's least-explored chapter. Journey to the peninsula city of Jaffna, discover ancient Hindu temples, pristine lagoon islands, and the timeless causeway to Nainativu - a route most tourists never see.</p>
                             <div class="border-t border-zinc-200 dark:border-white/10 pt-6 mt-auto flex items-end justify-between">
                                 <div>
                                     <span class="block text-[0.65rem] uppercase tracking-widest text-zinc-500 dark:text-outline mb-1">Route</span>
-                                    <span class="text-[0.65rem] text-zinc-600 dark:text-zinc-400">Colombo âž” Anuradhapura âž” Jaffna âž” Islands</span>
+                                    <span class="text-[0.65rem] text-zinc-600 dark:text-zinc-400">Colombo → Anuradhapura → Jaffna → Islands</span>
                                 </div>
                                 <div class="flex gap-4">
                                     <a href="tour-north-unveiled.html" class="inline-block text-xs uppercase tracking-widest text-zinc-900 dark:text-white border-b border-zinc-400 hover:border-zinc-900 dark:border-white/30 dark:hover:border-white transition-all py-1">See Details</a>
@@ -1199,30 +1207,30 @@
                 </div>
                 <div class="mt-20 overflow-hidden border-t border-b border-zinc-200 dark:border-white/10 py-5 relative">
                     <div class="marquee-track text-zinc-400 dark:text-zinc-600 text-[0.6rem] uppercase tracking-[0.3em] font-label select-none">
-                        <span class="px-8">Sigiriya</span><span class="px-2 text-zinc-200 dark:text-zinc-800">Â·</span>
-                        <span class="px-8">Ella</span><span class="px-2 text-zinc-200 dark:text-zinc-800">Â·</span>
-                        <span class="px-8">Galle Fort</span><span class="px-2 text-zinc-200 dark:text-zinc-800">Â·</span>
-                        <span class="px-8">Yala National Park</span><span class="px-2 text-zinc-200 dark:text-zinc-800">Â·</span>
-                        <span class="px-8">Kandy</span><span class="px-2 text-zinc-200 dark:text-zinc-800">Â·</span>
-                        <span class="px-8">Nuwara Eliya</span><span class="px-2 text-zinc-200 dark:text-zinc-800">Â·</span>
-                        <span class="px-8">Jaffna</span><span class="px-2 text-zinc-200 dark:text-zinc-800">Â·</span>
-                        <span class="px-8">Mirissa</span><span class="px-2 text-zinc-200 dark:text-zinc-800">Â·</span>
-                        <span class="px-8">Udawalawe</span><span class="px-2 text-zinc-200 dark:text-zinc-800">Â·</span>
-                        <span class="px-8">Polonnaruwa</span><span class="px-2 text-zinc-200 dark:text-zinc-800">Â·</span>
-                        <span class="px-8">Tangalle</span><span class="px-2 text-zinc-200 dark:text-zinc-800">Â·</span>
-                        <span class="px-8">Trincomalee</span><span class="px-2 text-zinc-200 dark:text-zinc-800">Â·</span>
-                        <span class="px-8">Sigiriya</span><span class="px-2 text-zinc-200 dark:text-zinc-800">Â·</span>
-                        <span class="px-8">Ella</span><span class="px-2 text-zinc-200 dark:text-zinc-800">Â·</span>
-                        <span class="px-8">Galle Fort</span><span class="px-2 text-zinc-200 dark:text-zinc-800">Â·</span>
-                        <span class="px-8">Yala National Park</span><span class="px-2 text-zinc-200 dark:text-zinc-800">Â·</span>
-                        <span class="px-8">Kandy</span><span class="px-2 text-zinc-200 dark:text-zinc-800">Â·</span>
-                        <span class="px-8">Nuwara Eliya</span><span class="px-2 text-zinc-200 dark:text-zinc-800">Â·</span>
-                        <span class="px-8">Jaffna</span><span class="px-2 text-zinc-200 dark:text-zinc-800">Â·</span>
-                        <span class="px-8">Mirissa</span><span class="px-2 text-zinc-200 dark:text-zinc-800">Â·</span>
-                        <span class="px-8">Udawalawe</span><span class="px-2 text-zinc-200 dark:text-zinc-800">Â·</span>
-                        <span class="px-8">Polonnaruwa</span><span class="px-2 text-zinc-200 dark:text-zinc-800">Â·</span>
-                        <span class="px-8">Tangalle</span><span class="px-2 text-zinc-200 dark:text-zinc-800">Â·</span>
-                        <span class="px-8">Trincomalee</span><span class="px-2 text-zinc-200 dark:text-zinc-800">Â·</span>
+                        <span class="px-8">Sigiriya</span><span class="px-2 text-zinc-200 dark:text-zinc-800">·</span>
+                        <span class="px-8">Ella</span><span class="px-2 text-zinc-200 dark:text-zinc-800">·</span>
+                        <span class="px-8">Galle Fort</span><span class="px-2 text-zinc-200 dark:text-zinc-800">·</span>
+                        <span class="px-8">Yala National Park</span><span class="px-2 text-zinc-200 dark:text-zinc-800">·</span>
+                        <span class="px-8">Kandy</span><span class="px-2 text-zinc-200 dark:text-zinc-800">·</span>
+                        <span class="px-8">Nuwara Eliya</span><span class="px-2 text-zinc-200 dark:text-zinc-800">·</span>
+                        <span class="px-8">Jaffna</span><span class="px-2 text-zinc-200 dark:text-zinc-800">·</span>
+                        <span class="px-8">Mirissa</span><span class="px-2 text-zinc-200 dark:text-zinc-800">·</span>
+                        <span class="px-8">Udawalawe</span><span class="px-2 text-zinc-200 dark:text-zinc-800">·</span>
+                        <span class="px-8">Polonnaruwa</span><span class="px-2 text-zinc-200 dark:text-zinc-800">·</span>
+                        <span class="px-8">Tangalle</span><span class="px-2 text-zinc-200 dark:text-zinc-800">·</span>
+                        <span class="px-8">Trincomalee</span><span class="px-2 text-zinc-200 dark:text-zinc-800">·</span>
+                        <span class="px-8">Sigiriya</span><span class="px-2 text-zinc-200 dark:text-zinc-800">·</span>
+                        <span class="px-8">Ella</span><span class="px-2 text-zinc-200 dark:text-zinc-800">·</span>
+                        <span class="px-8">Galle Fort</span><span class="px-2 text-zinc-200 dark:text-zinc-800">·</span>
+                        <span class="px-8">Yala National Park</span><span class="px-2 text-zinc-200 dark:text-zinc-800">·</span>
+                        <span class="px-8">Kandy</span><span class="px-2 text-zinc-200 dark:text-zinc-800">·</span>
+                        <span class="px-8">Nuwara Eliya</span><span class="px-2 text-zinc-200 dark:text-zinc-800">·</span>
+                        <span class="px-8">Jaffna</span><span class="px-2 text-zinc-200 dark:text-zinc-800">·</span>
+                        <span class="px-8">Mirissa</span><span class="px-2 text-zinc-200 dark:text-zinc-800">·</span>
+                        <span class="px-8">Udawalawe</span><span class="px-2 text-zinc-200 dark:text-zinc-800">·</span>
+                        <span class="px-8">Polonnaruwa</span><span class="px-2 text-zinc-200 dark:text-zinc-800">·</span>
+                        <span class="px-8">Tangalle</span><span class="px-2 text-zinc-200 dark:text-zinc-800">·</span>
+                        <span class="px-8">Trincomalee</span><span class="px-2 text-zinc-200 dark:text-zinc-800">·</span>
                     </div>
                 </div>
 
@@ -1241,114 +1249,114 @@
                 </div>
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <div class="group relative overflow-hidden bg-zinc-50 dark:bg-surface-container-high shadow-sm md:hover:shadow-xl dark:shadow-none rounded-sm transition-all duration-500 border border-zinc-200 dark:border-white/5">
+                    <div class="group relative overflow-hidden bg-zinc-50 dark:bg-surface-container-high shadow-sm md:hover:shadow-xl dark:shadow-none rounded-sm transition-all duration-500 border border-zinc-200 dark:border-white/5 flex flex-col">
                         <div class="aspect-[4/3] overflow-hidden">
                             <img src="./images/fleet-classic.jpg" alt="Suzuki Wagon R" class="w-full h-full object-cover opacity-90 md:group-hover:opacity-100 md:group-hover:scale-105 transition-all duration-1000">
                         </div>
-                        <div class="p-6 md:p-8">
+                        <div class="p-6 md:p-8 flex flex-col flex-1">
                             <span class="font-label text-[0.6rem] uppercase tracking-widest text-zinc-500 dark:text-outline">Economy Hatchback</span>
                             <h3 class="text-xl md:text-2xl font-headline font-bold text-zinc-900 dark:text-white mt-2 mb-4">Suzuki Wagon R</h3>
                             <div class="grid grid-cols-2 gap-4 mb-6 border-y border-zinc-200 dark:border-white/10 py-4">
                                 <div><span class="block text-[0.6rem] uppercase text-zinc-500 dark:text-outline">Capacity</span><span class="text-sm text-zinc-900 dark:text-white">3 Guests</span></div>
                                 <div><span class="block text-[0.6rem] uppercase text-zinc-500 dark:text-outline">Luggage</span><span class="text-sm text-zinc-900 dark:text-white">2 Bags</span></div>
                             </div>
-                            <p class="text-sm text-zinc-600 dark:text-zinc-300 leading-relaxed mb-4">Ideal for solo travellers or couples who want the most economical, nimbly city-friendly option with excellent fuel efficiency.</p>
-                            <div class="flex justify-between items-center">
+                            <p class="text-sm text-zinc-600 dark:text-zinc-300 leading-relaxed mb-4 flex-1">Ideal for solo travellers or couples who want the most economical, nimbly city-friendly option with excellent fuel efficiency.</p>
+                            <div class="flex justify-between items-center mt-auto pt-4 border-t border-zinc-200 dark:border-white/10">
                                 <a href="fleet-wagonr.html" class="text-xs uppercase tracking-widest text-zinc-900 dark:text-white border-b border-zinc-400 hover:border-zinc-900 dark:border-white/30 dark:hover:border-white transition-all py-1">See Details</a>
                                 <a href="#inquire" class="text-xs uppercase tracking-widest text-zinc-900 dark:text-white border-b border-zinc-400 hover:border-zinc-900 dark:border-white/30 dark:hover:border-white transition-all py-1">Book Now</a>
                             </div>
                         </div>
                     </div>
 
-                    <div class="group relative overflow-hidden bg-zinc-50 dark:bg-surface-container-high shadow-sm md:hover:shadow-xl dark:shadow-none rounded-sm transition-all duration-500 border border-zinc-200 dark:border-white/5">
+                    <div class="group relative overflow-hidden bg-zinc-50 dark:bg-surface-container-high shadow-sm md:hover:shadow-xl dark:shadow-none rounded-sm transition-all duration-500 border border-zinc-200 dark:border-white/5 flex flex-col">
                         <div class="aspect-[4/3] overflow-hidden">
                             <img src="./images/fleet-van.jpg" alt="Honda Shuttle" class="w-full h-full object-cover opacity-90 md:group-hover:opacity-100 md:group-hover:scale-105 transition-all duration-1000">
                         </div>
-                        <div class="p-6 md:p-8">
+                        <div class="p-6 md:p-8 flex flex-col flex-1">
                             <span class="font-label text-[0.6rem] uppercase tracking-widest text-zinc-500 dark:text-outline">Practical Wagon</span>
                             <h3 class="text-xl md:text-2xl font-headline font-bold text-zinc-900 dark:text-white mt-2 mb-4">Honda Shuttle</h3>
                             <div class="grid grid-cols-2 gap-4 mb-6 border-y border-zinc-200 dark:border-white/10 py-4">
                                 <div><span class="block text-[0.6rem] uppercase text-zinc-500 dark:text-outline">Capacity</span><span class="text-sm text-zinc-900 dark:text-white">4 Guests</span></div>
                                 <div><span class="block text-[0.6rem] uppercase text-zinc-500 dark:text-outline">Luggage</span><span class="text-sm text-zinc-900 dark:text-white">3 Bags</span></div>
                             </div>
-                            <p class="text-sm text-zinc-600 dark:text-zinc-300 leading-relaxed mb-4">Smooth ride with a bit more cargo space and comfort than a compact hatch, perfect city-to-suburbs transfers.</p>
-                            <div class="flex justify-between items-center">
+                            <p class="text-sm text-zinc-600 dark:text-zinc-300 leading-relaxed mb-4 flex-1">Smooth ride with a bit more cargo space and comfort than a compact hatch, perfect city-to-suburbs transfers.</p>
+                            <div class="flex justify-between items-center mt-auto pt-4 border-t border-zinc-200 dark:border-white/10">
                                 <a href="fleet-shuttle.html" class="text-xs uppercase tracking-widest text-zinc-900 dark:text-white border-b border-zinc-400 hover:border-zinc-900 dark:border-white/30 dark:hover:border-white transition-all py-1">See Details</a>
                                 <a href="#inquire" class="text-xs uppercase tracking-widest text-zinc-900 dark:text-white border-b border-zinc-400 hover:border-zinc-900 dark:border-white/30 dark:hover:border-white transition-all py-1">Book Now</a>
                             </div>
                         </div>
                     </div>
 
-                    <div class="group relative overflow-hidden bg-zinc-50 dark:bg-surface-container-high shadow-sm md:hover:shadow-xl dark:shadow-none rounded-sm transition-all duration-500 border border-zinc-200 dark:border-white/5">
+                    <div class="group relative overflow-hidden bg-zinc-50 dark:bg-surface-container-high shadow-sm md:hover:shadow-xl dark:shadow-none rounded-sm transition-all duration-500 border border-zinc-200 dark:border-white/5 flex flex-col">
                         <div class="aspect-[4/3] overflow-hidden">
                             <img src="./images/fleet-prius.jpg" alt="Toyota Prius" class="w-full h-full object-cover opacity-90 md:group-hover:opacity-100 md:group-hover:scale-105 transition-all duration-1000">
                         </div>
-                        <div class="p-6 md:p-8">
+                        <div class="p-6 md:p-8 flex flex-col flex-1">
                             <span class="font-label text-[0.6rem] uppercase tracking-widest text-zinc-500 dark:text-outline">Eco Hybrid</span>
                             <h3 class="text-xl md:text-2xl font-headline font-bold text-zinc-900 dark:text-white mt-2 mb-4">Toyota Prius</h3>
                             <div class="grid grid-cols-2 gap-4 mb-6 border-y border-zinc-200 dark:border-white/10 py-4">
                                 <div><span class="block text-[0.6rem] uppercase text-zinc-500 dark:text-outline">Capacity</span><span class="text-sm text-zinc-900 dark:text-white">3 Guests</span></div>
                                 <div><span class="block text-[0.6rem] uppercase text-zinc-500 dark:text-outline">Luggage</span><span class="text-sm text-zinc-900 dark:text-white">3 Bags</span></div>
                             </div>
-                            <p class="text-sm text-zinc-600 dark:text-zinc-300 leading-relaxed mb-4">The most fuel-sipping choice in the fleet; perfect for low-cost city transfers and environmentally-conscious travelers.</p>
-                            <div class="flex justify-between items-center">
+                            <p class="text-sm text-zinc-600 dark:text-zinc-300 leading-relaxed mb-4 flex-1">The most fuel-sipping choice in the fleet; perfect for low-cost city transfers and environmentally-conscious travelers.</p>
+                            <div class="flex justify-between items-center mt-auto pt-4 border-t border-zinc-200 dark:border-white/10">
                                 <a href="fleet-prius.html" class="text-xs uppercase tracking-widest text-zinc-900 dark:text-white border-b border-zinc-400 hover:border-zinc-900 dark:border-white/30 dark:hover:border-white transition-all py-1">See Details</a>
                                 <a href="#inquire" class="text-xs uppercase tracking-widest text-zinc-900 dark:text-white border-b border-zinc-400 hover:border-zinc-900 dark:border-white/30 dark:hover:border-white transition-all py-1">Book Now</a>
                             </div>
                         </div>
                     </div>
 
-                    <div class="group relative overflow-hidden bg-zinc-50 dark:bg-surface-container-high shadow-sm md:hover:shadow-xl dark:shadow-none rounded-sm transition-all duration-500 border border-zinc-200 dark:border-white/5">
+                    <div class="group relative overflow-hidden bg-zinc-50 dark:bg-surface-container-high shadow-sm md:hover:shadow-xl dark:shadow-none rounded-sm transition-all duration-500 border border-zinc-200 dark:border-white/5 flex flex-col">
                         <div class="aspect-[4/3] overflow-hidden">
                             <img src="./images/fleet-sedan.jpg" alt="Toyota Axio" class="w-full h-full object-cover opacity-90 md:group-hover:opacity-100 md:group-hover:scale-105 transition-all duration-1000">
                         </div>
-                        <div class="p-6 md:p-8">
+                        <div class="p-6 md:p-8 flex flex-col flex-1">
                             <span class="font-label text-[0.6rem] uppercase tracking-widest text-zinc-500 dark:text-outline">City Sedan</span>
                             <h3 class="text-xl md:text-2xl font-headline font-bold text-zinc-900 dark:text-white mt-2 mb-4">Toyota Axio</h3>
                             <div class="grid grid-cols-2 gap-4 mb-6 border-y border-zinc-200 dark:border-white/10 py-4">
                                 <div><span class="block text-[0.6rem] uppercase text-zinc-500 dark:text-outline">Capacity</span><span class="text-sm text-zinc-900 dark:text-white">3 Guests</span></div>
                                 <div><span class="block text-[0.6rem] uppercase text-zinc-500 dark:text-outline">Luggage</span><span class="text-sm text-zinc-900 dark:text-white">3 Bags</span></div>
                             </div>
-                            <p class="text-sm text-zinc-600 dark:text-zinc-300 leading-relaxed mb-4">Reliable, quiet and easy to park â€” a great value for airport transfers and one-way rides.</p>
-                            <div class="flex justify-between items-center">
+                            <p class="text-sm text-zinc-600 dark:text-zinc-300 leading-relaxed mb-4 flex-1">Reliable, quiet and easy to park - a great value for airport transfers and one-way rides.</p>
+                            <div class="flex justify-between items-center mt-auto pt-4 border-t border-zinc-200 dark:border-white/10">
                                 <a href="fleet-axio.html" class="text-xs uppercase tracking-widest text-zinc-900 dark:text-white border-b border-zinc-400 hover:border-zinc-900 dark:border-white/30 dark:hover:border-white transition-all py-1">See Details</a>
                                 <a href="#inquire" class="text-xs uppercase tracking-widest text-zinc-900 dark:text-white border-b border-zinc-400 hover:border-zinc-900 dark:border-white/30 dark:hover:border-white transition-all py-1">Book Now</a>
                             </div>
                         </div>
                     </div>
 
-                    <div class="group relative overflow-hidden bg-zinc-50 dark:bg-surface-container-high shadow-sm md:hover:shadow-xl dark:shadow-none rounded-sm transition-all duration-500 border border-zinc-200 dark:border-white/5">
+                    <div class="group relative overflow-hidden bg-zinc-50 dark:bg-surface-container-high shadow-sm md:hover:shadow-xl dark:shadow-none rounded-sm transition-all duration-500 border border-zinc-200 dark:border-white/5 flex flex-col">
                         <div class="aspect-[4/3] overflow-hidden">
                             <img src="./images/fleet-kdh-flat.jpg" alt="KDH Flat Roof" class="w-full h-full object-cover opacity-90 md:group-hover:opacity-100 md:group-hover:scale-105 transition-all duration-1000">
                         </div>
-                        <div class="p-6 md:p-8">
+                        <div class="p-6 md:p-8 flex flex-col flex-1">
                             <span class="font-label text-[0.6rem] uppercase tracking-widest text-zinc-500 dark:text-outline">Standard Minivan</span>
-                            <h3 class="text-xl md:text-2xl font-headline font-bold text-zinc-900 dark:text-white mt-2 mb-4">Toyota KDH<br><span class="block text-base md:text-xl font-headline font-bold">Flat Roof</span></h3>
+                            <h3 class="text-xl md:text-2xl font-headline font-bold text-zinc-900 dark:text-white mt-2 mb-4">KDH Flat Roof</h3>
                             <div class="grid grid-cols-2 gap-4 mb-6 border-y border-zinc-200 dark:border-white/10 py-4">
                                 <div><span class="block text-[0.6rem] uppercase text-zinc-500 dark:text-outline">Capacity</span><span class="text-sm text-zinc-900 dark:text-white">6 Guests</span></div>
                                 <div><span class="block text-[0.6rem] uppercase text-zinc-500 dark:text-outline">Luggage</span><span class="text-sm text-zinc-900 dark:text-white">5 Bags</span></div>
                             </div>
-                            <p class="text-sm text-zinc-600 dark:text-zinc-300 leading-relaxed mb-4">A favorite for small family circuits, with side access for easier boarding and a low roof for standard loading garage clearance.</p>
-                            <div class="flex justify-between items-center">
+                            <p class="text-sm text-zinc-600 dark:text-zinc-300 leading-relaxed mb-4 flex-1">A favorite for small family circuits, with side access for easier boarding and a low roof for standard loading garage clearance.</p>
+                            <div class="flex justify-between items-center mt-auto pt-4 border-t border-zinc-200 dark:border-white/10">
                                 <a href="fleet-kdh-flat.html" class="text-xs uppercase tracking-widest text-zinc-900 dark:text-white border-b border-zinc-400 hover:border-zinc-900 dark:border-white/30 dark:hover:border-white transition-all py-1">See Details</a>
                                 <a href="#inquire" class="text-xs uppercase tracking-widest text-zinc-900 dark:text-white border-b border-zinc-400 hover:border-zinc-900 dark:border-white/30 dark:hover:border-white transition-all py-1">Book Now</a>
                             </div>
                         </div>
                     </div>
 
-                    <div class="group relative overflow-hidden bg-zinc-50 dark:bg-surface-container-high shadow-sm md:hover:shadow-xl dark:shadow-none rounded-sm transition-all duration-500 border border-zinc-200 dark:border-white/5">
+                    <div class="group relative overflow-hidden bg-zinc-50 dark:bg-surface-container-high shadow-sm md:hover:shadow-xl dark:shadow-none rounded-sm transition-all duration-500 border border-zinc-200 dark:border-white/5 flex flex-col">
                         <div class="aspect-[4/3] overflow-hidden">
                             <img src="./images/fleet-kdh-high.jpg" alt="KDH High Roof" class="w-full h-full object-cover opacity-90 md:group-hover:opacity-100 md:group-hover:scale-105 transition-all duration-1000">
                         </div>
-                        <div class="p-6 md:p-8">
+                        <div class="p-6 md:p-8 flex flex-col flex-1">
                             <span class="font-label text-[0.6rem] uppercase tracking-widest text-zinc-500 dark:text-outline">Premium Minivan</span>
-                            <h3 class="text-xl md:text-2xl font-headline font-bold text-zinc-900 dark:text-white mt-2 mb-4">Toyota KDH<br><span class="block text-base md:text-xl font-headline font-bold">High Roof</span></h3>
+                            <h3 class="text-xl md:text-2xl font-headline font-bold text-zinc-900 dark:text-white mt-2 mb-4">KDH High Roof</h3>
                             <div class="grid grid-cols-2 gap-4 mb-6 border-y border-zinc-200 dark:border-white/10 py-4">
                                 <div><span class="block text-[0.6rem] uppercase text-zinc-500 dark:text-outline">Capacity</span><span class="text-sm text-zinc-900 dark:text-white">9 Guests</span></div>
                                 <div><span class="block text-[0.6rem] uppercase text-zinc-500 dark:text-outline">Luggage</span><span class="text-sm text-zinc-900 dark:text-white">8 Bags</span></div>
                             </div>
-                            <p class="text-sm text-zinc-600 dark:text-zinc-300 leading-relaxed mb-4">Tall-roof variant with upright interior space that makes long days comfortable and easy movement inside the cabin.</p>
-                            <div class="flex justify-between items-center">
+                            <p class="text-sm text-zinc-600 dark:text-zinc-300 leading-relaxed mb-4 flex-1">Tall-roof variant with upright interior space that makes long days comfortable and easy movement inside the cabin.</p>
+                            <div class="flex justify-between items-center mt-auto pt-4 border-t border-zinc-200 dark:border-white/10">
                                 <a href="fleet-kdh-high.html" class="text-xs uppercase tracking-widest text-zinc-900 dark:text-white border-b border-zinc-400 hover:border-zinc-900 dark:border-white/30 dark:hover:border-white transition-all py-1">See Details</a>
                                 <a href="#inquire" class="text-xs uppercase tracking-widest text-zinc-900 dark:text-white border-b border-zinc-400 hover:border-zinc-900 dark:border-white/30 dark:hover:border-white transition-all py-1">Book Now</a>
                             </div>
@@ -1375,55 +1383,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-span-12 lg:col-span-7 group">
-                    <div class="relative overflow-hidden rounded-sm shadow-xl dark:shadow-none aspect-[4/3] md:aspect-auto">
-                        <img alt="Luxury car interior" class="w-full h-full md:h-[600px] object-cover opacity-90 transition-all duration-1000 md:group-hover:opacity-100 md:group-hover:scale-105" src="./images/car-interior.jpg"/>
-                    </div>
-                </div>
-            </div>
-        </section>
 
-        <section id="curators" class="px-6 md:px-16 py-20 md:py-32 max-w-[1920px] mx-auto bg-zinc-100 dark:bg-transparent transition-colors duration-500 scroll-mt-24 border-t border-zinc-200 dark:border-white/5 relative overflow-hidden">
-            <div class="max-w-7xl mx-auto mb-20 md:mb-32 text-center md:text-left relative z-10">
-                <span class="font-label text-xs uppercase tracking-[0.3em] text-zinc-500 dark:text-outline mb-6 block">The People Behind the Wheel</span>
-                <h1 class="font-headline text-4xl md:text-[5.5rem] font-extrabold leading-[1.1] md:leading-[1.05] tracking-tighter mb-12 text-zinc-900 dark:text-white transition-colors duration-500">
-                    Real Journeys,<br/>
-                    <span class="text-stroke">Real Expertise.</span>
-                </h1>
-            </div>
-
-            <div class="space-y-24 md:space-y-64 max-w-7xl mx-auto relative z-10">
-                <div class="flex flex-col md:flex-row items-center gap-10 md:gap-24">
-                    <div class="relative w-full md:w-1/2 group">
-                        <div class="aspect-[4/5] bg-white dark:bg-surface-container overflow-hidden rounded-sm shadow-lg md:shadow-xl dark:shadow-none transition-colors duration-500 border border-zinc-200 dark:border-white/5">
-                            <img alt="Julian Vane" class="w-full h-full object-cover brightness-90 dark:brightness-75 md:group-hover:brightness-100 md:group-hover:scale-105 transition-all duration-1000" src="./images/julian.jpg"/>
-                        </div>
-                        <div class="liquid-glass relative md:absolute w-[calc(100%-2rem)] mx-auto md:mx-0 md:w-auto -mt-16 md:mt-0 md:bottom-[-2rem] md:right-[-2rem] lg:right-[-4rem] p-6 md:p-12 max-w-xs md:max-w-[320px] rounded-sm transition-transform duration-700 md:group-hover:-translate-y-4 z-10">
-                            <span class="font-label text-[10px] uppercase tracking-[0.2em] text-zinc-600 dark:text-zinc-300 mb-2 block">Head of Logistics</span>
-                            <h3 class="font-headline text-2xl md:text-3xl font-bold mb-4 text-zinc-900 dark:text-white">Julian Vane</h3>
-                        </div>
-                    </div>
-                    <div class="w-full md:w-1/3 pt-6 md:pt-0 text-center md:text-left">
-                        <h4 class="font-headline text-xl mb-4 md:mb-6 text-zinc-900 dark:text-white transition-colors duration-500">The Orchestrator</h4>
-                        <p class="text-zinc-600 dark:text-on-surface-variant text-sm md:text-base leading-relaxed transition-colors duration-500">Julian spent a decade in premium transport before managing SerenDrive's fleet. His philosophy is simple: the car must be flawless, so the client's focus remains entirely on the island.</p>
-                    </div>
-                </div>
-
-                <div class="flex flex-col md:flex-row-reverse items-center gap-10 md:gap-24">
-                    <div class="relative w-full md:w-1/2 group">
-                        <div class="aspect-[4/5] bg-white dark:bg-surface-container overflow-hidden rounded-sm shadow-lg md:shadow-xl dark:shadow-none transition-colors duration-500 border border-zinc-200 dark:border-white/5">
-                            <img alt="Elena Rostova" class="w-full h-full object-cover brightness-90 dark:brightness-75 md:group-hover:brightness-100 md:group-hover:scale-105 transition-all duration-1000" src="./images/elena.jpg"/>
-                        </div>
-                        <div class="liquid-glass relative md:absolute w-[calc(100%-2rem)] mx-auto md:mx-0 md:w-auto -mt-16 md:mt-0 md:bottom-[-2rem] md:left-[-2rem] lg:left-[-4rem] p-6 md:p-12 max-w-xs md:max-w-[320px] rounded-sm transition-transform duration-700 md:group-hover:-translate-y-4 z-10">
-                            <span class="font-label text-[10px] uppercase tracking-[0.2em] text-zinc-600 dark:text-zinc-300 mb-2 block">Guest Experience Manager</span>
-                            <h3 class="font-headline text-2xl md:text-3xl font-bold mb-4 text-zinc-900 dark:text-white">Elena Rostova</h3>
-                        </div>
-                    </div>
-                    <div class="w-full md:w-1/3 pt-6 md:pt-0 text-center md:text-left">
-                        <h4 class="font-headline text-xl mb-4 md:mb-6 text-zinc-900 dark:text-white transition-colors duration-500">The Concierge</h4>
-                        <p class="text-zinc-600 dark:text-on-surface-variant text-sm md:text-base leading-relaxed transition-colors duration-500">Elena ensures that from the moment you send a WhatsApp inquiry to your final drop-off at the airport, your itinerary is handled with absolute care and zero stress.</p>
-                    </div>
-                </div>
             </div>
         </section>
 
@@ -1437,14 +1397,14 @@
             <div class="max-w-[1920px] mx-auto overflow-hidden">
                 <div class="relative">
                     <div class="marquee whitespace-nowrap flex gap-8 py-4 text-sm md:text-base font-semibold text-zinc-700 dark:text-zinc-200 animate-marquee">
-                        <span class="inline-block bg-zinc-100 dark:bg-zinc-800 px-4 py-3 rounded-sm">"Picked up on time, driver was friendly and gave quick local tips." â€“ Ava, Netherlands</span>
-                        <span class="inline-block bg-zinc-100 dark:bg-zinc-800 px-4 py-3 rounded-sm">"Easy booking, comfortable van and no hidden charges." â€“ Liam, Australia</span>
-                        <span class="inline-block bg-zinc-100 dark:bg-zinc-800 px-4 py-3 rounded-sm">"Driver waited for delayed flight. Highly recommend." â€“ Nadia, UAE</span>
-                        <span class="inline-block bg-zinc-100 dark:bg-zinc-800 px-4 py-3 rounded-sm">"Great service to hill country with perfect stops." â€“ Felix, Germany</span>
-                        <span class="inline-block bg-zinc-100 dark:bg-zinc-800 px-4 py-3 rounded-sm">"Reliable transport and clean car, exactly what we needed." â€“ Maya, India</span>
-                        <span class="inline-block bg-zinc-100 dark:bg-zinc-800 px-4 py-3 rounded-sm">"Quick replies, simple process, and luggage help." â€“ Noah, USA</span>
-                        <span class="inline-block bg-zinc-100 dark:bg-zinc-800 px-4 py-3 rounded-sm">"Picked up on time, driver was friendly and gave quick local tips." â€“ Ava, Netherlands</span>
-                        <span class="inline-block bg-zinc-100 dark:bg-zinc-800 px-4 py-3 rounded-sm">"Easy booking, comfortable van and no hidden charges." â€“ Liam, Australia</span>
+                        <span class="inline-block bg-zinc-100 dark:bg-zinc-800 px-4 py-3 rounded-sm">"Picked up on time, driver was friendly and gave quick local tips." - Ava, Netherlands</span>
+                        <span class="inline-block bg-zinc-100 dark:bg-zinc-800 px-4 py-3 rounded-sm">"Easy booking, comfortable van and no hidden charges." - Liam, Australia</span>
+                        <span class="inline-block bg-zinc-100 dark:bg-zinc-800 px-4 py-3 rounded-sm">"Driver waited for delayed flight. Highly recommend." - Nadia, UAE</span>
+                        <span class="inline-block bg-zinc-100 dark:bg-zinc-800 px-4 py-3 rounded-sm">"Great service to hill country with perfect stops." - Felix, Germany</span>
+                        <span class="inline-block bg-zinc-100 dark:bg-zinc-800 px-4 py-3 rounded-sm">"Reliable transport and clean car, exactly what we needed." - Maya, India</span>
+                        <span class="inline-block bg-zinc-100 dark:bg-zinc-800 px-4 py-3 rounded-sm">"Quick replies, simple process, and luggage help." - Noah, USA</span>
+                        <span class="inline-block bg-zinc-100 dark:bg-zinc-800 px-4 py-3 rounded-sm">"Picked up on time, driver was friendly and gave quick local tips." - Ava, Netherlands</span>
+                        <span class="inline-block bg-zinc-100 dark:bg-zinc-800 px-4 py-3 rounded-sm">"Easy booking, comfortable van and no hidden charges." - Liam, Australia</span>
                     </div>
                 </div>
             </div>
@@ -1455,7 +1415,7 @@
                 <div class="text-center mb-12 md:mb-16">
                     <span class="font-label text-[0.7rem] uppercase tracking-[0.25em] text-zinc-500 dark:text-zinc-400">Travel Journal</span>
                     <h3 class="text-3xl md:text-5xl font-headline font-extrabold text-zinc-900 dark:text-white mt-3 tracking-tight">Tips & Insights</h3>
-                    <p class="text-sm md:text-base text-zinc-600 dark:text-zinc-300 mt-3 max-w-xl mx-auto leading-relaxed">Local knowledge to help you plan the perfect Sri Lankan journey â€” from seasonal advice to hidden gems.</p>
+                    <p class="text-sm md:text-base text-zinc-600 dark:text-zinc-300 mt-3 max-w-xl mx-auto leading-relaxed">Local knowledge to help you plan the perfect Sri Lankan journey - from seasonal advice to hidden gems.</p>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
@@ -1486,7 +1446,7 @@
                         </div>
                         <div class="p-5 md:p-6">
                             <h4 class="font-headline font-bold text-lg text-zinc-900 dark:text-white leading-snug group-hover:text-zinc-600 dark:group-hover:text-zinc-300 transition-colors duration-300">The Ultimate Yala Safari Guide</h4>
-                            <p class="text-zinc-500 dark:text-zinc-400 text-sm mt-2 leading-relaxed line-clamp-2">What to expect on your first game drive â€” leopards, elephants, and the best time slots for sightings.</p>
+                            <p class="text-zinc-500 dark:text-zinc-400 text-sm mt-2 leading-relaxed line-clamp-2">What to expect on your first game drive - leopards, elephants, and the best time slots for sightings.</p>
                             <div class="flex items-center justify-between mt-4">
                                 <span class="flex items-center gap-2 text-zinc-400 dark:text-zinc-500 text-xs uppercase tracking-widest font-label"><span class="material-symbols-outlined text-sm">schedule</span> 7 min read</span>
                                 <span class="flex items-center gap-1 text-zinc-500 dark:text-zinc-400 text-xs font-label uppercase tracking-widest group-hover:text-zinc-900 dark:group-hover:text-white transition-colors duration-300">Read more <span class="material-symbols-outlined text-sm transition-transform duration-300 group-hover:translate-x-1">arrow_forward</span></span>
@@ -1503,7 +1463,7 @@
                         </div>
                         <div class="p-5 md:p-6">
                             <h4 class="font-headline font-bold text-lg text-zinc-900 dark:text-white leading-snug group-hover:text-zinc-600 dark:group-hover:text-zinc-300 transition-colors duration-300">The Scenic Train to Ella</h4>
-                            <p class="text-zinc-500 dark:text-zinc-400 text-sm mt-2 leading-relaxed line-clamp-2">One of the world's most beautiful rail journeys â€” tickets, seats, and what to photograph along the way.</p>
+                            <p class="text-zinc-500 dark:text-zinc-400 text-sm mt-2 leading-relaxed line-clamp-2">One of the world's most beautiful rail journeys - tickets, seats, and what to photograph along the way.</p>
                             <div class="flex items-center justify-between mt-4">
                                 <span class="flex items-center gap-2 text-zinc-400 dark:text-zinc-500 text-xs uppercase tracking-widest font-label"><span class="material-symbols-outlined text-sm">schedule</span> 6 min read</span>
                                 <span class="flex items-center gap-1 text-zinc-500 dark:text-zinc-400 text-xs font-label uppercase tracking-widest group-hover:text-zinc-900 dark:group-hover:text-white transition-colors duration-300">Read more <span class="material-symbols-outlined text-sm transition-transform duration-300 group-hover:translate-x-1">arrow_forward</span></span>
@@ -1520,7 +1480,7 @@
                         </div>
                         <div class="p-5 md:p-6">
                             <h4 class="font-headline font-bold text-lg text-zinc-900 dark:text-white leading-snug group-hover:text-zinc-600 dark:group-hover:text-zinc-300 transition-colors duration-300">A Foodie's Guide to Sri Lanka</h4>
-                            <p class="text-zinc-500 dark:text-zinc-400 text-sm mt-2 leading-relaxed line-clamp-2">From hoppers and kottu to roadside king coconut â€” the essential dishes every visitor should try.</p>
+                            <p class="text-zinc-500 dark:text-zinc-400 text-sm mt-2 leading-relaxed line-clamp-2">From hoppers and kottu to roadside king coconut - the essential dishes every visitor should try.</p>
                             <div class="flex items-center justify-between mt-4">
                                 <span class="flex items-center gap-2 text-zinc-400 dark:text-zinc-500 text-xs uppercase tracking-widest font-label"><span class="material-symbols-outlined text-sm">schedule</span> 5 min read</span>
                                 <span class="flex items-center gap-1 text-zinc-500 dark:text-zinc-400 text-xs font-label uppercase tracking-widest group-hover:text-zinc-900 dark:group-hover:text-white transition-colors duration-300">Read more <span class="material-symbols-outlined text-sm transition-transform duration-300 group-hover:translate-x-1">arrow_forward</span></span>
@@ -1537,7 +1497,7 @@
                         </div>
                         <div class="p-5 md:p-6">
                             <h4 class="font-headline font-bold text-lg text-zinc-900 dark:text-white leading-snug group-hover:text-zinc-600 dark:group-hover:text-zinc-300 transition-colors duration-300">What to Pack for Sri Lanka</h4>
-                            <p class="text-zinc-500 dark:text-zinc-400 text-sm mt-2 leading-relaxed line-clamp-2">Lightweight layers, sun protection, and the items most travelers forget â€” our concise packing checklist.</p>
+                            <p class="text-zinc-500 dark:text-zinc-400 text-sm mt-2 leading-relaxed line-clamp-2">Lightweight layers, sun protection, and the items most travelers forget - our concise packing checklist.</p>
                             <div class="flex items-center justify-between mt-4">
                                 <span class="flex items-center gap-2 text-zinc-400 dark:text-zinc-500 text-xs uppercase tracking-widest font-label"><span class="material-symbols-outlined text-sm">schedule</span> 4 min read</span>
                                 <span class="flex items-center gap-1 text-zinc-500 dark:text-zinc-400 text-xs font-label uppercase tracking-widest group-hover:text-zinc-900 dark:group-hover:text-white transition-colors duration-300">Read more <span class="material-symbols-outlined text-sm transition-transform duration-300 group-hover:translate-x-1">arrow_forward</span></span>
@@ -1554,7 +1514,7 @@
                         </div>
                         <div class="p-5 md:p-6">
                             <h4 class="font-headline font-bold text-lg text-zinc-900 dark:text-white leading-snug group-hover:text-zinc-600 dark:group-hover:text-zinc-300 transition-colors duration-300">Exploring Galle Fort</h4>
-                            <p class="text-zinc-500 dark:text-zinc-400 text-sm mt-2 leading-relaxed line-clamp-2">A walking guide to the UNESCO-listed Dutch fortress â€” boutique cafÃ©s, rampart sunsets, and hidden lanes.</p>
+                            <p class="text-zinc-500 dark:text-zinc-400 text-sm mt-2 leading-relaxed line-clamp-2">A walking guide to the UNESCO-listed Dutch fortress - boutique cafes, rampart sunsets, and hidden lanes.</p>
                             <div class="flex items-center justify-between mt-4">
                                 <span class="flex items-center gap-2 text-zinc-400 dark:text-zinc-500 text-xs uppercase tracking-widest font-label"><span class="material-symbols-outlined text-sm">schedule</span> 6 min read</span>
                                 <span class="flex items-center gap-1 text-zinc-500 dark:text-zinc-400 text-xs font-label uppercase tracking-widest group-hover:text-zinc-900 dark:group-hover:text-white transition-colors duration-300">Read more <span class="material-symbols-outlined text-sm transition-transform duration-300 group-hover:translate-x-1">arrow_forward</span></span>
@@ -1643,12 +1603,12 @@
             <a class="hover:text-zinc-900 dark:hover:text-white transition-colors duration-300" href="https://wa.me/94775979306" target="_blank">Contact via WhatsApp</a>
         </div>
         <div class="text-zinc-600 dark:text-zinc-500 text-center md:text-right transition-colors duration-500">
-            Â© 2026 SerenDrive. <br class="block md:hidden"/>Premium Logistics.
+            © 2026 SerenDrive. <br class="block md:hidden"/>Premium Logistics.
         </div>
     </footer>
 
     <script>
-        // â”€â”€ TOURISM BACKGROUND CANVAS ANIMATION â”€â”€
+        // -- TOURISM BACKGROUND CANVAS ANIMATION --
         (function() {
             const bgCanvas = document.getElementById('bg-canvas');
             const bgCtx = bgCanvas.getContext('2d');
@@ -1791,103 +1751,42 @@
             htmlElement.classList.toggle('dark');
             const isDark = htmlElement.classList.contains('dark');
             localStorage.theme = isDark ? 'dark' : 'light';
-            if (cursor) cursor.style.border = isDark ? '1px solid rgba(255, 255, 255, 0.4)' : '1px solid rgba(0, 0, 0, 0.4)';
+            if (dot) dot.style.boxShadow = isDark
+                ? '0 0 8px 2px rgba(255,255,255,0.35), 0 0 20px 4px rgba(255,255,255,0.12)'
+                : '0 0 8px 2px rgba(0,0,0,0.2), 0 0 20px 4px rgba(0,0,0,0.06)';
+            if (ring) ring.style.borderColor = isDark ? 'rgba(255,255,255,0.45)' : 'rgba(0,0,0,0.18)';
         });
 
-        // CUSTOM CURSOR LOGIC & SPARKS
-        const cursor = document.querySelector('.custom-cursor');
-        
-        const canvas = document.getElementById('sparkles');
-        const ctx = canvas.getContext('2d');
-        let particles = [];
+        // CUSTOM CURSOR — GLOWING DOT & RING
+        const dot = document.querySelector('.cursor-dot');
+        const ring = document.querySelector('.cursor-ring');
+        let ringX = 0, ringY = 0, mouseX = 0, mouseY = 0;
 
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-        window.addEventListener('resize', resizeCanvas);
-        resizeCanvas();
-
-        class Particle {
-            constructor(x, y, isDark) {
-                this.x = x;
-                this.y = y;
-                this.size = Math.random() * 2.5 + 1.5; 
-                this.speedX = Math.random() * 2 - 1; 
-                this.speedY = Math.random() * 2 - 1.5; 
-                this.life = 1;
-                this.decay = Math.random() * 0.02 + 0.02; 
-                
-                if (isDark) {
-                    const darkColors = ['#cbd5e1', '#93c5fd', '#bae6fd', '#e2e8f0'];
-                    this.color = darkColors[Math.floor(Math.random() * darkColors.length)];
-                } else {
-                    const lightColors = ['#000000', '#1c1917', '#334155'];
-                    this.color = lightColors[Math.floor(Math.random() * lightColors.length)];
-                }
+        if (dot && ring) {
+            // Smooth trailing ring animation
+            function animateRing() {
+                ringX += (mouseX - ringX) * 0.15;
+                ringY += (mouseY - ringY) * 0.15;
+                ring.style.transform = `translate(${ringX - 18}px, ${ringY - 18}px)`;
+                requestAnimationFrame(animateRing);
             }
-            update() {
-                this.x += this.speedX;
-                this.y += this.speedY;
-                this.life -= this.decay;
-            }
-            draw() {
-                ctx.globalAlpha = Math.max(0, this.life);
-                ctx.fillStyle = this.color; 
-                ctx.shadowBlur = 8;
-                ctx.shadowColor = this.color;
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fill();
-            }
-        }
+            animateRing();
 
-        function animateSparks() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            particles.forEach((p, index) => {
-                p.update();
-                p.draw();
-                if (p.life <= 0) particles.splice(index, 1);
-            });
-            requestAnimationFrame(animateSparks);
-        }
-        animateSparks();
-
-        if (cursor) {
-            cursor.style.display = 'block';
             document.addEventListener('mousemove', (e) => {
-                cursor.style.transform = `translate(${e.clientX - 6}px, ${e.clientY - 6}px)`;
-                
-                if(window.matchMedia("(pointer: fine)").matches) {
-                    const isDark = htmlElement.classList.contains('dark');
-                    for(let i = 0; i < 2; i++) {
-                        particles.push(new Particle(e.clientX, e.clientY, isDark));
-                    }
-                }
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+                dot.style.transform = `translate(${e.clientX - 3.5}px, ${e.clientY - 3.5}px)`;
             });
 
             const interactives = document.querySelectorAll('button, a, .group, input, select, textarea');
             interactives.forEach(el => {
                 el.addEventListener('mouseenter', () => {
-                    const isDark = htmlElement.classList.contains('dark');
-                    cursor.style.width = '40px';
-                    cursor.style.height = '40px';
-                    cursor.style.backgroundColor = isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)';
-                    cursor.style.border = isDark ? '1px solid rgba(255,255,255,0.8)' : '1px solid rgba(0,0,0,0.8)';
-                    cursor.style.transform = cursor.style.transform.replace(/translate\(.*\)/, (match) => {
-                        const coords = match.match(/-?\d+/g);
-                        if(coords && coords.length >= 2) {
-                            return `translate(${parseInt(coords[0]) - 14}px, ${parseInt(coords[1]) - 14}px)`;
-                        }
-                        return match;
-                    });
+                    dot.classList.add('hovering');
+                    ring.classList.add('hovering');
                 });
                 el.addEventListener('mouseleave', () => {
-                    const isDark = htmlElement.classList.contains('dark');
-                    cursor.style.width = '12px';
-                    cursor.style.height = '12px';
-                    cursor.style.backgroundColor = 'transparent';
-                    cursor.style.border = isDark ? '1px solid rgba(255, 255, 255, 0.4)' : '1px solid rgba(0, 0, 0, 0.4)';
+                    dot.classList.remove('hovering');
+                    ring.classList.remove('hovering');
                 });
             });
         }
@@ -1922,11 +1821,11 @@
             colombo: {
                 name: 'Colombo District',
                 region: 'Western Province',
-                best: 'Best Nov â€“ Apr',
+                best: 'Best Nov - Apr',
                 entry: 'City + coast',
-                copy: 'Colombo District is the islandâ€™s easiest urban gateway, mixing seafront walks, colonial corners, markets, and modern dining in one compact stop.',
+                copy: 'Colombo District is the island’s easiest urban gateway, mixing seafront walks, colonial corners, markets, and modern dining in one compact stop.',
                 image: './images/map-colombo.jpg',
-                route: 'Galle Face â†’ Colombo Fort â†’ Pettah',
+                route: 'Galle Face → Colombo Fort → Pettah',
                 mood: 'City breaks, food, sunset walks',
                 tags: ['Galle Face Green', 'Colombo Fort', 'Pettah Market'],
                 tip: 'Visit late afternoon for the best sea breeze and liveliest city atmosphere.'
@@ -1934,11 +1833,11 @@
             gampaha: {
                 name: 'Gampaha District',
                 region: 'Western Province',
-                best: 'Best Nov â€“ Apr',
+                best: 'Best Nov - Apr',
                 entry: 'Lagoon + beach',
-                copy: 'Gampaha District works well for soft arrivals, with Negomboâ€™s beach strip, lagoon views, and easy access from the airport.',
+                copy: 'Gampaha District works well for soft arrivals, with Negombo’s beach strip, lagoon views, and easy access from the airport.',
                 image: './images/map-negombo.jpg',
-                route: 'Negombo Lagoon â†’ Dutch Canal â†’ Beachfront',
+                route: 'Negombo Lagoon → Dutch Canal → Beachfront',
                 mood: 'Easy arrival, seafood, calm coast',
                 tags: ['Negombo Lagoon', 'Dutch Canal', 'Fish market'],
                 tip: 'Choose this district if you want your first or last day to stay relaxed and close to the airport.'
@@ -1946,11 +1845,11 @@
             kalutara: {
                 name: 'Kalutara District',
                 region: 'Western Province',
-                best: 'Best Nov â€“ Apr',
+                best: 'Best Nov - Apr',
                 entry: 'Beach + river',
                 copy: 'Kalutara District blends beach stays, Bentota river safaris, and easy southbound breaks for travelers who want a polished coastal pause.',
                 image: './images/map-bentota.jpg',
-                route: 'Kalutara Temple â†’ Bentota Beach â†’ River safari',
+                route: 'Kalutara Temple → Bentota Beach → River safari',
                 mood: 'Resort calm, river rides, beach time',
                 tags: ['Bentota Beach', 'Kalutara Temple', 'Madu-style river trips'],
                 tip: 'This is a strong stop for couples and families who want comfort without going too far south.'
@@ -1958,11 +1857,11 @@
             kandy: {
                 name: 'Kandy District',
                 region: 'Central Province',
-                best: 'Best Jan â€“ Apr',
+                best: 'Best Jan - Apr',
                 entry: 'Temple + lake + gardens',
-                copy: 'Kandy District combines sacred heritage, cool hill-country air, and easy scenic day trips in one of Sri Lankaâ€™s most loved inland regions.',
+                copy: 'Kandy District combines sacred heritage, cool hill-country air, and easy scenic day trips in one of Sri Lanka’s most loved inland regions.',
                 image: './images/map-kandy.jpg',
-                route: 'Kandy Lake â†’ Temple of the Tooth â†’ Peradeniya',
+                route: 'Kandy Lake → Temple of the Tooth → Peradeniya',
                 mood: 'Heritage, cool air, scenic day trips',
                 tags: ['Temple of the Tooth', 'Kandy Lake', 'Peradeniya Gardens'],
                 tip: 'Start in the late afternoon for a lake walk, temple atmosphere, and cooler weather through the hill capital.'
@@ -1970,83 +1869,83 @@
             matale: {
                 name: 'Matale District',
                 region: 'Central Province',
-                best: 'Best May â€“ Sep',
+                best: 'Best May - Sep',
                 entry: 'Rock + caves + views',
                 copy: 'Matale District is packed with famous cultural-triangle highlights, from Sigiriya and Dambulla to cooler highland escapes like Riverston.',
                 image: './images/map-sigiriya.jpg',
-                route: 'Dambulla â†’ Sigiriya â†’ Riverston',
+                route: 'Dambulla → Sigiriya → Riverston',
                 mood: 'Culture, viewpoints, day-trip variety',
                 tags: ['Sigiriya Rock', 'Dambulla Cave Temple', 'Riverston'],
-                tip: 'Start early here â€” the district is ideal for sunrise climbs and cool morning drives.'
+                tip: 'Start early here - the district is ideal for sunrise climbs and cool morning drives.'
             },
             'nuwara-eliya': {
                 name: 'Nuwara Eliya District',
                 region: 'Central Province',
-                best: 'Best Jan â€“ Apr',
+                best: 'Best Jan - Apr',
                 entry: 'Tea country',
                 copy: 'Nuwara Eliya District offers cool weather, tea estates, lakefront moments, and classic hill-country scenery at a gentler pace.',
                 image: './images/map-nuwara-eliya.jpg',
-                route: 'Tea estates â†’ Gregory Lake â†’ Horton Plains',
+                route: 'Tea estates → Gregory Lake → Horton Plains',
                 mood: 'Tea trails, cool weather, slow travel',
                 tags: ['Gregory Lake', 'Tea estates', 'Horton Plains'],
-                tip: 'Carry a light jacket â€” evenings here feel very different from the coast.'
+                tip: 'Carry a light jacket - evenings here feel very different from the coast.'
             },
             galle: {
                 name: 'Galle District',
                 region: 'Southern Province',
-                best: 'Best Nov â€“ Apr',
+                best: 'Best Nov - Apr',
                 entry: 'Fort + coast',
-                copy: 'Galle District is perfect for fort walks, boutique streets, and beach time just beyond the islandâ€™s most elegant coastal city.',
+                copy: 'Galle District is perfect for fort walks, boutique streets, and beach time just beyond the island’s most elegant coastal city.',
                 image: './images/map-galle.jpg',
-                route: 'Galle Fort â†’ Lighthouse â†’ Unawatuna',
-                mood: 'Coastal charm, cafÃ©s, sunset walks',
+                route: 'Galle Fort → Lighthouse → Unawatuna',
+                mood: 'Coastal charm, cafes, sunset walks',
                 tags: ['Galle Fort', 'Lighthouse walk', 'Unawatuna'],
                 tip: 'Plan sunset on the fort ramparts, then stay for dinner inside the old lanes.'
             },
             matara: {
                 name: 'Matara District',
                 region: 'Southern Province',
-                best: 'Best Nov â€“ Apr',
+                best: 'Best Nov - Apr',
                 entry: 'Beach + surf',
                 copy: 'Matara District is built for easy beach days, coconut-hill views, and a slower south-coast rhythm centered around Mirissa and nearby bays.',
                 image: './images/map-mirissa.jpg',
-                route: 'Polhena â†’ Mirissa â†’ Coconut Tree Hill',
-                mood: 'Beach ease, sunsets, laid-back cafÃ©s',
+                route: 'Polhena → Mirissa → Coconut Tree Hill',
+                mood: 'Beach ease, sunsets, laid-back cafes',
                 tags: ['Mirissa Beach', 'Polhena', 'Coconut Tree Hill'],
                 tip: 'Keep Matara for a slower part of the trip when you want the sea and a flexible schedule.'
             },
             hambantota: {
                 name: 'Hambantota District',
                 region: 'Southern Province',
-                best: 'Best Dec â€“ Apr',
+                best: 'Best Dec - Apr',
                 entry: 'Safari + coast',
                 copy: 'Hambantota District mixes wild landscapes and quiet beaches, with Yala, Bundala, and Tangalle all close enough for a strong nature-focused stay.',
                 image: './images/map-yala.jpg',
-                route: 'Yala edge â†’ Bundala â†’ Tangalle',
+                route: 'Yala edge → Bundala → Tangalle',
                 mood: 'Wildlife, open coast, big skies',
                 tags: ['Yala safari', 'Bundala birds', 'Tangalle coast'],
-                tip: 'Early starts are worth it here â€” both the wildlife and the light are best in the morning.'
+                tip: 'Early starts are worth it here - both the wildlife and the light are best in the morning.'
             },
             jaffna: {
                 name: 'Jaffna District',
                 region: 'Northern Province',
-                best: 'Best May â€“ Sep',
+                best: 'Best May - Sep',
                 entry: 'Culture + islands',
                 copy: 'Jaffna District reveals a very different side of Sri Lanka, with Tamil heritage, temple colour, causeway drives, and island excursions.',
                 image: './images/map-jaffna.jpg',
-                route: 'Nallur â†’ Jaffna Fort â†’ Delft or Nainativu',
+                route: 'Nallur → Jaffna Fort → Delft or Nainativu',
                 mood: 'Culture, local food, slower roads',
                 tags: ['Nallur Kovil', 'Jaffna Fort', 'Island crossings'],
-                tip: 'Give Jaffna extra time â€” the district rewards slow meals, short drives, and local interaction.'
+                tip: 'Give Jaffna extra time - the district rewards slow meals, short drives, and local interaction.'
             },
             kilinochchi: {
                 name: 'Kilinochchi District',
                 region: 'Northern Province',
-                best: 'Best May â€“ Sep',
+                best: 'Best May - Sep',
                 entry: 'Road-trip stop',
                 copy: 'Kilinochchi District is best explored as a meaningful northern road-stop with wide open landscapes, reservoirs, and causeway viewpoints.',
                 image: './images/map-kilinochchi.jpg',
-                route: 'Elephant Pass â†’ Iranamadu â†’ Sangupiddy views',
+                route: 'Elephant Pass → Iranamadu → Sangupiddy views',
                 mood: 'Quiet roads, northern landscapes, reflection',
                 tags: ['Elephant Pass', 'Iranamadu Tank', 'Sangupiddy Bridge'],
                 tip: 'Pair Kilinochchi with Jaffna for a fuller northern route rather than visiting it in isolation.'
@@ -2054,11 +1953,11 @@
             mannar: {
                 name: 'Mannar District',
                 region: 'Northern Province',
-                best: 'Best May â€“ Sep',
+                best: 'Best May - Sep',
                 entry: 'Remote coast',
                 copy: 'Mannar District feels remote and atmospheric, with quiet coastal roads, birdlife, old colonial traces, and unusual island scenery.',
                 image: './images/map-mannar.jpg',
-                route: 'Mannar Fort â†’ Baobab Tree â†’ Adamâ€™s Bridge side',
+                route: 'Mannar Fort → Baobab Tree → Adam’s Bridge side',
                 mood: 'Remote, coastal, off-the-beaten-path',
                 tags: ['Mannar Fort', 'Baobab Tree', 'Birdwatching flats'],
                 tip: 'This district suits travelers who enjoy quiet landscapes more than fast-paced sightseeing.'
@@ -2066,11 +1965,11 @@
             vavuniya: {
                 name: 'Vavuniya District',
                 region: 'Northern Province',
-                best: 'Best May â€“ Sep',
+                best: 'Best May - Sep',
                 entry: 'Gateway district',
                 copy: 'Vavuniya District serves as a calm northern gateway, ideal for breaking the journey with cultural stops and a more local atmosphere.',
                 image: './images/map-vavuniya.jpg',
-                route: 'Town center â†’ Madukanda â†’ local food stop',
+                route: 'Town center → Madukanda → local food stop',
                 mood: 'Transit ease, local life, slower pace',
                 tags: ['Madukanda Temple', 'Local markets', 'Northern gateway roads'],
                 tip: 'Use Vavuniya as a comfortable pause between the Cultural Triangle and the northern peninsula.'
@@ -2078,11 +1977,11 @@
             mullaitivu: {
                 name: 'Mullaitivu District',
                 region: 'Northern Province',
-                best: 'Best May â€“ Sep',
+                best: 'Best May - Sep',
                 entry: 'Lagoon + beach',
                 copy: 'Mullaitivu District is quiet and lightly visited, offering lagoons, uncrowded beaches, and a reflective northern coastal character.',
                 image: './images/map-mullaitivu.jpg',
-                route: 'Mullivaikkal coast â†’ Kokkilai Lagoon â†’ seaside drive',
+                route: 'Mullivaikkal coast → Kokkilai Lagoon → seaside drive',
                 mood: 'Quiet coast, lagoons, low-key travel',
                 tags: ['Kokkilai Lagoon', 'Mullivaikkal Beach', 'Coastal drives'],
                 tip: 'This district is best for travelers looking for space, silence, and a less commercial coastline.'
@@ -2090,11 +1989,11 @@
             trincomalee: {
                 name: 'Trincomalee District',
                 region: 'Eastern Province',
-                best: 'Best May â€“ Sep',
+                best: 'Best May - Sep',
                 entry: 'Beach + reef',
-                copy: 'Trincomalee District combines clear-water beaches, harbour views, clifftop temples, and some of the east coastâ€™s easiest sea excursions.',
+                copy: 'Trincomalee District combines clear-water beaches, harbour views, clifftop temples, and some of the east coast’s easiest sea excursions.',
                 image: './images/map-trincomalee.jpg',
-                route: 'Koneswaram â†’ Nilaveli â†’ Pigeon Island',
+                route: 'Koneswaram → Nilaveli → Pigeon Island',
                 mood: 'Beach calm, reef time, ocean views',
                 tags: ['Koneswaram Temple', 'Nilaveli Beach', 'Pigeon Island'],
                 tip: 'Travel in the east-coast season for calmer seas and better water clarity.'
@@ -2102,11 +2001,11 @@
             batticaloa: {
                 name: 'Batticaloa District',
                 region: 'Eastern Province',
-                best: 'Best May â€“ Sep',
+                best: 'Best May - Sep',
                 entry: 'Lagoon + calm coast',
                 copy: 'Batticaloa District is known for its lagoon setting, gentler beaches, and a slower east-coast feel with plenty of room to unwind.',
                 image: './images/map-batticaloa.jpg',
-                route: 'Lagoon edge â†’ Dutch Fort â†’ Pasikuda side trip',
+                route: 'Lagoon edge → Dutch Fort → Pasikuda side trip',
                 mood: 'Lagoon calm, uncrowded coast, easy pace',
                 tags: ['Batticaloa Lagoon', 'Dutch Fort', 'Pasikuda'],
                 tip: 'Stay here if you want east-coast water access without the busiest beach scene.'
@@ -2114,11 +2013,11 @@
             ampara: {
                 name: 'Ampara District',
                 region: 'Eastern Province',
-                best: 'Best May â€“ Sep',
+                best: 'Best May - Sep',
                 entry: 'Surf + wildlife',
                 copy: 'Ampara District is ideal for surf, lagoons, and wildlife add-ons, with Arugam Bay and Kumana making an easy adventure pair.',
                 image: './images/map-arugam-bay.jpg',
-                route: 'Arugam Bay â†’ Pottuvil Lagoon â†’ Kumana',
+                route: 'Arugam Bay → Pottuvil Lagoon → Kumana',
                 mood: 'Surf, freedom, wild coast',
                 tags: ['Arugam Bay', 'Kumana National Park', 'Pottuvil Lagoon'],
                 tip: 'This district is at its best in the east-coast season when surf and sea conditions are strongest.'
@@ -2126,11 +2025,11 @@
             kurunegala: {
                 name: 'Kurunegala District',
                 region: 'North Western Province',
-                best: 'Best Dec â€“ Apr',
+                best: 'Best Dec - Apr',
                 entry: 'Heritage stop',
                 copy: 'Kurunegala District works well for inland road trips, mixing rock viewpoints, older capitals, and convenient links between major regions.',
                 image: './images/map-kurunegala.jpg',
-                route: 'Ethagala â†’ Yapahuwa â†’ Ridi Viharaya',
+                route: 'Ethagala → Yapahuwa → Ridi Viharaya',
                 mood: 'Road-trip heritage, viewpoints, local pace',
                 tags: ['Ethagala', 'Yapahuwa', 'Ridi Viharaya'],
                 tip: 'This district is best visited as a smooth stop between Colombo, Kandy, and the north-west.'
@@ -2138,11 +2037,11 @@
             puttalam: {
                 name: 'Puttalam District',
                 region: 'North Western Province',
-                best: 'Best Nov â€“ Apr',
+                best: 'Best Nov - Apr',
                 entry: 'Lagoon + marine life',
                 copy: 'Puttalam District is great for kite lagoons, marine excursions, and quieter west-coast scenery around Kalpitiya and beyond.',
                 image: './images/map-kalpitiya.jpg',
-                route: 'Kalpitiya â†’ Dutch Bay â†’ Wilpattu side access',
+                route: 'Kalpitiya → Dutch Bay → Wilpattu side access',
                 mood: 'Wind, water, quiet coast',
                 tags: ['Kalpitiya Lagoon', 'Dutch Bay', 'Dolphin trips'],
                 tip: 'Go here if you prefer low-key coastal experiences over the more resort-heavy south.'
@@ -2150,23 +2049,23 @@
             anuradhapura: {
                 name: 'Anuradhapura District',
                 region: 'North Central Province',
-                best: 'Best May â€“ Sep',
+                best: 'Best May - Sep',
                 entry: 'Ancient city',
-                copy: 'Anuradhapura District is one of Sri Lankaâ€™s great heritage regions, filled with sacred ruins, massive stupas, and serene spiritual history.',
+                copy: 'Anuradhapura District is one of Sri Lanka’s great heritage regions, filled with sacred ruins, massive stupas, and serene spiritual history.',
                 image: './images/map-anuradhapura.jpg',
-                route: 'Sri Maha Bodhi â†’ Ruwanwelisaya â†’ Mihintale',
+                route: 'Sri Maha Bodhi → Ruwanwelisaya → Mihintale',
                 mood: 'Pilgrimage, archaeology, stillness',
                 tags: ['Sri Maha Bodhi', 'Ruwanwelisaya', 'Mihintale'],
-                tip: 'Rent a bicycle or tuk-tuk here â€” the sacred zone is large and best explored slowly.'
+                tip: 'Rent a bicycle or tuk-tuk here - the sacred zone is large and best explored slowly.'
             },
             polonnaruwa: {
                 name: 'Polonnaruwa District',
                 region: 'North Central Province',
-                best: 'Best May â€“ Sep',
+                best: 'Best May - Sep',
                 entry: 'Ruins + reservoirs',
                 copy: 'Polonnaruwa District combines a beautifully preserved ancient city with wide reservoir views and easy links to the Cultural Triangle.',
                 image: './images/map-polonnaruwa.jpg',
-                route: 'Ancient City â†’ Gal Vihara â†’ Parakrama Samudra',
+                route: 'Ancient City → Gal Vihara → Parakrama Samudra',
                 mood: 'History, cycling, open landscapes',
                 tags: ['Gal Vihara', 'Ancient City', 'Parakrama Samudra'],
                 tip: 'Visit early or late in the day for easier cycling and softer temperatures among the ruins.'
@@ -2174,23 +2073,23 @@
             badulla: {
                 name: 'Badulla District',
                 region: 'Uva Province',
-                best: 'Best Jan â€“ Apr',
+                best: 'Best Jan - Apr',
                 entry: 'Train views + hikes',
-                copy: 'Badulla District is one of the islandâ€™s most scenic highland areas, centered on Ellaâ€™s hikes, bridges, tea country, and waterfalls.',
+                copy: 'Badulla District is one of the island’s most scenic highland areas, centered on Ella’s hikes, bridges, tea country, and waterfalls.',
                 image: './images/map-ella.jpg',
-                route: 'Ella â†’ Nine Arch Bridge â†’ Little Adamâ€™s Peak',
+                route: 'Ella → Nine Arch Bridge → Little Adam’s Peak',
                 mood: 'Cool climate, walks, train journeys',
-                tags: ['Ella', 'Nine Arch Bridge', 'Little Adamâ€™s Peak'],
+                tags: ['Ella', 'Nine Arch Bridge', 'Little Adam’s Peak'],
                 tip: 'Book your train and visit the viewpoints in the morning before the crowds build.'
             },
             monaragala: {
                 name: 'Monaragala District',
                 region: 'Uva Province',
-                best: 'Best May â€“ Sep',
+                best: 'Best May - Sep',
                 entry: 'Wild inland',
-                copy: 'Monaragala District is spacious and adventurous, with waterfalls, ancient carvings, and access routes toward Sri Lankaâ€™s wilder east and south-east.',
+                copy: 'Monaragala District is spacious and adventurous, with waterfalls, ancient carvings, and access routes toward Sri Lanka’s wilder east and south-east.',
                 image: './images/map-monaragala.jpg',
-                route: 'Diyaluma â†’ Buduruwagala â†’ Gal Oya side access',
+                route: 'Diyaluma → Buduruwagala → Gal Oya side access',
                 mood: 'Adventure, waterfalls, quiet inland roads',
                 tags: ['Diyaluma Falls', 'Buduruwagala', 'Gal Oya routes'],
                 tip: 'Keep this district for travelers who enjoy longer scenic drives and less crowded stops.'
@@ -2198,11 +2097,11 @@
             ratnapura: {
                 name: 'Ratnapura District',
                 region: 'Sabaragamuwa Province',
-                best: 'Best Dec â€“ Apr',
+                best: 'Best Dec - Apr',
                 entry: 'Gems + rainforest',
                 copy: 'Ratnapura District pairs gem-town identity with access to rainforest gateways, waterfalls, and slower interior travel.',
                 image: './images/map-ratnapura.jpg',
-                route: 'Gem town â†’ Bopath Ella â†’ Sinharaja gateway',
+                route: 'Gem town → Bopath Ella → Sinharaja gateway',
                 mood: 'Rainforest edge, gems, soft adventure',
                 tags: ['Bopath Ella', 'Gem Museum', 'Sinharaja access'],
                 tip: 'This district works best for travelers who want nature and local character rather than major tourist crowds.'
@@ -2210,11 +2109,11 @@
             kegalle: {
                 name: 'Kegalle District',
                 region: 'Sabaragamuwa Province',
-                best: 'Best Dec â€“ Apr',
+                best: 'Best Dec - Apr',
                 entry: 'Day-trip country',
                 copy: 'Kegalle District is a practical and scenic inland stop, best known for Pinnawala and its easy links between Colombo and the hill country.',
                 image: './images/map-kegalle.jpg',
-                route: 'Pinnawala â†’ Belilena â†’ hill-country transfer',
+                route: 'Pinnawala → Belilena → hill-country transfer',
                 mood: 'Transit ease, green landscapes, short stops',
                 tags: ['Pinnawala', 'Belilena Cave', 'Scenic road links'],
                 tip: 'Use Kegalle as a gentle break on the way to Kandy or the central hills.'
@@ -2390,7 +2289,7 @@
             resetDistrictSearch();
         }
 
-        // â”€â”€ TOUR FILTER LOGIC â”€â”€
+        // -- TOUR FILTER LOGIC --
         const filterBtns = document.querySelectorAll('.tour-filter-btn');
         const tourCards  = document.querySelectorAll('.tour-card');
         const tourCount  = document.getElementById('tour-count');
