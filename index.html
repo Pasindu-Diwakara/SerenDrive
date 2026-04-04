@@ -41,15 +41,6 @@
     </script>
     
     <style>
-        :root {
-            /* INCREASED OPACITY: Easily visible in light mode now */
-            --symbol-opacity: 0.15; 
-        }
-        .dark {
-            /* INCREASED OPACITY: Easily visible in dark mode now */
-            --symbol-opacity: 0.10;
-        }
-
         body { overflow-x: hidden; }
         .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
         
@@ -105,18 +96,15 @@
             z-index: 9998; /* Just below the cursor ring */
         }
 
-        /* FLOATING BACKGROUND SYMBOLS ANIMATION */
-        @keyframes floatSymbol {
-            0% { transform: translateY(110vh) rotate(0deg); opacity: 0; }
-            10% { opacity: var(--symbol-opacity); }
-            90% { opacity: var(--symbol-opacity); }
-            100% { transform: translateY(-20vh) rotate(359deg); opacity: 0; }
-        }
-        .floating-symbol {
-            position: absolute;
-            color: inherit;
+        /* TOURISM BACKGROUND CANVAS */
+        #bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
             pointer-events: none;
-            animation: floatSymbol linear infinite;
         }
 
         /* ── TOURS SECTION UNIQUE STYLES ── */
@@ -564,6 +552,7 @@
 </head>
 <body class="bg-zinc-50 dark:bg-background text-zinc-900 dark:text-on-background font-body antialiased selection:bg-zinc-900 selection:text-white dark:selection:bg-primary dark:selection:text-on-primary transition-colors duration-500 relative">
 
+    <canvas id="bg-canvas"></canvas>
     <canvas id="sparkles"></canvas>
     
     <div class="custom-cursor top-0 left-0"></div>
@@ -1657,33 +1646,120 @@
     </footer>
 
     <script>
-        // BACKGROUND FLOATING SYMBOLS LOGIC
-        const symbolsContainer = document.createElement('div');
-        symbolsContainer.className = 'fixed inset-0 pointer-events-none overflow-hidden z-[2]';
-        document.body.appendChild(symbolsContainer);
+        // ── TOURISM BACKGROUND CANVAS ANIMATION ──
+        (function() {
+            const bgCanvas = document.getElementById('bg-canvas');
+            const bgCtx = bgCanvas.getContext('2d');
+            let W, H, fireflies, waves, frame = 0;
 
-        const icons = ['flight_takeoff', 'directions_car', 'luggage', 'explore', 'sailing', 'landscape', 'photo_camera', 'map'];
-        const symbolCount = 20;
+            function isDark() {
+                return document.documentElement.classList.contains('dark');
+            }
 
-        for (let i = 0; i < symbolCount; i++) {
-            const span = document.createElement('span');
-            span.className = 'material-symbols-outlined floating-symbol text-zinc-900 dark:text-white transition-colors duration-500';
-            span.innerText = icons[Math.floor(Math.random() * icons.length)];
-            
-            const size = Math.random() * 60 + 30;
-            const left = Math.random() * 100;
-            const animDuration = Math.random() * 30 + 30;
-            const animDelay = Math.random() * -60;
-            
-            span.style.fontSize = `${size}px`;
-            span.style.left = `${left}vw`;
-            span.style.animationDuration = `${animDuration}s`;
-            span.style.animationDelay = `${animDelay}s`;
-            
-            symbolsContainer.appendChild(span);
-        }
+            function resize() {
+                W = bgCanvas.width = window.innerWidth;
+                H = bgCanvas.height = window.innerHeight;
+            }
 
-        // MOBILE MENU LOGIC
+            function init() {
+                resize();
+                const ffCount = Math.floor((W * H) / 30000);
+
+                // Firefly / golden dust particles
+                fireflies = Array.from({length: ffCount}, () => ({
+                    x: Math.random() * W,
+                    y: Math.random() * H,
+                    vx: (Math.random() - 0.5) * 0.3,
+                    vy: -Math.random() * 0.2 - 0.05,
+                    r: Math.random() * 2.5 + 0.8,
+                    phase: Math.random() * Math.PI * 2,
+                    speed: Math.random() * 0.01 + 0.005,
+                    drift: Math.random() * 0.4 + 0.2,
+                }));
+
+                // Flowing wave layers (ocean / breeze)
+                waves = Array.from({length: 4}, (_, i) => ({
+                    y: H * (0.55 + i * 0.12),
+                    amplitude: 18 + i * 10,
+                    wavelength: 300 + i * 80,
+                    speed: 0.003 + i * 0.001,
+                    phase: Math.random() * Math.PI * 2,
+                    alpha: 0.035 - i * 0.006,
+                }));
+            }
+
+            function draw() {
+                bgCtx.clearRect(0, 0, W, H);
+                const dark = isDark();
+
+                // -- Color palettes --
+                // Light: warm golden / amber / soft teal
+                // Dark: cool teal / soft cyan / warm amber highlights
+                const ffColors = dark
+                    ? ['255,200,87', '34,211,238', '167,243,208', '253,186,116']
+                    : ['202,138,4', '13,148,136', '22,163,74', '180,83,9'];
+
+                const waveColor = dark ? '34,211,238' : '13,148,136';
+
+                // 1. Draw flowing ocean waves
+                waves.forEach(w => {
+                    w.phase += w.speed;
+                    bgCtx.beginPath();
+                    bgCtx.moveTo(0, H);
+                    for (let x = 0; x <= W; x += 4) {
+                        const y = w.y
+                            + Math.sin((x / w.wavelength) * Math.PI * 2 + w.phase) * w.amplitude
+                            + Math.sin((x / (w.wavelength * 1.6)) * Math.PI * 2 - w.phase * 0.7) * (w.amplitude * 0.5);
+                        if (x === 0) bgCtx.moveTo(x, y);
+                        else bgCtx.lineTo(x, y);
+                    }
+                    bgCtx.lineTo(W, H);
+                    bgCtx.lineTo(0, H);
+                    bgCtx.closePath();
+                    bgCtx.fillStyle = `rgba(${waveColor},${w.alpha})`;
+                    bgCtx.fill();
+                });
+
+                // 2. Draw fireflies / golden dust
+                fireflies.forEach(f => {
+                    f.phase += f.speed;
+                    const pulse = Math.sin(f.phase) * 0.5 + 0.5;
+                    const alpha = 0.15 + pulse * 0.5;
+                    const color = ffColors[Math.floor(f.phase * 2) % ffColors.length];
+
+                    // Glow
+                    bgCtx.beginPath();
+                    bgCtx.arc(f.x, f.y, f.r * 4 * (0.6 + pulse * 0.4), 0, Math.PI * 2);
+                    bgCtx.fillStyle = `rgba(${color},${alpha * 0.08})`;
+                    bgCtx.fill();
+
+                    // Core dot
+                    bgCtx.beginPath();
+                    bgCtx.arc(f.x, f.y, f.r * (0.7 + pulse * 0.3), 0, Math.PI * 2);
+                    bgCtx.fillStyle = `rgba(${color},${alpha * 0.6})`;
+                    bgCtx.fill();
+
+                    // Update position with gentle sine drift
+                    f.x += f.vx + Math.sin(f.phase * 1.3) * f.drift * 0.15;
+                    f.y += f.vy;
+
+                    // Wrap around edges
+                    if (f.y < -10) { f.y = H + 10; f.x = Math.random() * W; }
+                    if (f.x < -10) f.x = W + 10;
+                    if (f.x > W + 10) f.x = -10;
+                });
+
+                frame++;
+                requestAnimationFrame(draw);
+            }
+
+            window.addEventListener('resize', () => { resize(); init(); });
+            init();
+            draw();
+        })();
+    </script>
+
+    <script>
         const mobileMenuBtn = document.getElementById('mobile-menu-btn');
         const closeMenuBtn = document.getElementById('close-menu-btn');
         const mobileMenu = document.getElementById('mobile-menu');
