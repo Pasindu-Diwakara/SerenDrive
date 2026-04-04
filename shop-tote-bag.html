@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html class="scroll-smooth" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Sri Lanka Illustrated Tote — SerenDrive Shop</title>
+    <script>if(localStorage.theme==='dark'){document.documentElement.classList.add('dark')}else{document.documentElement.classList.remove('dark');localStorage.theme='light'}</script>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <script>tailwind.config={darkMode:"class",theme:{extend:{colors:{"primary":"#ffffff","on-primary":"#1a1c1c","surface-variant":"#353534","outline":"#919191","surface-container-high":"#2a2a2a","surface":"#131313","primary-container":"#d4d4d4","surface-container-low":"#1c1b1b","background":"#131313","on-surface-variant":"#c6c6c6","surface-container-lowest":"#0e0e0e","surface-container":"#201f1f"},fontFamily:{"headline":["Manrope"],"body":["Inter"],"label":["Inter"]}}}}</script>
+    <style>
+        body{overflow-x:hidden}.material-symbols-outlined{font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24}
+        @media(pointer:fine){body,a,button,input,select,textarea{cursor:none!important}}
+        .liquid-glass{background:rgba(255,255,255,.85);backdrop-filter:blur(24px) saturate(120%);-webkit-backdrop-filter:blur(24px) saturate(120%);border:1px solid rgba(255,255,255,.4);box-shadow:0 8px 32px 0 rgba(0,0,0,.1);transition:all .5s ease-in-out}
+        .dark .liquid-glass{background:rgba(20,20,20,.55);border:1px solid rgba(255,255,255,.1);box-shadow:0 8px 32px 0 rgba(0,0,0,.6)}
+        .glass-card{background:rgba(255,255,255,.85);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);transition:background-color .3s ease}.dark .glass-card{background:rgba(53,53,52,.6)}
+        .custom-cursor{width:12px;height:12px;border:1px solid rgba(0,0,0,.4);border-radius:50%;position:fixed;pointer-events:none;z-index:9999;transition:transform .1s ease-out,width .3s ease,height .3s ease,border-color .3s ease,background-color .3s ease}
+        .dark .custom-cursor{border:1px solid rgba(255,255,255,.4)}
+        #sparkles{position:fixed;top:0;left:0;width:100vw;height:100vh;pointer-events:none;z-index:9998}
+        #bg-canvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:1;pointer-events:none}
+        .highlight-box{background:linear-gradient(135deg,rgba(255,255,255,.1) 0%,rgba(255,255,255,.05) 100%);border:1px solid rgba(255,255,255,.1)}.dark .highlight-box{background:linear-gradient(135deg,rgba(0,0,0,.3) 0%,rgba(0,0,0,.1) 100%);border:1px solid rgba(255,255,255,.05)}
+    </style>
+</head>
+<body class="bg-zinc-50 dark:bg-surface text-zinc-900 dark:text-white transition-colors duration-500">
+    <div class="custom-cursor"></div>
+    <canvas id="bg-canvas"></canvas>
+    <script>(function(){const c=document.getElementById('bg-canvas'),x=c.getContext('2d');let W,H,ff,wv;function dk(){return document.documentElement.classList.contains('dark')}function rs(){W=c.width=window.innerWidth;H=c.height=window.innerHeight}function init(){rs();const n=Math.floor((W*H)/30000);ff=Array.from({length:n},()=>({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.3,vy:-Math.random()*.2-.05,r:Math.random()*2.5+.8,ph:Math.random()*Math.PI*2,sp:Math.random()*.01+.005,dr:Math.random()*.4+.2}));wv=Array.from({length:4},(_,i)=>({y:H*(.55+i*.12),a:18+i*10,wl:300+i*80,sp:.003+i*.001,ph:Math.random()*Math.PI*2,al:.035-i*.006}))}function draw(){x.clearRect(0,0,W,H);const d=dk();const fc=d?['255,200,87','34,211,238','167,243,208','253,186,116']:['202,138,4','13,148,136','22,163,74','180,83,9'];const wc=d?'34,211,238':'13,148,136';wv.forEach(w=>{w.ph+=w.sp;x.beginPath();for(let i=0;i<=W;i+=4){const y=w.y+Math.sin((i/w.wl)*Math.PI*2+w.ph)*w.a+Math.sin((i/(w.wl*1.6))*Math.PI*2-w.ph*.7)*(w.a*.5);i===0?x.moveTo(i,y):x.lineTo(i,y)}x.lineTo(W,H);x.lineTo(0,H);x.closePath();x.fillStyle='rgba('+wc+','+w.al+')';x.fill()});ff.forEach(f=>{f.ph+=f.sp;const p=Math.sin(f.ph)*.5+.5;const a=.15+p*.5;const cl=fc[Math.floor(f.ph*2)%fc.length];x.beginPath();x.arc(f.x,f.y,f.r*4*(.6+p*.4),0,Math.PI*2);x.fillStyle='rgba('+cl+','+(a*.08)+')';x.fill();x.beginPath();x.arc(f.x,f.y,f.r*(.7+p*.3),0,Math.PI*2);x.fillStyle='rgba('+cl+','+(a*.6)+')';x.fill();f.x+=f.vx+Math.sin(f.ph*1.3)*f.dr*.15;f.y+=f.vy;if(f.y<-10){f.y=H+10;f.x=Math.random()*W}if(f.x<-10)f.x=W+10;if(f.x>W+10)f.x=-10});requestAnimationFrame(draw)}window.addEventListener('resize',()=>{rs();init()});init();draw()})();</script>
+    <canvas id="sparkles"></canvas>
+
+    <!-- Nav -->
+    <nav class="fixed top-0 left-0 right-0 z-50 liquid-glass">
+        <div class="max-w-[1440px] mx-auto px-6 md:px-16 py-4 flex items-center justify-between">
+            <a href="index.html"><img src="./images/serendrive-logo.png" alt="SerenDrive" class="h-8 md:h-10 w-auto invert dark:invert-0 transition-all duration-1000"></a>
+            <div class="flex items-center gap-8">
+                <a href="./shop.html" class="text-sm uppercase tracking-widest text-zinc-700 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-white transition-colors">← Back to Shop</a>
+                <button id="theme-toggle" class="flex items-center justify-center p-2 rounded-full border border-zinc-300 dark:border-white/20 hover:bg-zinc-200 dark:hover:bg-white/10 transition-colors">
+                    <span class="material-symbols-outlined text-zinc-800 dark:hidden text-[18px]">dark_mode</span>
+                    <span class="material-symbols-outlined hidden dark:block text-white text-[18px]">light_mode</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="relative pt-32 pb-16 md:pt-40 md:pb-24 px-6 md:px-16 bg-gradient-to-br from-cyan-50 to-sky-50 dark:from-zinc-900 dark:to-surface-container-lowest overflow-hidden">
+        <div class="max-w-6xl mx-auto relative z-10 flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
+            <div class="flex-shrink-0 w-full lg:w-1/2 flex items-center justify-center">
+                <div class="w-56 h-64 md:w-64 md:h-72 rounded-xl bg-amber-50 dark:bg-zinc-700 shadow-2xl flex items-center justify-center transform hover:-rotate-2 transition-transform duration-700 border-2 border-amber-200 dark:border-zinc-600">
+                    <div class="text-center p-6">
+                        <span class="material-symbols-outlined text-7xl md:text-8xl text-cyan-700 dark:text-cyan-400">shopping_bag</span>
+                        <p class="text-xs text-zinc-400 mt-2 uppercase tracking-wider">GOTS Organic</p>
+                    </div>
+                </div>
+            </div>
+            <div class="flex-1 text-center lg:text-left">
+                <div class="flex items-center justify-center lg:justify-start gap-3 mb-4">
+                    <span class="bg-cyan-700 text-white text-[0.6rem] uppercase tracking-[0.12em] font-label px-3 py-1 rounded-full">Eco</span>
+                    <span class="text-[0.65rem] uppercase tracking-[0.15em] text-cyan-700 dark:text-cyan-400 font-label">Accessories</span>
+                </div>
+                <h1 class="font-headline text-4xl md:text-5xl font-extrabold tracking-tight">Sri Lanka Illustrated Tote</h1>
+                <p class="text-zinc-600 dark:text-zinc-400 text-base md:text-lg leading-relaxed mt-4 max-w-xl">GOTS organic cotton tote with a gorgeous screen-printed illustration — perfect for market runs, beach days, or as an everyday carry-all souvenir.</p>
+                <div class="flex items-center justify-center lg:justify-start gap-3 mt-4">
+                    <div class="flex items-center gap-1">
+                        <span class="material-symbols-outlined text-amber-500 text-base" style="font-variation-settings:'FILL'1">star</span>
+                        <span class="material-symbols-outlined text-amber-500 text-base" style="font-variation-settings:'FILL'1">star</span>
+                        <span class="material-symbols-outlined text-amber-500 text-base" style="font-variation-settings:'FILL'1">star</span>
+                        <span class="material-symbols-outlined text-amber-500 text-base" style="font-variation-settings:'FILL'1">star</span>
+                        <span class="material-symbols-outlined text-amber-500 text-base" style="font-variation-settings:'FILL'1">star_half</span>
+                    </div>
+                    <span class="text-sm text-zinc-500 dark:text-zinc-400">4.6 (178 reviews)</span>
+                </div>
+                <div class="flex items-center justify-center lg:justify-start gap-4 mt-6">
+                    <span class="text-3xl font-headline font-bold text-zinc-900 dark:text-white">$16</span>
+                    <span class="text-sm text-zinc-400">USD</span>
+                </div>
+                <a href="https://wa.me/94775979306?text=Hi!%20I'd%20like%20to%20order%20a%20Sri%20Lanka%20Illustrated%20Tote%20Bag" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 mt-6 px-10 py-4 bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 text-sm uppercase tracking-[0.2em] font-label rounded-sm hover:bg-zinc-700 dark:hover:bg-zinc-200 transition-colors duration-300">
+                    <span class="material-symbols-outlined text-base">shopping_bag</span> Order via WhatsApp
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Details -->
+    <section class="py-16 md:py-24 px-6 md:px-16 bg-white dark:bg-surface-container-lowest">
+        <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-16">
+            <div>
+                <h2 class="font-headline text-2xl md:text-3xl font-bold mb-6">Product Details</h2>
+                <div class="space-y-4">
+                    <div class="flex flex-wrap gap-3">
+                        <span class="inline-flex items-center gap-1.5 text-xs uppercase tracking-wide font-label bg-zinc-100 dark:bg-white/5 text-zinc-600 dark:text-zinc-400 px-3 py-1.5 rounded-full"><span class="material-symbols-outlined text-sm">straighten</span> 38×42 cm</span>
+                        <span class="inline-flex items-center gap-1.5 text-xs uppercase tracking-wide font-label bg-zinc-100 dark:bg-white/5 text-zinc-600 dark:text-zinc-400 px-3 py-1.5 rounded-full"><span class="material-symbols-outlined text-sm">eco</span> GOTS Organic Cotton</span>
+                        <span class="inline-flex items-center gap-1.5 text-xs uppercase tracking-wide font-label bg-zinc-100 dark:bg-white/5 text-zinc-600 dark:text-zinc-400 px-3 py-1.5 rounded-full"><span class="material-symbols-outlined text-sm">palette</span> Screen Printed</span>
+                    </div>
+                    <p class="text-zinc-600 dark:text-zinc-400 leading-relaxed">Made from heavyweight 10oz GOTS-certified organic cotton canvas with reinforced stitching. The long handles sit comfortably over the shoulder, and the generous 38×42 cm size fits laptops, books, groceries, and beach gear easily.</p>
+                    <p class="text-zinc-600 dark:text-zinc-400 leading-relaxed">Each design is screen-printed by hand using water-based, eco-friendly inks that get softer with every wash while keeping their colour vivid for years.</p>
+                </div>
+
+                <div class="highlight-box p-6 rounded-sm mt-8">
+                    <h3 class="font-headline text-lg font-bold mb-4">What's Included</h3>
+                    <ul class="space-y-2.5 text-sm text-zinc-600 dark:text-zinc-400">
+                        <li class="flex items-center gap-3"><span class="material-symbols-outlined text-emerald-500 text-sm" style="font-variation-settings:'FILL'1">check_circle</span> 10oz GOTS organic cotton canvas</li>
+                        <li class="flex items-center gap-3"><span class="material-symbols-outlined text-emerald-500 text-sm" style="font-variation-settings:'FILL'1">check_circle</span> Hand screen-printed with eco-friendly inks</li>
+                        <li class="flex items-center gap-3"><span class="material-symbols-outlined text-emerald-500 text-sm" style="font-variation-settings:'FILL'1">check_circle</span> Inner zip pocket for phone/keys/cards</li>
+                        <li class="flex items-center gap-3"><span class="material-symbols-outlined text-emerald-500 text-sm" style="font-variation-settings:'FILL'1">check_circle</span> Reinforced stress points for heavy loads</li>
+                        <li class="flex items-center gap-3"><span class="material-symbols-outlined text-emerald-500 text-sm" style="font-variation-settings:'FILL'1">check_circle</span> Machine washable at 30°C</li>
+                        <li class="flex items-center gap-3"><span class="material-symbols-outlined text-emerald-500 text-sm" style="font-variation-settings:'FILL'1">check_circle</span> Folds flat — perfect for packing</li>
+                    </ul>
+                </div>
+            </div>
+            <div>
+                <h3 class="font-headline text-2xl font-bold mb-6">Choose Your Design</h3>
+                <div class="grid grid-cols-2 gap-4 mb-8">
+                    <div class="glass-card p-4 rounded-xl text-center"><span class="material-symbols-outlined text-3xl text-cyan-700 dark:text-cyan-400">map</span><p class="text-sm font-semibold mt-2">Island Map</p><p class="text-xs text-zinc-400">Hand-drawn map collage</p></div>
+                    <div class="glass-card p-4 rounded-xl text-center"><span class="material-symbols-outlined text-3xl text-cyan-700 dark:text-cyan-400">pets</span><p class="text-sm font-semibold mt-2">Wildlife Sketch</p><p class="text-xs text-zinc-400">Leopard & elephant duo</p></div>
+                    <div class="glass-card p-4 rounded-xl text-center"><span class="material-symbols-outlined text-3xl text-cyan-700 dark:text-cyan-400">temple_buddhist</span><p class="text-sm font-semibold mt-2">Temple Trail</p><p class="text-xs text-zinc-400">Ancient ruins pattern</p></div>
+                    <div class="glass-card p-4 rounded-xl text-center"><span class="material-symbols-outlined text-3xl text-cyan-700 dark:text-cyan-400">waves</span><p class="text-sm font-semibold mt-2">Coastal Vibes</p><p class="text-xs text-zinc-400">Surf & stilt fishermen</p></div>
+                </div>
+
+                <div class="bg-cyan-50 dark:bg-cyan-500/5 border border-cyan-200/60 dark:border-cyan-500/10 rounded-xl p-6 mb-8">
+                    <h4 class="font-headline font-bold text-lg mb-2 text-cyan-900 dark:text-cyan-300">Colour Options</h4>
+                    <ul class="space-y-2 text-sm text-cyan-800 dark:text-cyan-200/80">
+                        <li>• Natural (unbleached cotton)</li>
+                        <li>• Black</li>
+                        <li>• Navy Blue</li>
+                        <li>• Sage Green</li>
+                    </ul>
+                </div>
+
+                <div class="flex items-center gap-2 text-sm text-zinc-500 dark:text-zinc-400">
+                    <span class="material-symbols-outlined text-base">local_shipping</span> Ships worldwide · Delivered in 4–7 business days
+                </div>
+                <div class="flex items-center gap-2 mt-2 text-sm text-zinc-500 dark:text-zinc-400">
+                    <span class="material-symbols-outlined text-base">eco</span> 100% sustainable — zero plastic packaging
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Browse More -->
+    <section class="py-12 px-6 md:px-16 bg-zinc-50 dark:bg-surface border-t border-zinc-200 dark:border-white/5">
+        <div class="max-w-6xl mx-auto text-center">
+            <a href="./shop.html" class="inline-flex items-center gap-2 px-8 py-3 border border-zinc-300 dark:border-white/15 text-zinc-700 dark:text-zinc-300 hover:bg-zinc-900 hover:text-white dark:hover:bg-white dark:hover:text-zinc-900 transition-all duration-500 text-xs uppercase tracking-[0.2em] font-label rounded-sm">
+                <span class="material-symbols-outlined text-base">arrow_back</span> Browse All Products
+            </a>
+        </div>
+    </section>
+
+    <script>
+        const htmlElement=document.documentElement,themeToggle=document.getElementById('theme-toggle');themeToggle.addEventListener('click',()=>{htmlElement.classList.toggle('dark');localStorage.theme=htmlElement.classList.contains('dark')?'dark':'light'});
+        const cursor=document.querySelector('.custom-cursor'),canvas=document.getElementById('sparkles'),ctx=canvas.getContext('2d');let particles=[];function resizeCanvas(){canvas.width=window.innerWidth;canvas.height=window.innerHeight}resizeCanvas();window.addEventListener('resize',resizeCanvas);class Particle{constructor(x,y,d){this.x=x;this.y=y;this.size=Math.random()*2+.5;this.speedX=Math.random()*2-1;this.speedY=Math.random()*2-1.5;this.life=1;this.decay=Math.random()*.02+.02;const c=d?['#cbd5e1','#93c5fd','#bae6fd','#e2e8f0']:['#000','#1c1917','#334155'];this.color=c[Math.floor(Math.random()*c.length)]}update(){this.x+=this.speedX;this.y+=this.speedY;this.life-=this.decay}draw(){ctx.globalAlpha=Math.max(0,this.life);ctx.fillStyle=this.color;ctx.shadowBlur=8;ctx.shadowColor=this.color;ctx.beginPath();ctx.arc(this.x,this.y,this.size,0,Math.PI*2);ctx.fill()}}function animateSparks(){ctx.clearRect(0,0,canvas.width,canvas.height);particles.forEach((p,i)=>{p.update();p.draw();if(p.life<=0)particles.splice(i,1)});requestAnimationFrame(animateSparks)}animateSparks();if(cursor){document.addEventListener('mousemove',e=>{cursor.style.transform=`translate(${e.clientX-6}px,${e.clientY-6}px)`;if(window.matchMedia("(pointer:fine)").matches){const d=htmlElement.classList.contains('dark');for(let i=0;i<2;i++)particles.push(new Particle(e.clientX,e.clientY,d))}});document.querySelectorAll('button,a,.group,input,select,textarea').forEach(el=>{el.addEventListener('mouseenter',()=>{const d=htmlElement.classList.contains('dark');cursor.style.width='40px';cursor.style.height='40px';cursor.style.backgroundColor=d?'rgba(255,255,255,.05)':'rgba(0,0,0,.05)';cursor.style.border=d?'1px solid rgba(255,255,255,.8)':'1px solid rgba(0,0,0,.8)'});el.addEventListener('mouseleave',()=>{const d=htmlElement.classList.contains('dark');cursor.style.width='12px';cursor.style.height='12px';cursor.style.backgroundColor='transparent';cursor.style.border=d?'1px solid rgba(255,255,255,.4)':'1px solid rgba(0,0,0,.4)'})})}
+    </script>
+</body>
+</html>

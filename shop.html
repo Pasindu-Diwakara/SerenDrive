@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html class="scroll-smooth" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Shop Souvenirs — SerenDrive</title>
+
+    <script>
+        if (localStorage.theme === 'dark') {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+            localStorage.theme = 'light';
+        }
+    </script>
+
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#ffffff", "on-primary": "#1a1c1c",
+                        "surface-variant": "#353534", "outline": "#919191",
+                        "surface-container-high": "#2a2a2a", "surface": "#131313",
+                        "primary-container": "#d4d4d4", "surface-container-low": "#1c1b1b",
+                        "background": "#131313", "on-surface-variant": "#c6c6c6",
+                        "surface-container-lowest": "#0e0e0e", "surface-container": "#201f1f",
+                    },
+                    fontFamily: {
+                        "headline": ["Manrope"], "body": ["Inter"], "label": ["Inter"]
+                    }
+                },
+            },
+        }
+    </script>
+
+    <style>
+        body { overflow-x: hidden; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        @media (pointer: fine) {
+            body, a, button, input, select, textarea { cursor: none !important; }
+        }
+        .liquid-glass {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(24px) saturate(120%);
+            -webkit-backdrop-filter: blur(24px) saturate(120%);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
+            transition: all 0.5s ease-in-out;
+        }
+        .dark .liquid-glass {
+            background: rgba(20, 20, 20, 0.55);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.6);
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            transition: background-color 0.3s ease;
+        }
+        .dark .glass-card {
+            background: rgba(53, 53, 52, 0.6);
+        }
+        .custom-cursor {
+            width: 12px; height: 12px;
+            border: 1px solid rgba(0, 0, 0, 0.4);
+            border-radius: 50%;
+            position: fixed; pointer-events: none; z-index: 9999;
+            transition: transform 0.1s ease-out, width 0.3s ease, height 0.3s ease, border-color 0.3s ease, background-color 0.3s ease;
+        }
+        .dark .custom-cursor { border: 1px solid rgba(255, 255, 255, 0.4); }
+        #sparkles { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 9998; }
+        #bg-canvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:1;pointer-events:none}
+
+        .shop-filter-btn { transition: all 0.3s ease; }
+        .shop-filter-btn.active {
+            background-color: rgb(24 24 27);
+            color: #fff;
+            border-color: rgb(24 24 27);
+        }
+        .dark .shop-filter-btn.active {
+            background-color: #fff;
+            color: rgb(24 24 27);
+            border-color: #fff;
+        }
+        .shop-item { transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+        .shop-item.hidden-item { display: none; }
+    </style>
+</head>
+<body class="bg-zinc-50 dark:bg-surface text-zinc-900 dark:text-white transition-colors duration-500">
+
+    <div class="custom-cursor"></div>
+    <canvas id="bg-canvas"></canvas>
+    <script>
+    (function(){const c=document.getElementById('bg-canvas'),x=c.getContext('2d');let W,H,ff,wv,fr=0;function dk(){return document.documentElement.classList.contains('dark')}function rs(){W=c.width=window.innerWidth;H=c.height=window.innerHeight}function init(){rs();const n=Math.floor((W*H)/30000);ff=Array.from({length:n},()=>({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.3,vy:-Math.random()*.2-.05,r:Math.random()*2.5+.8,ph:Math.random()*Math.PI*2,sp:Math.random()*.01+.005,dr:Math.random()*.4+.2}));wv=Array.from({length:4},(_,i)=>({y:H*(.55+i*.12),a:18+i*10,wl:300+i*80,sp:.003+i*.001,ph:Math.random()*Math.PI*2,al:.035-i*.006}))}function draw(){x.clearRect(0,0,W,H);const d=dk();const fc=d?['255,200,87','34,211,238','167,243,208','253,186,116']:['202,138,4','13,148,136','22,163,74','180,83,9'];const wc=d?'34,211,238':'13,148,136';wv.forEach(w=>{w.ph+=w.sp;x.beginPath();for(let i=0;i<=W;i+=4){const y=w.y+Math.sin((i/w.wl)*Math.PI*2+w.ph)*w.a+Math.sin((i/(w.wl*1.6))*Math.PI*2-w.ph*.7)*(w.a*.5);i===0?x.moveTo(i,y):x.lineTo(i,y)}x.lineTo(W,H);x.lineTo(0,H);x.closePath();x.fillStyle='rgba('+wc+','+w.al+')';x.fill()});ff.forEach(f=>{f.ph+=f.sp;const p=Math.sin(f.ph)*.5+.5;const a=.15+p*.5;const cl=fc[Math.floor(f.ph*2)%fc.length];x.beginPath();x.arc(f.x,f.y,f.r*4*(.6+p*.4),0,Math.PI*2);x.fillStyle='rgba('+cl+','+(a*.08)+')';x.fill();x.beginPath();x.arc(f.x,f.y,f.r*(.7+p*.3),0,Math.PI*2);x.fillStyle='rgba('+cl+','+(a*.6)+')';x.fill();f.x+=f.vx+Math.sin(f.ph*1.3)*f.dr*.15;f.y+=f.vy;if(f.y<-10){f.y=H+10;f.x=Math.random()*W}if(f.x<-10)f.x=W+10;if(f.x>W+10)f.x=-10});fr++;requestAnimationFrame(draw)}window.addEventListener('resize',()=>{rs();init()});init();draw()})();
+    </script>
+    <canvas id="sparkles"></canvas>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 z-50 liquid-glass">
+        <div class="max-w-[1440px] mx-auto px-6 md:px-16 py-4">
+            <div class="flex items-center justify-between">
+                <a href="index.html" class="group">
+                    <img src="./images/serendrive-logo.png" alt="SerenDrive Logo" class="h-8 md:h-10 w-auto invert dark:invert-0 transition-all duration-1000">
+                </a>
+                <div class="flex items-center gap-8">
+                    <a href="index.html" class="text-sm uppercase tracking-widest text-zinc-700 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-white transition-colors">← Home</a>
+                    <button id="theme-toggle" class="flex items-center justify-center p-2 rounded-full border border-zinc-300 dark:border-white/20 hover:bg-zinc-200 dark:hover:bg-white/10 transition-colors">
+                        <span class="material-symbols-outlined text-zinc-800 dark:hidden text-[18px]">dark_mode</span>
+                        <span class="material-symbols-outlined hidden dark:block text-white text-[18px]">light_mode</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="relative pt-32 pb-20 md:pt-40 md:pb-28 px-6 md:px-16 bg-white dark:bg-surface-container-lowest overflow-hidden">
+        <div class="absolute top-0 right-0 w-96 h-96 bg-amber-100/40 dark:bg-amber-500/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3 pointer-events-none"></div>
+        <div class="absolute bottom-0 left-0 w-96 h-96 bg-emerald-100/30 dark:bg-emerald-500/5 rounded-full blur-3xl translate-y-1/2 -translate-x-1/3 pointer-events-none"></div>
+        <div class="max-w-[1920px] mx-auto relative z-10 text-center">
+            <span class="font-label text-[0.7rem] uppercase tracking-[0.25em] text-zinc-500 dark:text-zinc-400">Souvenir Collection</span>
+            <h1 class="text-4xl md:text-6xl font-headline font-extrabold text-zinc-900 dark:text-white mt-3 tracking-tight">Take Sri Lanka Home</h1>
+            <p class="text-sm md:text-base text-zinc-600 dark:text-zinc-300 mt-4 max-w-2xl mx-auto leading-relaxed">Commemorate your island adventure with our curated collection of custom-printed keepsakes — designed from real Sri Lankan landscapes, wildlife, and culture.</p>
+        </div>
+    </section>
+
+    <!-- Shop Grid -->
+    <section class="py-12 md:py-20 px-4 md:px-16 bg-zinc-50 dark:bg-surface border-t border-zinc-200 dark:border-white/5">
+        <div class="max-w-[1920px] mx-auto">
+
+            <!-- Filter Tabs -->
+            <div class="flex flex-wrap justify-center gap-2 md:gap-3 mb-12 md:mb-16">
+                <button class="shop-filter-btn active px-5 py-2 rounded-full border border-zinc-200 dark:border-white/10 text-xs uppercase tracking-[0.15em] font-label transition-all duration-300" data-filter="all">All</button>
+                <button class="shop-filter-btn px-5 py-2 rounded-full border border-zinc-200 dark:border-white/10 text-xs uppercase tracking-[0.15em] font-label text-zinc-500 dark:text-zinc-400 transition-all duration-300" data-filter="drinkware">Drinkware</button>
+                <button class="shop-filter-btn px-5 py-2 rounded-full border border-zinc-200 dark:border-white/10 text-xs uppercase tracking-[0.15em] font-label text-zinc-500 dark:text-zinc-400 transition-all duration-300" data-filter="wall-art">Wall Art</button>
+                <button class="shop-filter-btn px-5 py-2 rounded-full border border-zinc-200 dark:border-white/10 text-xs uppercase tracking-[0.15em] font-label text-zinc-500 dark:text-zinc-400 transition-all duration-300" data-filter="apparel">Apparel</button>
+                <button class="shop-filter-btn px-5 py-2 rounded-full border border-zinc-200 dark:border-white/10 text-xs uppercase tracking-[0.15em] font-label text-zinc-500 dark:text-zinc-400 transition-all duration-300" data-filter="accessories">Accessories</button>
+            </div>
+
+            <div id="shop-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8">
+
+                <!-- Product 1 -->
+                <div class="shop-item group" data-category="drinkware">
+                    <a href="./shop-tour-mug.html" class="glass-card rounded-2xl overflow-hidden border border-zinc-200 dark:border-white/5 hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 h-full flex flex-col">
+                        <div class="relative h-64 overflow-hidden bg-gradient-to-br from-amber-50 to-orange-50 dark:from-zinc-800 dark:to-zinc-900">
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <div class="w-36 h-44 rounded-lg bg-white dark:bg-zinc-700 shadow-xl flex items-center justify-center transform group-hover:rotate-3 transition-transform duration-500">
+                                    <div class="text-center p-3">
+                                        <span class="material-symbols-outlined text-5xl text-amber-600 dark:text-amber-400">local_cafe</span>
+                                        <p class="text-[0.55rem] font-headline font-bold text-zinc-600 dark:text-zinc-300 mt-1 uppercase tracking-wider">My Sri Lanka Trip</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="absolute top-3 left-3"><span class="bg-amber-500 text-white text-[0.6rem] uppercase tracking-[0.12em] font-label px-3 py-1 rounded-full">Bestseller</span></div>
+                            <div class="absolute top-3 right-3 flex items-center gap-1 bg-white/90 dark:bg-zinc-800/90 backdrop-blur-sm px-2 py-1 rounded-full">
+                                <span class="material-symbols-outlined text-amber-500 text-xs" style="font-variation-settings:'FILL'1">star</span>
+                                <span class="text-[0.6rem] font-label font-bold text-zinc-700 dark:text-zinc-300">4.9</span>
+                            </div>
+                        </div>
+                        <div class="p-5 flex-1 flex flex-col">
+                            <span class="text-[0.65rem] uppercase tracking-[0.15em] text-amber-600 dark:text-amber-400 font-label">Drinkware</span>
+                            <h4 class="font-headline font-bold text-lg text-zinc-900 dark:text-white mt-1 leading-snug">Custom Tour Memory Mug</h4>
+                            <p class="text-zinc-500 dark:text-zinc-400 text-sm mt-2 leading-relaxed flex-1">Your tour route &amp; dates printed on a premium ceramic mug.</p>
+                            <div class="flex items-center justify-between mt-4 pt-4 border-t border-zinc-100 dark:border-white/5">
+                                <span class="text-xl font-headline font-bold text-zinc-900 dark:text-white">$18 <span class="text-xs font-normal text-zinc-400">USD</span></span>
+                                <span class="inline-flex items-center gap-1 text-xs uppercase tracking-widest font-label text-zinc-500 dark:text-zinc-400 group-hover:text-zinc-900 dark:group-hover:text-white transition-colors">View Details <span class="material-symbols-outlined text-sm transition-transform duration-300 group-hover:translate-x-1">arrow_forward</span></span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Product 2 -->
+                <div class="shop-item group" data-category="wall-art">
+                    <a href="./shop-landscape-print.html" class="glass-card rounded-2xl overflow-hidden border border-zinc-200 dark:border-white/5 hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 h-full flex flex-col">
+                        <div class="relative h-64 overflow-hidden bg-gradient-to-br from-sky-50 to-teal-50 dark:from-zinc-800 dark:to-zinc-900">
+                            <div class="absolute inset-0 flex items-center justify-center p-6">
+                                <div class="w-48 h-36 rounded-sm border-4 border-white dark:border-zinc-600 shadow-2xl bg-gradient-to-br from-emerald-400 via-teal-300 to-sky-400 flex items-center justify-center transform group-hover:scale-105 transition-transform duration-500">
+                                    <div class="text-center">
+                                        <span class="material-symbols-outlined text-4xl text-white/90">landscape</span>
+                                        <p class="text-[0.5rem] text-white/80 font-label uppercase tracking-wider mt-1">Ella · Nine Arches</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="absolute top-3 left-3"><span class="bg-white/90 dark:bg-zinc-800/90 backdrop-blur-sm text-[0.6rem] uppercase tracking-[0.12em] font-label text-zinc-700 dark:text-zinc-300 px-3 py-1 rounded-full">New</span></div>
+                            <div class="absolute top-3 right-3 flex items-center gap-1 bg-white/90 dark:bg-zinc-800/90 backdrop-blur-sm px-2 py-1 rounded-full">
+                                <span class="material-symbols-outlined text-amber-500 text-xs" style="font-variation-settings:'FILL'1">star</span>
+                                <span class="text-[0.6rem] font-label font-bold text-zinc-700 dark:text-zinc-300">4.8</span>
+                            </div>
+                        </div>
+                        <div class="p-5 flex-1 flex flex-col">
+                            <span class="text-[0.65rem] uppercase tracking-[0.15em] text-sky-600 dark:text-sky-400 font-label">Wall Art</span>
+                            <h4 class="font-headline font-bold text-lg text-zinc-900 dark:text-white mt-1 leading-snug">Framed Landscape Print</h4>
+                            <p class="text-zinc-500 dark:text-zinc-400 text-sm mt-2 leading-relaxed flex-1">Gallery-quality framed prints of iconic Sri Lankan scenery.</p>
+                            <div class="flex items-center justify-between mt-4 pt-4 border-t border-zinc-100 dark:border-white/5">
+                                <span class="text-lg font-headline font-bold text-zinc-900 dark:text-white">$45 – $85 <span class="text-xs font-normal text-zinc-400">USD</span></span>
+                                <span class="inline-flex items-center gap-1 text-xs uppercase tracking-widest font-label text-zinc-500 dark:text-zinc-400 group-hover:text-zinc-900 dark:group-hover:text-white transition-colors">View Details <span class="material-symbols-outlined text-sm transition-transform duration-300 group-hover:translate-x-1">arrow_forward</span></span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Product 3 -->
+                <div class="shop-item group" data-category="apparel">
+                    <a href="./shop-explorer-tee.html" class="glass-card rounded-2xl overflow-hidden border border-zinc-200 dark:border-white/5 hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 h-full flex flex-col">
+                        <div class="relative h-64 overflow-hidden bg-gradient-to-br from-zinc-100 to-zinc-200 dark:from-zinc-800 dark:to-zinc-900">
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <div class="w-32 h-40 rounded-md bg-zinc-900 dark:bg-zinc-100 flex items-center justify-center transform group-hover:-rotate-3 transition-transform duration-500">
+                                    <div class="text-center">
+                                        <span class="material-symbols-outlined text-4xl text-white dark:text-zinc-900">checkroom</span>
+                                        <p class="text-[0.55rem] text-zinc-400 dark:text-zinc-500 font-label uppercase tracking-wider mt-1">Sri Lanka</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="absolute top-3 right-3 flex items-center gap-1 bg-white/90 dark:bg-zinc-800/90 backdrop-blur-sm px-2 py-1 rounded-full">
+                                <span class="material-symbols-outlined text-amber-500 text-xs" style="font-variation-settings:'FILL'1">star</span>
+                                <span class="text-[0.6rem] font-label font-bold text-zinc-700 dark:text-zinc-300">4.7</span>
+                            </div>
+                        </div>
+                        <div class="p-5 flex-1 flex flex-col">
+                            <span class="text-[0.65rem] uppercase tracking-[0.15em] text-zinc-500 dark:text-zinc-400 font-label">Apparel</span>
+                            <h4 class="font-headline font-bold text-lg text-zinc-900 dark:text-white mt-1 leading-snug">Sri Lanka Explorer Tee</h4>
+                            <p class="text-zinc-500 dark:text-zinc-400 text-sm mt-2 leading-relaxed flex-1">Premium cotton tee with a minimalist island silhouette.</p>
+                            <div class="flex items-center justify-between mt-4 pt-4 border-t border-zinc-100 dark:border-white/5">
+                                <span class="text-xl font-headline font-bold text-zinc-900 dark:text-white">$28 <span class="text-xs font-normal text-zinc-400">USD</span></span>
+                                <span class="inline-flex items-center gap-1 text-xs uppercase tracking-widest font-label text-zinc-500 dark:text-zinc-400 group-hover:text-zinc-900 dark:group-hover:text-white transition-colors">View Details <span class="material-symbols-outlined text-sm transition-transform duration-300 group-hover:translate-x-1">arrow_forward</span></span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Product 4 -->
+                <div class="shop-item group" data-category="wall-art">
+                    <a href="./shop-watercolour-poster.html" class="glass-card rounded-2xl overflow-hidden border border-zinc-200 dark:border-white/5 hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 h-full flex flex-col">
+                        <div class="relative h-64 overflow-hidden bg-gradient-to-br from-rose-50 to-purple-50 dark:from-zinc-800 dark:to-zinc-900">
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <div class="w-36 h-48 rounded-sm bg-white dark:bg-zinc-700 shadow-xl flex items-center justify-center p-3 transform group-hover:rotate-2 transition-transform duration-500">
+                                    <div class="text-center">
+                                        <span class="material-symbols-outlined text-5xl text-rose-400 dark:text-rose-300">map</span>
+                                        <p class="text-[0.5rem] font-headline font-bold text-zinc-600 dark:text-zinc-300 mt-1">Sri Lanka</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="absolute top-3 right-3 flex items-center gap-1 bg-white/90 dark:bg-zinc-800/90 backdrop-blur-sm px-2 py-1 rounded-full">
+                                <span class="material-symbols-outlined text-amber-500 text-xs" style="font-variation-settings:'FILL'1">star</span>
+                                <span class="text-[0.6rem] font-label font-bold text-zinc-700 dark:text-zinc-300">4.9</span>
+                            </div>
+                        </div>
+                        <div class="p-5 flex-1 flex flex-col">
+                            <span class="text-[0.65rem] uppercase tracking-[0.15em] text-rose-500 dark:text-rose-400 font-label">Wall Art</span>
+                            <h4 class="font-headline font-bold text-lg text-zinc-900 dark:text-white mt-1 leading-snug">Watercolour Map Poster</h4>
+                            <p class="text-zinc-500 dark:text-zinc-400 text-sm mt-2 leading-relaxed flex-1">Hand-painted-style map with illustrated landmarks.</p>
+                            <div class="flex items-center justify-between mt-4 pt-4 border-t border-zinc-100 dark:border-white/5">
+                                <span class="text-lg font-headline font-bold text-zinc-900 dark:text-white">$32 – $48 <span class="text-xs font-normal text-zinc-400">USD</span></span>
+                                <span class="inline-flex items-center gap-1 text-xs uppercase tracking-widest font-label text-zinc-500 dark:text-zinc-400 group-hover:text-zinc-900 dark:group-hover:text-white transition-colors">View Details <span class="material-symbols-outlined text-sm transition-transform duration-300 group-hover:translate-x-1">arrow_forward</span></span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Product 5 -->
+                <div class="shop-item group" data-category="wall-art">
+                    <a href="./shop-wildlife-canvas.html" class="glass-card rounded-2xl overflow-hidden border border-zinc-200 dark:border-white/5 hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 h-full flex flex-col">
+                        <div class="relative h-64 overflow-hidden bg-gradient-to-br from-yellow-50 to-lime-50 dark:from-zinc-800 dark:to-zinc-900">
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <div class="w-48 h-36 rounded-md bg-gradient-to-br from-yellow-700/80 to-amber-800/80 shadow-xl flex items-center justify-center transform group-hover:scale-105 transition-transform duration-500">
+                                    <div class="text-center">
+                                        <span class="material-symbols-outlined text-5xl text-white/80">pets</span>
+                                        <p class="text-[0.5rem] text-white/70 font-label uppercase tracking-wider mt-1">Yala Leopard</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="absolute top-3 left-3"><span class="bg-yellow-500 text-white text-[0.6rem] uppercase tracking-[0.12em] font-label px-3 py-1 rounded-full">Popular</span></div>
+                            <div class="absolute top-3 right-3 flex items-center gap-1 bg-white/90 dark:bg-zinc-800/90 backdrop-blur-sm px-2 py-1 rounded-full">
+                                <span class="material-symbols-outlined text-amber-500 text-xs" style="font-variation-settings:'FILL'1">star</span>
+                                <span class="text-[0.6rem] font-label font-bold text-zinc-700 dark:text-zinc-300">5.0</span>
+                            </div>
+                        </div>
+                        <div class="p-5 flex-1 flex flex-col">
+                            <span class="text-[0.65rem] uppercase tracking-[0.15em] text-yellow-600 dark:text-yellow-400 font-label">Wall Art</span>
+                            <h4 class="font-headline font-bold text-lg text-zinc-900 dark:text-white mt-1 leading-snug">Safari Wildlife Canvas</h4>
+                            <p class="text-zinc-500 dark:text-zinc-400 text-sm mt-2 leading-relaxed flex-1">Stretched canvas prints of Sri Lanka's magnificent wildlife.</p>
+                            <div class="flex items-center justify-between mt-4 pt-4 border-t border-zinc-100 dark:border-white/5">
+                                <span class="text-lg font-headline font-bold text-zinc-900 dark:text-white">$55 – $89 <span class="text-xs font-normal text-zinc-400">USD</span></span>
+                                <span class="inline-flex items-center gap-1 text-xs uppercase tracking-widest font-label text-zinc-500 dark:text-zinc-400 group-hover:text-zinc-900 dark:group-hover:text-white transition-colors">View Details <span class="material-symbols-outlined text-sm transition-transform duration-300 group-hover:translate-x-1">arrow_forward</span></span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Product 6 -->
+                <div class="shop-item group" data-category="drinkware">
+                    <a href="./shop-tea-mug.html" class="glass-card rounded-2xl overflow-hidden border border-zinc-200 dark:border-white/5 hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 h-full flex flex-col">
+                        <div class="relative h-64 overflow-hidden bg-gradient-to-br from-emerald-50 to-green-50 dark:from-zinc-800 dark:to-zinc-900">
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <div class="w-28 h-36 rounded-lg bg-emerald-800 dark:bg-emerald-900 shadow-xl flex items-center justify-center transform group-hover:rotate-6 transition-transform duration-500">
+                                    <div class="text-center p-2">
+                                        <span class="material-symbols-outlined text-4xl text-emerald-200">eco</span>
+                                        <p class="text-[0.5rem] text-emerald-300 font-label uppercase tracking-wider mt-1">Ceylon Tea</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="absolute top-3 left-3"><span class="bg-emerald-600 text-white text-[0.6rem] uppercase tracking-[0.12em] font-label px-3 py-1 rounded-full">Eco-Friendly</span></div>
+                            <div class="absolute top-3 right-3 flex items-center gap-1 bg-white/90 dark:bg-zinc-800/90 backdrop-blur-sm px-2 py-1 rounded-full">
+                                <span class="material-symbols-outlined text-amber-500 text-xs" style="font-variation-settings:'FILL'1">star</span>
+                                <span class="text-[0.6rem] font-label font-bold text-zinc-700 dark:text-zinc-300">4.8</span>
+                            </div>
+                        </div>
+                        <div class="p-5 flex-1 flex flex-col">
+                            <span class="text-[0.65rem] uppercase tracking-[0.15em] text-emerald-600 dark:text-emerald-400 font-label">Drinkware</span>
+                            <h4 class="font-headline font-bold text-lg text-zinc-900 dark:text-white mt-1 leading-snug">Ceylon Tea Traveller Mug</h4>
+                            <p class="text-zinc-500 dark:text-zinc-400 text-sm mt-2 leading-relaxed flex-1">Double-walled insulated mug with tea-plantation design.</p>
+                            <div class="flex items-center justify-between mt-4 pt-4 border-t border-zinc-100 dark:border-white/5">
+                                <span class="text-lg font-headline font-bold text-zinc-900 dark:text-white">$24 – $30 <span class="text-xs font-normal text-zinc-400">USD</span></span>
+                                <span class="inline-flex items-center gap-1 text-xs uppercase tracking-widest font-label text-zinc-500 dark:text-zinc-400 group-hover:text-zinc-900 dark:group-hover:text-white transition-colors">View Details <span class="material-symbols-outlined text-sm transition-transform duration-300 group-hover:translate-x-1">arrow_forward</span></span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Product 7 -->
+                <div class="shop-item group" data-category="accessories">
+                    <a href="./shop-tote-bag.html" class="glass-card rounded-2xl overflow-hidden border border-zinc-200 dark:border-white/5 hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 h-full flex flex-col">
+                        <div class="relative h-64 overflow-hidden bg-gradient-to-br from-cyan-50 to-blue-50 dark:from-zinc-800 dark:to-zinc-900">
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <div class="w-32 h-40 bg-[#f5f0e6] dark:bg-[#d4cfc2] rounded-sm shadow-lg flex items-center justify-center transform group-hover:-rotate-6 transition-transform duration-500">
+                                    <div class="text-center p-2">
+                                        <span class="material-symbols-outlined text-4xl text-cyan-700">shopping_bag</span>
+                                        <p class="text-[0.5rem] font-headline font-bold text-zinc-600 mt-1">Island Vibes</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="absolute top-3 left-3"><span class="bg-cyan-600 text-white text-[0.6rem] uppercase tracking-[0.12em] font-label px-3 py-1 rounded-full">Sustainable</span></div>
+                            <div class="absolute top-3 right-3 flex items-center gap-1 bg-white/90 dark:bg-zinc-800/90 backdrop-blur-sm px-2 py-1 rounded-full">
+                                <span class="material-symbols-outlined text-amber-500 text-xs" style="font-variation-settings:'FILL'1">star</span>
+                                <span class="text-[0.6rem] font-label font-bold text-zinc-700 dark:text-zinc-300">4.6</span>
+                            </div>
+                        </div>
+                        <div class="p-5 flex-1 flex flex-col">
+                            <span class="text-[0.65rem] uppercase tracking-[0.15em] text-cyan-600 dark:text-cyan-400 font-label">Accessories</span>
+                            <h4 class="font-headline font-bold text-lg text-zinc-900 dark:text-white mt-1 leading-snug">Island Vibes Tote Bag</h4>
+                            <p class="text-zinc-500 dark:text-zinc-400 text-sm mt-2 leading-relaxed flex-1">Eco-friendly organic cotton tote with vibrant Sri Lankan motifs.</p>
+                            <div class="flex items-center justify-between mt-4 pt-4 border-t border-zinc-100 dark:border-white/5">
+                                <span class="text-xl font-headline font-bold text-zinc-900 dark:text-white">$16 <span class="text-xs font-normal text-zinc-400">USD</span></span>
+                                <span class="inline-flex items-center gap-1 text-xs uppercase tracking-widest font-label text-zinc-500 dark:text-zinc-400 group-hover:text-zinc-900 dark:group-hover:text-white transition-colors">View Details <span class="material-symbols-outlined text-sm transition-transform duration-300 group-hover:translate-x-1">arrow_forward</span></span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Product 8 -->
+                <div class="shop-item group" data-category="accessories">
+                    <a href="./shop-magnet-set.html" class="glass-card rounded-2xl overflow-hidden border border-zinc-200 dark:border-white/5 hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 h-full flex flex-col">
+                        <div class="relative h-64 overflow-hidden bg-gradient-to-br from-violet-50 to-pink-50 dark:from-zinc-800 dark:to-zinc-900">
+                            <div class="absolute inset-0 flex items-center justify-center gap-3">
+                                <div class="w-16 h-16 rounded-xl bg-gradient-to-br from-violet-400 to-pink-400 shadow-lg flex items-center justify-center transform group-hover:rotate-12 transition-transform duration-500">
+                                    <span class="material-symbols-outlined text-2xl text-white">temple_buddhist</span>
+                                </div>
+                                <div class="w-16 h-16 rounded-xl bg-gradient-to-br from-emerald-400 to-teal-400 shadow-lg flex items-center justify-center transform group-hover:-rotate-12 transition-transform duration-500">
+                                    <span class="material-symbols-outlined text-2xl text-white">train</span>
+                                </div>
+                                <div class="w-16 h-16 rounded-xl bg-gradient-to-br from-amber-400 to-orange-400 shadow-lg flex items-center justify-center transform group-hover:rotate-12 transition-transform duration-500">
+                                    <span class="material-symbols-outlined text-2xl text-white">beach_access</span>
+                                </div>
+                            </div>
+                            <div class="absolute top-3 left-3"><span class="bg-violet-500 text-white text-[0.6rem] uppercase tracking-[0.12em] font-label px-3 py-1 rounded-full">Gift Favourite</span></div>
+                            <div class="absolute top-3 right-3 flex items-center gap-1 bg-white/90 dark:bg-zinc-800/90 backdrop-blur-sm px-2 py-1 rounded-full">
+                                <span class="material-symbols-outlined text-amber-500 text-xs" style="font-variation-settings:'FILL'1">star</span>
+                                <span class="text-[0.6rem] font-label font-bold text-zinc-700 dark:text-zinc-300">4.9</span>
+                            </div>
+                        </div>
+                        <div class="p-5 flex-1 flex flex-col">
+                            <span class="text-[0.65rem] uppercase tracking-[0.15em] text-violet-500 dark:text-violet-400 font-label">Accessories</span>
+                            <h4 class="font-headline font-bold text-lg text-zinc-900 dark:text-white mt-1 leading-snug">Lanka Fridge Magnet Set</h4>
+                            <p class="text-zinc-500 dark:text-zinc-400 text-sm mt-2 leading-relaxed flex-1">Set of 6 handcrafted resin magnets of iconic Sri Lankan scenes.</p>
+                            <div class="flex items-center justify-between mt-4 pt-4 border-t border-zinc-100 dark:border-white/5">
+                                <span class="text-xl font-headline font-bold text-zinc-900 dark:text-white">$14 <span class="text-xs font-normal text-zinc-400">USD</span></span>
+                                <span class="inline-flex items-center gap-1 text-xs uppercase tracking-widest font-label text-zinc-500 dark:text-zinc-400 group-hover:text-zinc-900 dark:group-hover:text-white transition-colors">View Details <span class="material-symbols-outlined text-sm transition-transform duration-300 group-hover:translate-x-1">arrow_forward</span></span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+            </div>
+
+            <!-- Custom Order CTA -->
+            <div class="mt-16 md:mt-20 rounded-2xl border border-zinc-200 dark:border-white/5 glass-card p-8 md:p-12 flex flex-col md:flex-row items-center gap-8 md:gap-12">
+                <div class="flex-shrink-0 w-20 h-20 rounded-full bg-gradient-to-br from-amber-100 to-rose-100 dark:from-zinc-800 dark:to-zinc-700 flex items-center justify-center">
+                    <span class="material-symbols-outlined text-4xl text-amber-600 dark:text-amber-400">palette</span>
+                </div>
+                <div class="flex-1 text-center md:text-left">
+                    <h4 class="font-headline font-bold text-xl md:text-2xl text-zinc-900 dark:text-white">Want Something Custom?</h4>
+                    <p class="text-zinc-500 dark:text-zinc-400 text-sm md:text-base mt-2 leading-relaxed max-w-2xl">Upload your own tour photos and we'll print them on mugs, t-shirts, posters, phone cases, or photo books. Perfect for group gifts or a unique memento from your Sri Lanka adventure.</p>
+                </div>
+                <a href="https://wa.me/94775979306?text=Hi!%20I'd%20like%20to%20discuss%20a%20custom%20souvenir%20order" target="_blank" rel="noopener noreferrer" class="flex-shrink-0 inline-flex items-center gap-2 px-8 py-3 bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 text-xs uppercase tracking-[0.2em] font-label rounded-sm hover:bg-zinc-700 dark:hover:bg-zinc-200 transition-colors duration-300">
+                    <span class="material-symbols-outlined text-base">chat</span> Design Yours
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Theme toggle
+        const htmlElement = document.documentElement;
+        const themeToggle = document.getElementById('theme-toggle');
+        themeToggle.addEventListener('click', () => {
+            htmlElement.classList.toggle('dark');
+            localStorage.theme = htmlElement.classList.contains('dark') ? 'dark' : 'light';
+        });
+
+        // Shop filter
+        const shopFilterBtns = document.querySelectorAll('.shop-filter-btn');
+        const shopItems = document.querySelectorAll('.shop-item');
+        shopFilterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                shopFilterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                const filter = btn.dataset.filter;
+                shopItems.forEach(item => {
+                    const cat = item.dataset.category || '';
+                    if (filter === 'all' || cat === filter) {
+                        item.classList.remove('hidden-item');
+                    } else {
+                        item.classList.add('hidden-item');
+                    }
+                });
+            });
+        });
+
+        // Cursor & Sparkles
+        const cursor = document.querySelector('.custom-cursor');
+        const canvas = document.getElementById('sparkles');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        class Particle {
+            constructor(x, y, isDark) {
+                this.x = x; this.y = y;
+                this.size = Math.random() * 2 + 0.5;
+                this.speedX = Math.random() * 2 - 1;
+                this.speedY = Math.random() * 2 - 1.5;
+                this.life = 1;
+                this.decay = Math.random() * 0.02 + 0.02;
+                if (isDark) {
+                    const c = ['#cbd5e1','#93c5fd','#bae6fd','#e2e8f0'];
+                    this.color = c[Math.floor(Math.random()*c.length)];
+                } else {
+                    const c = ['#000000','#1c1917','#334155'];
+                    this.color = c[Math.floor(Math.random()*c.length)];
+                }
+            }
+            update() { this.x += this.speedX; this.y += this.speedY; this.life -= this.decay; }
+            draw() {
+                ctx.globalAlpha = Math.max(0, this.life);
+                ctx.fillStyle = this.color;
+                ctx.shadowBlur = 8;
+                ctx.shadowColor = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+        function animateSparks() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach((p, i) => { p.update(); p.draw(); if (p.life <= 0) particles.splice(i, 1); });
+            requestAnimationFrame(animateSparks);
+        }
+        animateSparks();
+
+        if (cursor) {
+            document.addEventListener('mousemove', (e) => {
+                cursor.style.transform = `translate(${e.clientX - 6}px, ${e.clientY - 6}px)`;
+                if (window.matchMedia("(pointer: fine)").matches) {
+                    const isDark = htmlElement.classList.contains('dark');
+                    for (let i = 0; i < 2; i++) particles.push(new Particle(e.clientX, e.clientY, isDark));
+                }
+            });
+            document.querySelectorAll('button, a, .group, input, select, textarea').forEach(el => {
+                el.addEventListener('mouseenter', () => {
+                    const isDark = htmlElement.classList.contains('dark');
+                    cursor.style.width = '40px'; cursor.style.height = '40px';
+                    cursor.style.backgroundColor = isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)';
+                    cursor.style.border = isDark ? '1px solid rgba(255,255,255,0.8)' : '1px solid rgba(0,0,0,0.8)';
+                });
+                el.addEventListener('mouseleave', () => {
+                    const isDark = htmlElement.classList.contains('dark');
+                    cursor.style.width = '12px'; cursor.style.height = '12px';
+                    cursor.style.backgroundColor = 'transparent';
+                    cursor.style.border = isDark ? '1px solid rgba(255,255,255,0.4)' : '1px solid rgba(0,0,0,0.4)';
+                });
+            });
+        }
+    </script>
+</body>
+</html>
