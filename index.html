@@ -1515,6 +1515,107 @@
             </div>
         </section>
 
+        <!-- MEMORIES GALLERY — Infinite Scroll Ribbons -->
+        <section id="memories" class="py-16 md:py-24 bg-zinc-50 dark:bg-surface border-t border-zinc-200 dark:border-white/5 scroll-mt-24 transition-colors duration-500 overflow-hidden">
+            <div class="text-center mb-10 md:mb-14 px-4">
+                <span class="font-label text-[0.7rem] uppercase tracking-[0.25em] text-zinc-500 dark:text-zinc-400">Through Our Lens</span>
+                <h3 class="text-3xl md:text-5xl font-headline font-extrabold text-zinc-900 dark:text-white mt-3 tracking-tight">Moments We Treasure</h3>
+                <p class="text-sm md:text-base text-zinc-600 dark:text-zinc-300 mt-3 max-w-xl mx-auto leading-relaxed">Real snapshots from our journeys across the island.</p>
+            </div>
+
+            <!-- Row 1 — scrolls left -->
+            <div class="ribbon-wrap mb-3 md:mb-4 relative">
+                <div class="ribbon ribbon-left flex gap-3 md:gap-4" style="--ribbon-speed:35s">
+                    <div class="ribbon-img" onclick="openLightbox(0)"><img src="./images/gallery-1.jpg" alt="Journey memory" loading="lazy"/></div>
+                    <div class="ribbon-img" onclick="openLightbox(1)"><img src="./images/gallery-2.jpg" alt="Journey memory" loading="lazy"/></div>
+                    <div class="ribbon-img" onclick="openLightbox(2)"><img src="./images/gallery-3.jpg" alt="Journey memory" loading="lazy"/></div>
+                    <div class="ribbon-img" onclick="openLightbox(3)"><img src="./images/gallery-4.jpg" alt="Journey memory" loading="lazy"/></div>
+                    <!-- duplicate set for seamless loop -->
+                    <div class="ribbon-img" onclick="openLightbox(0)"><img src="./images/gallery-1.jpg" alt="Journey memory" loading="lazy"/></div>
+                    <div class="ribbon-img" onclick="openLightbox(1)"><img src="./images/gallery-2.jpg" alt="Journey memory" loading="lazy"/></div>
+                    <div class="ribbon-img" onclick="openLightbox(2)"><img src="./images/gallery-3.jpg" alt="Journey memory" loading="lazy"/></div>
+                    <div class="ribbon-img" onclick="openLightbox(3)"><img src="./images/gallery-4.jpg" alt="Journey memory" loading="lazy"/></div>
+                </div>
+            </div>
+
+            <!-- Row 2 — scrolls right -->
+            <div class="ribbon-wrap relative">
+                <div class="ribbon ribbon-right flex gap-3 md:gap-4" style="--ribbon-speed:40s">
+                    <div class="ribbon-img" onclick="openLightbox(4)"><img src="./images/gallery-5.jpg" alt="Journey memory" loading="lazy"/></div>
+                    <div class="ribbon-img" onclick="openLightbox(5)"><img src="./images/gallery-6.jpg" alt="Journey memory" loading="lazy"/></div>
+                    <div class="ribbon-img" onclick="openLightbox(6)"><img src="./images/gallery-7.jpg" alt="Journey memory" loading="lazy"/></div>
+                    <div class="ribbon-img" onclick="openLightbox(7)"><img src="./images/gallery-8.jpg" alt="Journey memory" loading="lazy"/></div>
+                    <!-- duplicate set for seamless loop -->
+                    <div class="ribbon-img" onclick="openLightbox(4)"><img src="./images/gallery-5.jpg" alt="Journey memory" loading="lazy"/></div>
+                    <div class="ribbon-img" onclick="openLightbox(5)"><img src="./images/gallery-6.jpg" alt="Journey memory" loading="lazy"/></div>
+                    <div class="ribbon-img" onclick="openLightbox(6)"><img src="./images/gallery-7.jpg" alt="Journey memory" loading="lazy"/></div>
+                    <div class="ribbon-img" onclick="openLightbox(7)"><img src="./images/gallery-8.jpg" alt="Journey memory" loading="lazy"/></div>
+                </div>
+            </div>
+
+            <!-- Soft fade edges -->
+            <style>
+                .ribbon-wrap { overflow: hidden; }
+                .ribbon-wrap::before, .ribbon-wrap::after {
+                    content: ''; position: absolute; top: 0; bottom: 0; width: 60px; z-index: 2; pointer-events: none;
+                }
+                .ribbon-wrap::before { left: 0; background: linear-gradient(to right, var(--fade-color, #fafafa), transparent); }
+                .ribbon-wrap::after { right: 0; background: linear-gradient(to left, var(--fade-color, #fafafa), transparent); }
+                .dark .ribbon-wrap::before { background: linear-gradient(to right, #131313, transparent); }
+                .dark .ribbon-wrap::after { background: linear-gradient(to left, #131313, transparent); }
+
+                .ribbon { width: max-content; will-change: transform; }
+                .ribbon-left { animation: ribbonScrollLeft var(--ribbon-speed, 35s) linear infinite; }
+                .ribbon-right { animation: ribbonScrollRight var(--ribbon-speed, 40s) linear infinite; }
+                .ribbon:hover { animation-play-state: paused; }
+
+                @keyframes ribbonScrollLeft {
+                    0% { transform: translateX(0); }
+                    100% { transform: translateX(-50%); }
+                }
+                @keyframes ribbonScrollRight {
+                    0% { transform: translateX(-50%); }
+                    100% { transform: translateX(0); }
+                }
+
+                .ribbon-img {
+                    flex-shrink: 0; width: 260px; height: 180px; border-radius: 0.6rem;
+                    overflow: hidden; cursor: pointer; position: relative;
+                    transition: transform 0.4s cubic-bezier(.25,.8,.25,1), box-shadow 0.4s ease;
+                }
+                @media (min-width: 768px) { .ribbon-img { width: 340px; height: 230px; } }
+                .ribbon-img:hover {
+                    transform: scale(1.06) translateY(-6px);
+                    box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+                    z-index: 3;
+                }
+                .ribbon-img img {
+                    width: 100%; height: 100%; object-fit: cover;
+                    transition: transform 0.6s ease;
+                }
+                .ribbon-img:hover img { transform: scale(1.12); }
+            </style>
+        </section>
+
+        <!-- LIGHTBOX -->
+        <div id="lightbox" class="fixed inset-0 z-[200] bg-black/95 backdrop-blur-xl flex items-center justify-center opacity-0 pointer-events-none invisible transition-opacity duration-300" onclick="closeLightbox(event)">
+            <button onclick="closeLightbox(event)" class="absolute top-5 right-5 text-white/70 hover:text-white transition-colors z-10 p-2">
+                <span class="material-symbols-outlined text-3xl">close</span>
+            </button>
+            <button onclick="navigateLB(-1,event)" class="absolute left-3 md:left-6 text-white/50 hover:text-white transition-colors z-10 p-2">
+                <span class="material-symbols-outlined text-3xl">chevron_left</span>
+            </button>
+            <button onclick="navigateLB(1,event)" class="absolute right-3 md:right-6 text-white/50 hover:text-white transition-colors z-10 p-2">
+                <span class="material-symbols-outlined text-3xl">chevron_right</span>
+            </button>
+            <div class="max-w-5xl max-h-[85vh] px-4 flex flex-col items-center">
+                <img id="lightbox-img" src="" alt="" class="max-w-full max-h-[80vh] object-contain rounded-lg shadow-2xl transition-all duration-500 scale-95" />
+                <div class="mt-3 flex items-center gap-2">
+                    <div id="lb-dots" class="flex gap-1.5"></div>
+                </div>
+            </div>
+        </div>
+
         <section id="inquire" class="relative flex items-center justify-center min-h-[80vh] py-20 md:py-32 px-4 md:px-6 scroll-mt-24 border-t border-zinc-200 dark:border-white/5 group transition-colors duration-500">
             <div class="absolute inset-0 z-0 overflow-hidden">
                 <img alt="Background Pattern" class="w-full h-full object-cover contrast-125 brightness-[0.8] dark:brightness-[0.4] transition-all duration-1000 md:group-hover:scale-105" src="./images/form-bg.jpg"/>
@@ -1812,7 +1913,71 @@
             }
             frame();
         })();
-        
+
+        // GALLERY LIGHTBOX
+        var gallerySrcs = [
+            './images/gallery-1.jpg','./images/gallery-2.jpg','./images/gallery-3.jpg','./images/gallery-4.jpg',
+            './images/gallery-5.jpg','./images/gallery-6.jpg','./images/gallery-7.jpg','./images/gallery-8.jpg'
+        ];
+        var lbIdx = 0, touchStartX = 0;
+
+        function buildDots() {
+            var c = document.getElementById('lb-dots'); c.innerHTML = '';
+            gallerySrcs.forEach(function(_, i) {
+                var d = document.createElement('span');
+                d.className = 'block w-1.5 h-1.5 rounded-full transition-all duration-300 ' + (i === lbIdx ? 'bg-white w-4' : 'bg-white/30');
+                d.style.cursor = 'pointer';
+                d.onclick = function(e) { e.stopPropagation(); lbIdx = i; showLB(); };
+                c.appendChild(d);
+            });
+        }
+
+        function showLB() {
+            var img = document.getElementById('lightbox-img');
+            img.style.opacity = '0'; img.style.transform = 'scale(0.92)';
+            setTimeout(function() {
+                img.src = gallerySrcs[lbIdx]; img.alt = 'Gallery image ' + (lbIdx + 1);
+                img.style.opacity = '1'; img.style.transform = 'scale(1)';
+            }, 150);
+            buildDots();
+        }
+
+        function openLightbox(idx) {
+            lbIdx = idx; showLB();
+            var lb = document.getElementById('lightbox');
+            lb.classList.remove('invisible','pointer-events-none');
+            requestAnimationFrame(function() { lb.classList.remove('opacity-0'); });
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox(e) {
+            if (e) e.stopPropagation();
+            var lb = document.getElementById('lightbox');
+            lb.classList.add('opacity-0');
+            setTimeout(function() { lb.classList.add('invisible','pointer-events-none'); }, 300);
+            document.body.style.overflow = '';
+        }
+
+        function navigateLB(dir, e) {
+            if (e) e.stopPropagation();
+            lbIdx = (lbIdx + dir + gallerySrcs.length) % gallerySrcs.length;
+            showLB();
+        }
+
+        document.addEventListener('keydown', function(e) {
+            if (document.getElementById('lightbox').classList.contains('invisible')) return;
+            if (e.key === 'Escape') closeLightbox();
+            if (e.key === 'ArrowLeft') navigateLB(-1);
+            if (e.key === 'ArrowRight') navigateLB(1);
+        });
+
+        // Touch swipe for lightbox
+        document.getElementById('lightbox').addEventListener('touchstart', function(e) { touchStartX = e.changedTouches[0].screenX; }, { passive: true });
+        document.getElementById('lightbox').addEventListener('touchend', function(e) {
+            var dx = e.changedTouches[0].screenX - touchStartX;
+            if (Math.abs(dx) > 50) navigateLB(dx < 0 ? 1 : -1);
+        }, { passive: true });
+
         // SCROLL SPY FOR NAV LINKS
         const sections = document.querySelectorAll("main > div[id], main > section[id]");
         const navLinks = document.querySelectorAll(".nav-scroll-link");
