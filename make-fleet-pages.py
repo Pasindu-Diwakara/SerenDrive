@@ -9,12 +9,12 @@ def generate_page(data):
     <title>{data['title']} - SerenDrive</title>
 
     <script>
-        // Set Light Mode as the absolute default
-        if (localStorage.theme === 'dark') {{
-            document.documentElement.classList.add('dark');
-        }} else {{
+        // Set Dark Mode as the absolute default
+        if (localStorage.theme === 'light') {{
             document.documentElement.classList.remove('dark');
-            localStorage.theme = 'light';
+        }} else {{
+            document.documentElement.classList.add('dark');
+            localStorage.theme = 'dark';
         }}
     </script>
 

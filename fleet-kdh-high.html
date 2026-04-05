@@ -6,12 +6,12 @@
     <title>Toyota KDH (High Roof) - SerenDrive</title>
 
     <script>
-        // Set Light Mode as the absolute default
-        if (localStorage.theme === 'dark') {
-            document.documentElement.classList.add('dark');
-        } else {
+        // Set Dark Mode as the absolute default
+        if (localStorage.theme === 'light') {
             document.documentElement.classList.remove('dark');
-            localStorage.theme = 'light';
+        } else {
+            document.documentElement.classList.add('dark');
+            localStorage.theme = 'dark';
         }
     </script>
 
@@ -83,16 +83,29 @@
         <div class="max-w-[1440px] mx-auto px-6 md:px-16 py-4">
             <div class="flex items-center justify-between">
                 <a href="index.html" class="group"><img src="./images/serendrive-logo.png" alt="SerenDrive Logo" class="h-8 md:h-10 w-auto invert dark:invert-0 transition-all duration-1000"></a>
-                <div class="flex items-center gap-8">
-                    <a href="index.html#fleet" class="text-sm uppercase tracking-widest text-zinc-700 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-white transition-colors">← Back to Fleet</a>
+                <div class="flex items-center gap-3 md:gap-8">
+                    <a href="index.html#fleet" class="hidden md:inline text-sm uppercase tracking-widest text-zinc-700 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-white transition-colors">← Back to Fleet</a>
                     <button id="theme-toggle" class="flex items-center justify-center p-2 rounded-full border border-zinc-300 dark:border-white/20 hover:bg-zinc-200 dark:hover:bg-white/10 transition-colors">
                         <span class="material-symbols-outlined text-zinc-800 dark:hidden text-[18px]">dark_mode</span>
                         <span class="material-symbols-outlined hidden dark:block text-white text-[18px]">light_mode</span>
                     </button>
+                    <button id="mobile-menu-btn" class="md:hidden flex items-center justify-center p-2 text-zinc-900 dark:text-white"><span class="material-symbols-outlined text-2xl">menu</span></button>
                 </div>
             </div>
         </div>
     </nav>
+    <div id="mobile-menu" class="fixed inset-0 bg-white dark:bg-zinc-900 backdrop-blur-2xl z-[100] flex flex-col items-center justify-center gap-8 transition-all duration-300 opacity-0 pointer-events-none invisible">
+        <button id="close-menu-btn" class="absolute top-6 right-6 text-zinc-900 dark:text-white p-2">
+            <span class="material-symbols-outlined text-3xl">close</span>
+        </button>
+        <a class="text-2xl font-headline font-bold text-zinc-900 dark:text-white uppercase tracking-widest mobile-link" href="./index.html">Home</a>
+        <a class="text-2xl font-headline font-bold text-zinc-900 dark:text-white uppercase tracking-widest mobile-link" href="./index.html#tours">Tours</a>
+        <a class="text-2xl font-headline font-bold text-zinc-900 dark:text-white uppercase tracking-widest mobile-link" href="./index.html#fleet">Fleet</a>
+        <a class="text-2xl font-headline font-bold text-zinc-900 dark:text-white uppercase tracking-widest mobile-link" href="./shop.html">Shop</a>
+        <a class="text-2xl font-headline font-bold text-zinc-900 dark:text-white uppercase tracking-widest mobile-link" href="./about.html">About</a>
+        <a class="text-2xl font-headline font-bold text-zinc-900 dark:text-white uppercase tracking-widest mobile-link" href="./blog.html">Blog</a>
+        <a class="mt-8 px-12 py-4 bg-zinc-900 text-white dark:bg-white dark:text-zinc-900 font-label uppercase text-sm tracking-widest mobile-link" href="./index.html#inquire">Inquire Now</a>
+    </div>
 
     <section class="pt-28 md:pt-36 pb-14 md:pb-20 px-6 md:px-16 bg-gradient-to-b from-zinc-100 via-white to-white dark:from-surface dark:via-surface-container dark:to-surface-container-lowest">
         <div class="max-w-6xl mx-auto grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
@@ -165,6 +178,11 @@
     </footer>
 
     <script>
+        // Mobile menu
+        const mobileMenuBtn=document.getElementById('mobile-menu-btn'),closeMenuBtn=document.getElementById('close-menu-btn'),mobileMenu=document.getElementById('mobile-menu'),mobileLinks=document.querySelectorAll('.mobile-link');
+        function toggleMenu(){const c=mobileMenu.classList.contains('invisible');if(c){mobileMenu.classList.remove('invisible');void mobileMenu.offsetWidth;mobileMenu.classList.remove('opacity-0','pointer-events-none');document.body.style.overflow='hidden'}else{mobileMenu.classList.add('opacity-0','pointer-events-none');document.body.style.overflow='';setTimeout(()=>mobileMenu.classList.add('invisible'),300)}}
+        if(mobileMenuBtn)mobileMenuBtn.addEventListener('click',toggleMenu);if(closeMenuBtn)closeMenuBtn.addEventListener('click',toggleMenu);mobileLinks.forEach(l=>l.addEventListener('click',toggleMenu));
+
         const themeToggleBtn = document.getElementById('theme-toggle');
         const htmlElement = document.documentElement;
         themeToggleBtn.addEventListener('click', () => {
