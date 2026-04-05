@@ -169,6 +169,11 @@
                 width: min(100%, 330px);
                 max-height: 470px;
             }
+            .map-chip {
+                position: static;
+                display: inline-flex;
+                margin-bottom: 0.5rem;
+            }
         }
         .map-chip {
             position: absolute;
@@ -448,12 +453,16 @@
             display: none;
         }
         @media (max-width: 768px) {
+            .map-stage {
+                overflow: visible;
+            }
             #map {
-                min-height: 420px;
-                padding: 0.75rem 0.25rem 0.5rem;
+                min-height: auto;
+                padding: 0.5rem 0.25rem 0.5rem;
             }
             .sri-lanka-map {
                 width: min(100%, 290px);
+                max-height: none;
                 transform: none;
             }
         }
