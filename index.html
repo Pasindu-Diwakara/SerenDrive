@@ -1385,13 +1385,66 @@
             </div>
         </section>
 
-        <section id="reviews" class="py-8 md:py-12 px-4 md:px-16 bg-white dark:bg-surface-container-lowest border-t border-zinc-200 dark:border-white/5">
+        <section id="reviews" class="py-16 md:py-24 px-4 md:px-16 bg-white dark:bg-surface-container-lowest border-t border-zinc-200 dark:border-white/5 scroll-mt-24 transition-colors duration-500">
             <div class="max-w-[1920px] mx-auto">
-                <div class="text-center mb-4">
-                    <h3 class="text-2xl md:text-3xl font-headline font-bold text-zinc-900 dark:text-white">Customer Reviews</h3>
-                    <p class="text-sm md:text-base text-zinc-600 dark:text-zinc-300 mt-1">Short, verified feedback from travelers who used our service.</p>
+                <div class="text-center mb-12 md:mb-16">
+                    <span class="font-label text-[0.7rem] uppercase tracking-[0.25em] text-zinc-500 dark:text-zinc-400">What Our Guests Say</span>
+                    <h3 class="text-3xl md:text-5xl font-headline font-extrabold text-zinc-900 dark:text-white mt-3 tracking-tight">Customer Reviews</h3>
+                    <p class="text-sm md:text-base text-zinc-600 dark:text-zinc-300 mt-3 max-w-xl mx-auto leading-relaxed">Real stories from travelers who explored Sri Lanka with us.</p>
                 </div>
+
+                <!-- Featured Review Highlight -->
+                <div class="max-w-4xl mx-auto mb-10 relative">
+                    <div class="absolute -top-6 left-1/2 -translate-x-1/2 z-10">
+                        <span class="inline-flex items-center gap-1.5 bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 text-[0.65rem] uppercase tracking-[0.2em] font-label px-4 py-1.5 rounded-full shadow-lg">
+                            <span class="material-symbols-outlined text-sm">stars</span> Featured Review
+                        </span>
+                    </div>
+                    <div class="bg-zinc-50 dark:bg-zinc-800/50 border-2 border-zinc-900/10 dark:border-white/10 rounded-2xl p-6 md:p-10 relative overflow-hidden">
+                        <div class="absolute top-4 right-6 text-7xl font-serif text-zinc-200 dark:text-white/5 leading-none select-none pointer-events-none">"</div>
+                        <div class="relative z-[1]">
+                            <!-- Star rating + Author inline -->
+                            <div class="flex items-center justify-between flex-wrap gap-3 mb-4">
+                                <div class="flex gap-1">
+                                    <span class="material-symbols-outlined text-yellow-500 text-lg">star</span>
+                                    <span class="material-symbols-outlined text-yellow-500 text-lg">star</span>
+                                    <span class="material-symbols-outlined text-yellow-500 text-lg">star</span>
+                                    <span class="material-symbols-outlined text-yellow-500 text-lg">star</span>
+                                    <span class="material-symbols-outlined text-yellow-500 text-lg">star</span>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <div class="w-9 h-9 rounded-full bg-zinc-900 dark:bg-white flex items-center justify-center text-white dark:text-zinc-900 font-headline font-bold text-sm">NK</div>
+                                    <div>
+                                        <p class="font-headline font-bold text-zinc-900 dark:text-white text-sm leading-tight">Nick Kumchev & Family</p>
+                                        <p class="text-[0.65rem] text-zinc-500 dark:text-zinc-400 flex items-center gap-1 mt-0.5">
+                                            <span>London, UK</span> <span>🇬🇧</span>
+                                            <span class="text-zinc-300 dark:text-zinc-600">•</span>
+                                            <span>Verified Guest</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Truncated review with expand -->
+                            <div id="featured-review-text" class="text-zinc-700 dark:text-zinc-300 text-sm leading-relaxed relative max-h-[7.5rem] overflow-hidden transition-all duration-500">
+                                <p>We recently had the absolute pleasure of traveling from Negombo to Kandy and then from Kandy to Mirissa with our tour guide, <strong class="text-zinc-900 dark:text-white">Shantha</strong> from SerenDrive, and I can confidently say it was <strong class="text-zinc-900 dark:text-white">one of the highlights of our entire trip to Sri Lanka.</strong> From the very beginning, Shantha impressed us with his professionalism and genuine care. His Toyota van was spotless, spacious, and extremely comfortable—perfect for long journeys. The air conditioning worked flawlessly (a huge plus in the tropical heat), and there was plenty of room for both passengers and luggage.</p>
+                                <p class="mt-3">What truly stood out was Shantha's driving. Navigating Sri Lankan roads can be quite challenging, but he handled everything with incredible skill, patience, and a strong focus on safety. Whether we were winding through the breathtaking hill country on the way to Kandy or making our way down toward the southern coast and Mirissa, we always felt completely safe and at ease.</p>
+                                <p class="mt-3">Shantha was much more than just a driver—<strong class="text-zinc-900 dark:text-white">he was an exceptional guide.</strong> He shared fascinating insights about Sri Lankan culture, history, and everyday life, which added so much depth to our journey. He also knew all the best places to stop along the way, including scenic viewpoints, authentic local restaurants, and hidden gems we would never have discovered on our own.</p>
+                                <p class="mt-3">On top of everything, Shantha is a genuinely kind, friendly, and trustworthy person. He was always punctual, reliable, and greeted us with a warm smile every day. Traveling with him felt effortless and enjoyable—more like exploring with a knowledgeable local friend than simply hiring a driver.</p>
+                                <p class="mt-3"><strong class="text-zinc-900 dark:text-white">We highly recommend Shantha and his company, SerenDrive, to anyone planning to explore Sri Lanka.</strong> If you're looking for a safe, comfortable, and truly memorable travel experience, you won't find a better guide. We would absolutely choose Shantha again for future trips!</p>
+                                <!-- Fade overlay when collapsed -->
+                                <div id="featured-review-fade" class="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-zinc-50 dark:from-zinc-800/50 to-transparent pointer-events-none transition-opacity duration-500"></div>
+                            </div>
+                            <button id="featured-review-toggle" onclick="toggleFeaturedReview()" class="mt-3 inline-flex items-center gap-1 text-xs font-label uppercase tracking-[0.15em] text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors duration-300 cursor-pointer">
+                                <span id="featured-review-toggle-text">Read more</span>
+                                <span id="featured-review-toggle-icon" class="material-symbols-outlined text-sm transition-transform duration-300">expand_more</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
             </div>
+            <!-- Short reviews marquee -->
             <div class="max-w-[1920px] mx-auto overflow-hidden">
                 <div class="relative">
                     <div class="marquee whitespace-nowrap flex gap-8 py-4 text-sm md:text-base font-semibold text-zinc-700 dark:text-zinc-200 animate-marquee">
@@ -1956,6 +2009,29 @@
                 img.style.opacity = '1'; img.style.transform = 'scale(1)';
             }, 150);
             buildDots();
+        }
+
+        function toggleFeaturedReview() {
+            var text = document.getElementById('featured-review-text');
+            var fade = document.getElementById('featured-review-fade');
+            var btnText = document.getElementById('featured-review-toggle-text');
+            var btnIcon = document.getElementById('featured-review-toggle-icon');
+            var expanded = text.style.maxHeight !== 'none' && text.classList.contains('max-h-[7.5rem]');
+            if (expanded || text.style.maxHeight !== 'none' && !text.dataset.open) {
+                text.classList.remove('max-h-[7.5rem]');
+                text.style.maxHeight = text.scrollHeight + 'px';
+                fade.style.opacity = '0';
+                btnText.textContent = 'Show less';
+                btnIcon.style.transform = 'rotate(180deg)';
+                text.dataset.open = '1';
+            } else {
+                text.classList.add('max-h-[7.5rem]');
+                text.style.maxHeight = '';
+                fade.style.opacity = '1';
+                btnText.textContent = 'Read more';
+                btnIcon.style.transform = '';
+                delete text.dataset.open;
+            }
         }
 
         function openLightbox(idx) {
